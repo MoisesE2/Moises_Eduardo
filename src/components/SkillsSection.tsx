@@ -1,5 +1,5 @@
 import React from "react";
-import { FaReact, FaNodeJs, FaJava, FaCss3Alt, FaPython } from "react-icons/fa";
+import { FaReact, FaNodeJs, FaJava, FaCss3Alt, FaPython, FaGithub } from "react-icons/fa";
 import {
   SiTypescript,
   SiTailwindcss,
@@ -17,6 +17,9 @@ const skills = [
   { icon: <SiJavascript />, label: "JavaScript", level: 0 },
   { icon: <FaNodeJs />, label: "Node.js", level: 4 },
   { icon: <FaJava />, label: "Java", level: 4 },
+  { icon: <FaNodeJs />, label: "API", level: 3 },
+  { icon: <SiJavascript />, label: "JSON", level: 3 },
+  { icon: <FaGithub />, label: "Git", level: 2 },
 ];
 
 const levels = Array.from(new Set(skills.map((s) => s.level))).sort();
