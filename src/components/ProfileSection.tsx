@@ -1,10 +1,10 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload, FaEnvelope } from "react-icons/fa";
 
 const ProfileSection: React.FC = () => {
   return (
     <section id="sobre" className="min-h-screen w-full relative">
-      {/* Mobile Version - imagem no topo */}
+      {/* Mobile Version */}
       <div className="md:hidden h-screen w-full relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
@@ -38,6 +38,9 @@ const ProfileSection: React.FC = () => {
               <a href="https://www.instagram.com/moises_e1/" className="hover:text-primary-400 transition-colors">
                 <FaInstagram size={24} aria-label="Instagram" />
               </a>
+              <a href="mailto:moises.eduardogc@gmail.com?subject=QUERO%20TRABALHAR%20COM%20VOCÊ!" className="hover:text-primary-400 transition-colors">
+                <FaEnvelope size={24} aria-label="Email" />
+              </a>
             </div>
             <div className="mt-6">
               <a
@@ -53,7 +56,7 @@ const ProfileSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop Version - mantida */}
+      {/* Desktop Version */}
       <div className="hidden md:flex h-screen w-full items-center pl-0 lg:pl-12 xl:pl-24 gap-16 max-w-[1800px] mx-auto">
         <div className="w-[55%] min-w-[55%] h-[85vh] relative -ml-8 lg:-ml-12 xl:-ml-16">
           <img
@@ -82,14 +85,17 @@ const ProfileSection: React.FC = () => {
           </p>
           <div className="flex gap-8 mt-8">
             <a href="https://github.com/MoisesE2" className="hover:text-primary-400 transition-colors">
-                <FaGithub size={24} aria-label="GitHub" />
-              </a>
-              <a href="https://www.linkedin.com/in/mois%C3%A9s-eduardo-gomes-da-costa-a1972324b/" className="hover:text-primary-400 transition-colors">
-                <FaLinkedin size={24} aria-label="LinkedIn" />
-              </a>
-              <a href="https://www.instagram.com/moises_e1/" className="hover:text-primary-400 transition-colors">
-                <FaInstagram size={24} aria-label="Instagram" />
-              </a>
+              <FaGithub size={24} aria-label="GitHub" />
+            </a>
+            <a href="https://www.linkedin.com/in/mois%C3%A9s-eduardo-gomes-da-costa-a1972324b/" className="hover:text-primary-400 transition-colors">
+              <FaLinkedin size={24} aria-label="LinkedIn" />
+            </a>
+            <a href="https://www.instagram.com/moises_e1/" className="hover:text-primary-400 transition-colors">
+              <FaInstagram size={24} aria-label="Instagram" />
+            </a>
+            <a href="mailto:moises.eduardogc@gmail.com?subject=QUERO%20TRABALHAR%20COM%20VOCÊ!" className="hover:text-primary-400 transition-colors">
+              <FaEnvelope size={24} aria-label="Email" />
+            </a>
           </div>
           <div className="mt-6">
             <a
