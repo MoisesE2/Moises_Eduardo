@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://moises-eduardo.vercel.app:3001';
+const API_BASE_URL = 'http://moises-eduardo.vercel.app:3001';
 
 export const fetchPortfolioItems = async () => {
   const response = await fetch(`${API_BASE_URL}/portfolio`);
