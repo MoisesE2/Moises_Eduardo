@@ -1,5 +1,5 @@
 // src/pages/index.tsx
-import Header from "./../../components/header";
+import Header from "./../../components/Header";
 import ProfileSection from "./../../components/ProfileSection";
 import SkillsSection from "./../../components/SkillsSection";
 import PortfolioSection from "./../../components/PortfolioSection";
