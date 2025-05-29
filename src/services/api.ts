@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://api-json-28qo.onrender.com';
+const API_BASE_URL = 'https://api-json-nd09.onrender.com';
 
 export const fetchPortfolioItems = async () => {
   const response = await fetch(`${API_BASE_URL}/items`);
