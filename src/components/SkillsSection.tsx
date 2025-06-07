@@ -1,111 +1,353 @@
-import React from "react";
-import { FaReact, FaNodeJs, FaJava, FaCss3Alt, FaPython, FaGithub } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import {
+  FaReact,
+  FaNodeJs,
+  FaJava,
+  FaCss3Alt,
+  FaPython,
+  FaGithub,
+  FaFilter,
+  FaSortAmountDown,
+} from "react-icons/fa";
 import {
   SiTypescript,
   SiTailwindcss,
   SiJavascript,
   SiFigma,
 } from "react-icons/si";
+import { JSX } from "react/jsx-runtime";
+import { useInView } from "react-intersection-observer";
 
-const skills = [
-  { icon: <FaReact />, label: "React", level: 0 },
-  { icon: <SiTypescript />, label: "TypeScript", level: 1 },
-  { icon: <FaPython />, label: "Python", level: 4 },
-  { icon: <SiFigma />, label: "Figma", level: 2 },
-  { icon: <SiTailwindcss />, label: "Tailwind", level: 1 },
-  { icon: <FaCss3Alt />, label: "CSS3", level: 2 },
-  { icon: <SiJavascript />, label: "JavaScript", level: 0 },
-  { icon: <FaNodeJs />, label: "Node.js", level: 4 },
-  { icon: <FaJava />, label: "Java", level: 4 },
-  { icon: <FaNodeJs />, label: "API", level: 3 },
-  { icon: <SiJavascript />, label: "JSON", level: 3 },
-  { icon: <FaGithub />, label: "Git", level: 2 },
+interface Skill {
+  icon: JSX.Element;
+  label: string;
+  percent: number;
+  colorGradient?: [string, string];
+  category: string;
+  description?: string;
+}
+
+const skills: Skill[] = [
+  { 
+    icon: <FaReact />, 
+    label: "React Js", 
+    percent: 100,
+    category: "frontend",
+    description: "Desenvolvimento de aplicações web e mobile com React" 
+  },
+  { 
+    icon: <SiTypescript />, 
+    label: "TypeScript", 
+    percent: 90,
+    category: "frontend",
+    description: "Tipagem estática para JavaScript" 
+  },
+  { 
+    icon: <FaPython />, 
+    label: "Python", 
+    percent: 60,
+    category: "backend",
+    description: "Scripting, automação e desenvolvimento web" 
+  },
+  { 
+    icon: <SiFigma />, 
+    label: "Figma", 
+    percent: 70,
+    category: "design",
+    description: "Design de interfaces e prototipagem" 
+  },
+  { 
+    icon: <SiTailwindcss />, 
+    label: "Tailwind", 
+    percent: 100,
+    category: "frontend",
+    description: "Framework CSS utilitário" 
+  },
+  { 
+    icon: <FaCss3Alt />, 
+    label: "CSS3", 
+    percent: 100,
+    category: "frontend",
+    description: "Estilização de páginas web" 
+  },
+  { 
+    icon: <SiJavascript />, 
+    label: "JavaScript", 
+    percent: 100,
+    category: "frontend",
+    description: "Linguagem de programação para web" 
+  },
+  { 
+    icon: <FaNodeJs />, 
+    label: "Node.js", 
+    percent: 50,
+    category: "backend",
+    description: "JavaScript no lado do servidor" 
+  },
+  { 
+    icon: <FaJava />, 
+    label: "Java", 
+    percent: 60,
+    category: "backend",
+    description: "Desenvolvimento de aplicações empresariais" 
+  },
+  { 
+    icon: <FaNodeJs />, 
+    label: "API", 
+    percent: 60,
+    category: "backend",
+    description: "Desenvolvimento e consumo de APIs REST" 
+  },
+  { 
+    icon: <SiJavascript />, 
+    label: "JSON", 
+    percent: 50,
+    category: "backend",
+    description: "Formato de intercâmbio de dados" 
+  },
+  { 
+    icon: <FaGithub />, 
+    label: "Git", 
+    percent: 100,
+    category: "tools",
+    description: "Controle de versão" 
+  },
 ];
 
-const levels = Array.from(new Set(skills.map((s) => s.level))).sort();
+const SkillCircle: React.FC<Skill> = ({
+  percent,
+  label,
+  icon,
+  description,
+  colorGradient = ["#8B5CF6", "#3B82F6"],
+}) => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  const radius = 48;
+  const stroke = 10;
+  const normalizedRadius = radius - stroke / 2;
+  const circumference = 2 * Math.PI * normalizedRadius;
+  const strokeDashoffset = circumference - (percent / 100) * circumference;
+  const gradientId = `gradient-${label.replace(/\s/g, "")}`;
+  
+  // Texto do nível de proficiência
+  const proficiencyText = percent > 80 ? 'Expert' : percent > 60 ? 'Avançado' : 'Intermediário';
+
+  return (
+    <div className="flex flex-col items-center space-y-3 w-[130px] sm:w-[150px] group relative">
+      <div className="relative" ref={ref}>
+        <svg height={radius * 2} width={radius * 2} className="transform -rotate-90">
+          <circle
+            stroke="#1f1f1f"
+            fill="transparent"
+            strokeWidth={stroke}
+            r={normalizedRadius}
+            cx={radius}
+            cy={radius}
+          />
+          <circle
+            stroke={`url(#${gradientId})`}
+            fill="transparent"
+            strokeWidth={stroke}
+            strokeLinecap="round"
+            strokeDasharray={`${circumference} ${circumference}`}
+            strokeDashoffset={inView ? strokeDashoffset : circumference}
+            r={normalizedRadius}
+            cx={radius}
+            cy={radius}
+            style={{ transition: "stroke-dashoffset 0.8s ease-out" }}
+          />
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor={colorGradient[0]} />
+              <stop offset="100%" stopColor={colorGradient[1]} />
+            </linearGradient>
+          </defs>
+        </svg>
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-purple-300 font-bold text-lg">
+          {percent}%
+          <span className="text-xs font-normal block mt-1">{proficiencyText}</span>
+        </div>
+        
+        {/* Badge de Master */}
+        {percent > 90 && (
+          <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded-full">
+            ★ Master
+          </span>
+        )}
+      </div>
+      <div className="flex items-center gap-2 text-white text-base sm:text-lg">
+        <span className="text-xl">{icon}</span>
+        <span>{label}</span>
+      </div>
+      
+      {/* Tooltip */}
+      {description && (
+        <div className="absolute bottom-full mb-3 hidden group-hover:flex flex-col items-center w-48 p-2 bg-gray-800 text-white text-sm rounded-md shadow-lg z-10">
+          <div className="text-center">{description}</div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const SkillsSection: React.FC = () => {
+  const [filter, setFilter] = useState<string>('all');
+  const [sort, setSort] = useState<'percent' | 'alphabetical'>('percent');
+  const [viewMode, setViewMode] = useState<'circles' | 'bars'>('circles');
+  const [animationsEnabled, setAnimationsEnabled] = useState<boolean>(true);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Extrai categorias únicas
+  const categories = ['all', ...Array.from(new Set(skills.map(skill => skill.category)))];
+  
+  // Filtra e ordena habilidades
+  const filteredSkills = skills
+    .filter(skill => filter === 'all' || skill.category === filter)
+    .sort((a, b) => {
+      if (sort === 'percent') {
+        return b.percent - a.percent;
+      } else {
+        return a.label.localeCompare(b.label);
+      }
+    });
+
+  // Efeito para animações de entrada
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
-    <section id="habilidades" className="relative mb-10">
-      <div className="px-4 sm:px-6">
-        <h3 className="text-2xl sm:text-3xl font-bold mb-10 text-center">
-          <span className="bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-            Habilidades e Conhecimentos
-          </span>
-        </h3>
+    <section id="habilidades" className="bg-black py-14 px-4 sm:px-6">
+      <h3 className="text-3xl sm:text-4xl font-bold mb-6 text-center text-purple-400">
+        Habilidades e Conhecimentos
+      </h3>
+      
+      {/* Controles: Filtro, Ordenação e Visualização */}
+      <div className="flex flex-wrap justify-center gap-4 mb-8">
+        <div className="flex items-center bg-gray-900 rounded-md p-2">
+          <FaFilter className="text-purple-400 mr-2" />
+          <div className="flex flex-wrap gap-2">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setFilter(category)}
+                className={`px-3 py-1 rounded-md transition-colors ${
+                  filter === category
+                    ? 'bg-purple-600 text-white'
+                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                }`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex items-center bg-gray-900 rounded-md p-2">
+          <FaSortAmountDown className="text-purple-400 mr-2" />
+          <select 
+            value={sort}
+            onChange={(e) => setSort(e.target.value as 'percent' | 'alphabetical')}
+            className="bg-gray-800 text-white px-3 py-1 rounded-md"
+          >
+            <option value="percent">Proficiência</option>
+            <option value="alphabetical">Ordem Alfabética</option>
+          </select>
+        </div>
+        
+        <div className="flex items-center bg-gray-900 rounded-md p-2">
+          <span className="text-purple-400 mr-2">Modo:</span>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setViewMode('circles')}
+              className={`px-3 py-1 rounded-md ${
+                viewMode === 'circles' 
+                  ? 'bg-purple-600 text-white' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              Círculos
+            </button>
+            <button
+              onClick={() => setViewMode('bars')}
+              className={`px-3 py-1 rounded-md ${
+                viewMode === 'bars' 
+                  ? 'bg-purple-600 text-white' 
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+              }`}
+            >
+              Barras
+            </button>
+          </div>
+        </div>
+        
+        <div className="flex items-center bg-gray-900 rounded-md p-2">
+          <span className="text-purple-400 mr-2">Animações:</span>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input 
+              type="checkbox" 
+              checked={animationsEnabled}
+              onChange={() => setAnimationsEnabled(!animationsEnabled)}
+              className="sr-only peer" 
+            />
+            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
+          </label>
+        </div>
       </div>
 
-      <div 
-        className="w-full flex flex-col items-center py-16 space-y-12 relative z-10"
-      >
-        {/* Fundo responsivo */}
-        <div className="absolute inset-0 z-0">
-          {/* Desktop */}
+      {/* Grade de habilidades */}
+      <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8 justify-items-center ${
+        isMounted ? 'opacity-100 transition-opacity duration-500' : 'opacity-0'
+      }`}>
+        {filteredSkills.map((skill, index) => (
           <div 
-            className="hidden md:block w-full h-full"
-            style={{
-              backgroundImage: `url('assets/images/supernova.png')`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-            }}
-          />
-          
-          {/* Mobile */}
-          <div 
-            className="md:hidden w-full h-full"
-            style={{
-              backgroundImage: `url('assets/images/supernovamobile.png')`,
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-            }}
-          />
-
-          {/* Overlay de desfoque preto no topo */}
-          <div 
-            className="absolute top-0 left-0 right-0 h-32"
-            style={{
-              background: "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
-          />
-          
-          {/* Overlay de desfoque preto na base */}
-          <div 
-            className="absolute bottom-0 left-0 right-0 h-32"
-            style={{
-              background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%)",
-              backdropFilter: "blur(4px)",
-              WebkitBackdropFilter: "blur(4px)",
-            }}
-          />
-        </div>
-
-        {levels.map((level) => {
-          const skillsAtLevel = skills.filter((s) => s.level === level);
-          return (
-            <div key={level} className="w-full max-w-5xl">
-              <div className="flex justify-center gap-4 sm:gap-6 flex-wrap relative z-10">
-                {skillsAtLevel.map((skill, index) => (
-                  <div
-                    key={index}
-                    className="group flex flex-col items-center p-3 sm:p-4 rounded-2xl border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-sm hover:shadow-lg transition duration-300 hover:scale-105"
-                  >
-                    <div className="w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center text-primary text-[2rem] sm:text-[2.5rem] group-hover:text-sky-400 transition-colors duration-300">
-                      {skill.icon}
-                    </div>
-                    <span className="capitalize text-xs sm:text-sm mt-2 text-center text-zinc-800 dark:text-zinc-200">
-                      {skill.label}
+            key={index} 
+            className="skill-item transition-transform duration-300 hover:scale-105 hover:z-10 w-full max-w-[150px]"
+          >
+            {viewMode === 'circles' ? (
+              <SkillCircle 
+                {...skill} 
+                colorGradient={animationsEnabled ? skill.colorGradient : ["#718096", "#718096"]}
+              />
+            ) : (
+              <div className="flex flex-col items-center space-y-3 p-4 bg-gray-900 rounded-lg w-full">
+                <div className="flex items-center gap-2 text-white text-lg">
+                  <span className="text-xl">{skill.icon}</span>
+                  <span>{skill.label}</span>
+                </div>
+                <div className="w-full">
+                  <div className="flex justify-between text-xs text-gray-400 mb-1">
+                    <span>{skill.percent}%</span>
+                    <span>
+                      {skill.percent > 80 ? 'Expert' : skill.percent > 60 ? 'Avançado' : 'Intermediário'}
                     </span>
                   </div>
-                ))}
+                  <div className="w-full bg-gray-700 rounded-full h-2.5">
+                    <div 
+                      className="h-2.5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500" 
+                      style={{ 
+                        width: `${animationsEnabled ? skill.percent : 100}%`,
+                        transition: animationsEnabled ? 'width 0.8s ease-out' : 'none'
+                      }}
+                    ></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            )}
+          </div>
+        ))}
       </div>
+      
+      {/* Mensagem quando não há resultados */}
+      {filteredSkills.length === 0 && (
+        <div className="text-center text-gray-500 py-10">
+          Nenhuma habilidade encontrada nesta categoria
+        </div>
+      )}
     </section>
   );
 };
