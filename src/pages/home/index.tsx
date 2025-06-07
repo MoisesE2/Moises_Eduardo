@@ -1,8 +1,9 @@
 // src/pages/index.tsx
 import Header from "./../../components/Header";
 import ProfileSection from "./../../components/ProfileSection";
-import SkillsSection from "./../../components/SkillsSection";
+import SkillsSection from "../../components/SkillsSection";
 import PortfolioSection from "./../../components/PortfolioSection";
+import Newsletter from "../../components/Newslettersection";
 
 export default function PortfolioPage() {
   return (
@@ -11,6 +12,7 @@ export default function PortfolioPage() {
       <ProfileSection />
       <SkillsSection />
       <PortfolioSection />
+      <Newsletter />
     </div>
   );
 }
