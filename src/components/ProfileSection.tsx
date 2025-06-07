@@ -38,7 +38,7 @@ const ProfileSection: React.FC = () => {
                 <FaGithub size={24} aria-label="GitHub" />
               </a>
               <a 
-                href="https://www.linkedin.com/in/mois%C3%A9s-eduardo-gomes-da-costa-a1972324b/" 
+                href="https://www.linkedin.com/in/moises-e2/" 
                 className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
               >
                 <FaLinkedin size={24} aria-label="LinkedIn" />
@@ -106,7 +106,7 @@ const ProfileSection: React.FC = () => {
               <FaGithub size={24} aria-label="GitHub" />
             </a>
             <a 
-              href="https://www.linkedin.com/in/mois%C3%A9s-eduardo-gomes-da-costa-a1972324b/" 
+              href="https://www.linkedin.com/in/moises-e2/" 
               className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
             >
               <FaLinkedin size={24} aria-label="LinkedIn" />
