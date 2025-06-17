@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://gcodevs.com.br';
+const API_BASE_URL = 'https://backend.gcodevs.com.br/';
 
 export const fetchPortfolioItems = async () => {
   const response = await fetch(`${API_BASE_URL}/items`);
