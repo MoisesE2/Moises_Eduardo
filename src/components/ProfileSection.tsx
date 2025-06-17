@@ -58,7 +58,7 @@ const ProfileSection: React.FC = () => {
             </div>
             <div className="mt-6">
               <a
-                href="/assets/curriculo.pdf"
+                href="/assets/Moisés Eduardo.pdf"
                 download
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 active:scale-95 transition-all duration-300 ease-in-out text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/30"
               >
