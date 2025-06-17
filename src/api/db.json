@@ -1,34 +1,66 @@
 {
   "portfolio": [
     {
-      "id": 1,
-      "title": "Pensamentos de Quinta",
-      "imageUrl": "/assets/images/Pensamentos.png",
-      "description": " Pensamentos de Quinta foi um projeto freelancer colaborativo no qual atuei majoritariamente no desenvolvimento do front-end. Durante essa experiência, aprendi bastante sobre estilização utilizando TailwindCSS e trabalhei com uma API fake usando o JSON Server. Tive a oportunidade de vivenciar na prática o trabalho em equipe através do GitHub, assumindo inclusive a responsabilidade de revisar e aprovar pull requests de colegas. Também participei de reuniões de integração entre o front-end e o back-end, além de vivenciar diversas outras experiências enriquecedoras no processo de desenvolvimento colaborativo.",
-      "videoUrl": "/assets/videos/pensamentos.mp4",
-      "githubUrl": "https://github.com/MoisesE2/pensamento-quinta",
-      "technologies": [
-        "React",
-        "Tailwindcss",
-        "Typescript",
-        "Node.js",
-        "API",
-        "GitHub",
-        "JSON Server"
-      ],
-      "category": "frontend",
-      "featured": true
+        "id": 1,
+        "title": "Pensamentos de Quinta",
+        "imageUrl": "/assets/images/Pensamentos.png",
+        "description": " Pensamentos de Quinta foi um projeto freelancer colaborativo no qual atuei majoritariamente no desenvolvimento do front-end. Durante essa experiência, aprendi bastante sobre estilização utilizando TailwindCSS e trabalhei com uma API fake usando o JSON Server. Tive a oportunidade de vivenciar na prática o trabalho em equipe através do GitHub, assumindo inclusive a responsabilidade de revisar e aprovar pull requests de colegas. Também participei de reuniões de integração entre o front-end e o back-end, além de vivenciar diversas outras experiências enriquecedoras no processo de desenvolvimento colaborativo.",
+        "videoUrl": "/assets/videos/pensamentos.mp4",
+        "githubUrl": "https://github.com/MoisesE2/pensamento-quinta",
+        "technologies": [
+            "React",
+            "Tailwindcss",
+            "Typescript",
+            "Node.js",
+            "API",
+            "GitHub",
+            "JSON Server"
+        ],
+        "category": "frontend",
+        "featured": true
     },
     {
-      "id": 2,
-      "title": "Portifólio Pessoal",
-      "imageUrl": "/assets/images/portifolio.png",
-      "description": "Este portfólio foi desenvolvido com o propósito de apresentar de forma estruturada e responsiva minhas habilidades, experiências e projetos na área de desenvolvimento Full Stack. Além de funcionar como uma vitrine profissional para minha inserção no mercado de trabalho, sua arquitetura foi planejada com reutilização em mente, permitindo que o mesmo template seja facilmente adaptado para a criação de portfólios de outros profissionais em demandas futuras.",
-      "videoUrl": "/assets/videos/portifolio.mp4",
-      "githubUrl": "https://github.com/MoisesE2/Moises_Eduardo",
-      "technologies": ["React", "Tailwindcss", "Typescript", "Node.js", "API", "GitHub","Figma"],
-      "category": "fullstack",
-      "featured": true
+        "id": 2,
+        "title": "Portifólio Pessoal",
+        "imageUrl": "/assets/images/portifolio.png",
+        "description": "Este portfólio foi desenvolvido com o propósito de apresentar de forma estruturada e responsiva minhas habilidades, experiências e projetos na área de desenvolvimento Full Stack. Além de funcionar como uma vitrine profissional para minha inserção no mercado de trabalho, sua arquitetura foi planejada com reutilização em mente, permitindo que o mesmo template seja facilmente adaptado para a criação de portfólios de outros profissionais em demandas futuras.",
+        "videoUrl": "/assets/videos/portifolio.mp4",
+        "githubUrl": "https://github.com/MoisesE2/Moises_Eduardo",
+        "liveUrl": "http://moiseseduardo.gcodevs.com.br/",
+        "technologies": [
+            "React",
+            "Tailwindcss",
+            "Typescript",
+            "Node.js",
+            "API",
+            "GitHub",
+            "Figma"
+        ],
+        "category": "fullstack",
+        "featured": true
+    },
+    {
+        "id": 3,
+        "title": "Amor em Detalhes",
+        "imageUrl": "/assets/images/namorados.png",
+        "description": "Amor em Detalhes é um site criado para o Dia dos Namorados, onde é possível criar páginas personalizadas para casais com nome, até 8 fotos, contador de tempo do relacionamento e recursos como playlist e adicionar uma frase importante para o casal. O site foi feito em 3 dias utilizando uma base do firebase studio e me desafiou bastante a aprender sobre login com google, hospedagem em nuvem, uso do docker, e upload de dados, infelizmente não ficou como planejado porém é totalmente funcional com dados salvos localmente",
+        "githubUrl": "https://github.com/MoisesE2/sitenamorados",
+        "liveUrl": "https://amoremdetalhes.gcodevs.com.br/",
+        "technologies": [
+            "Next.js",
+            "Tailwindcss",
+            "Typescript",
+            "Firebase",
+            "Css",
+            "Json",
+            "Docker",
+            "GitHub",
+            "Figma",
+            "Zod",
+            "Yaml"
+        ],
+        "category": "fullstack",
+        "featured": true
     }
-  ]
+]
 }

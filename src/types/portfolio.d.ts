@@ -4,6 +4,7 @@ export interface PortfolioItem {
   imageUrl: string;
   description: string;
   videoUrl: string;
+  liveUrl: string;
   githubUrl: string;
   technologies: string[];
   category: string;

@@ -169,6 +169,16 @@ const PortfolioSection: React.FC = () => {
                         </svg>
                         Ver no GitHub
                       </a>
+                      {selectedProject.liveUrl && (
+                        <a
+                          href={selectedProject.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30"
+                        >
+                          Ver ao Vivo
+                        </a>
+                      )}
                     </div>
                   </div>
 
