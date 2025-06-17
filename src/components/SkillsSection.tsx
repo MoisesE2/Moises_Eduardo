@@ -14,6 +14,8 @@ import {
   SiTailwindcss,
   SiJavascript,
   SiFigma,
+  SiNextdotjs,
+  SiDocker,
 } from "react-icons/si";
 import { JSX } from "react/jsx-runtime";
 import { useInView } from "react-intersection-observer";
@@ -32,7 +34,7 @@ const skills: Skill[] = [
     icon: <FaReact />, 
     label: "React Js", 
     percent: 90,
-    category: "frontend",
+    category: "framework",
     description: "Desenvolvimento de aplicações web e mobile com React" 
   },
   { 
@@ -59,7 +61,7 @@ const skills: Skill[] = [
   { 
     icon: <SiTailwindcss />, 
     label: "Tailwind", 
-    percent: 95,
+    percent: 90,
     category: "frontend",
     description: "Framework CSS utilitário" 
   },
@@ -111,6 +113,20 @@ const skills: Skill[] = [
     percent: 100,
     category: "tools",
     description: "Controle de versão" 
+  },
+  {
+    icon: <SiNextdotjs />,
+    label: "Next.js",
+    percent: 60,
+    category: "framework",
+    description: "Framework React para aplicações SSR e SSG"
+  },
+  {
+    icon: <SiDocker />,
+    label: "Docker",
+    percent: 30,
+    category: "tools",
+    description: "Containerização de aplicações"
   },
 ];
 
@@ -191,7 +207,7 @@ const SkillsSection: React.FC = () => {
   const [filter, setFilter] = useState<string>('all');
   const [sort, setSort] = useState<'percent' | 'alphabetical'>('percent');
   const [viewMode, setViewMode] = useState<'circles' | 'bars'>('circles');
-  const [animationsEnabled, setAnimationsEnabled] = useState<boolean>(true);
+  const [animationsEnabled] = useState<boolean>(true);
   const [isMounted, setIsMounted] = useState(false);
 
   // Extrai categorias únicas
@@ -277,19 +293,7 @@ const SkillsSection: React.FC = () => {
             </button>
           </div>
         </div>
-        
-        <div className="flex items-center bg-gray-900 rounded-md p-2">
-          <span className="text-purple-400 mr-2">Animações:</span>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input 
-              type="checkbox" 
-              checked={animationsEnabled}
-              onChange={() => setAnimationsEnabled(!animationsEnabled)}
-              className="sr-only peer" 
-            />
-            <div className="w-11 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-purple-600"></div>
-          </label>
-        </div>
+      
       </div>
 
       {/* Grade de habilidades */}
