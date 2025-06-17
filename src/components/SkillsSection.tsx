@@ -31,14 +31,14 @@ const skills: Skill[] = [
   { 
     icon: <FaReact />, 
     label: "React Js", 
-    percent: 100,
+    percent: 90,
     category: "frontend",
     description: "Desenvolvimento de aplicações web e mobile com React" 
   },
   { 
     icon: <SiTypescript />, 
     label: "TypeScript", 
-    percent: 90,
+    percent: 80,
     category: "frontend",
     description: "Tipagem estática para JavaScript" 
   },
@@ -59,21 +59,21 @@ const skills: Skill[] = [
   { 
     icon: <SiTailwindcss />, 
     label: "Tailwind", 
-    percent: 100,
+    percent: 95,
     category: "frontend",
     description: "Framework CSS utilitário" 
   },
   { 
     icon: <FaCss3Alt />, 
     label: "CSS3", 
-    percent: 100,
+    percent: 95,
     category: "frontend",
     description: "Estilização de páginas web" 
   },
   { 
     icon: <SiJavascript />, 
     label: "JavaScript", 
-    percent: 100,
+    percent: 85,
     category: "frontend",
     description: "Linguagem de programação para web" 
   },
@@ -171,13 +171,6 @@ const SkillCircle: React.FC<Skill> = ({
           {percent}%
           <span className="text-xs font-normal block mt-1">{proficiencyText}</span>
         </div>
-        
-        {/* Badge de Master */}
-        {percent > 90 && (
-          <span className="absolute -top-2 -right-2 bg-yellow-500 text-black text-xs px-2 py-1 rounded-full">
-            ★ Master
-          </span>
-        )}
       </div>
       <div className="flex items-center gap-2 text-white text-base sm:text-lg">
         <span className="text-xl">{icon}</span>
