@@ -1,12 +1,112 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moisés Eduardo</title>
+    
+    <!-- Meta tags básicas -->
+    <title>Moisés Eduardo - Desenvolvedor Full Stack</title>
+    <meta name="description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
+    <meta name="keywords" content="desenvolvedor, full stack, react, typescript, javascript, web, frontend, backend, portfólio, moises eduardo" />
+    <meta name="author" content="Moisés Eduardo" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Moisés Eduardo - Desenvolvedor Full Stack" />
+    <meta property="og:description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
+    <meta property="og:url" content="https://moiseseduardo.dev" />
+    <meta property="og:image" content="/assets/images/moises-semfundo.png" />
+    <meta property="og:image:alt" content="Moisés Eduardo - Desenvolvedor Full Stack" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Moisés Eduardo Portfolio" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Moisés Eduardo - Desenvolvedor Full Stack" />
+    <meta property="twitter:description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
+    <meta property="twitter:image" content="/assets/images/moises-semfundo.png" />
+    <meta property="twitter:image:alt" content="Moisés Eduardo - Desenvolvedor Full Stack" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#000000" />
+    
+    <!-- Preconnect para melhor performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://backend.gcodevs.com.br" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://moiseseduardo.dev" />
+    
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Idiomas alternativos -->
+    <link rel="alternate" hreflang="pt-BR" href="https://moiseseduardo.dev" />
+    <link rel="alternate" hreflang="en" href="https://moiseseduardo.dev?lang=en" />
+    <link rel="alternate" hreflang="es" href="https://moiseseduardo.dev?lang=es" />
+    
+    <!-- Estruturação de dados JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Moisés Eduardo",
+      "jobTitle": "Desenvolvedor Full Stack",
+      "description": "Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas",
+      "url": "https://moiseseduardo.dev",
+      "image": "https://moiseseduardo.dev/assets/images/moises-semfundo.png",
+      "sameAs": [
+        "https://github.com/moiseseduardo",
+        "https://linkedin.com/in/moiseseduardo"
+      ],
+      "knowsAbout": [
+        "React",
+        "TypeScript", 
+        "JavaScript",
+        "Node.js",
+        "Python",
+        "CSS",
+        "HTML",
+        "Git",
+        "Docker",
+        "Desenvolvimento Web",
+        "Frontend",
+        "Backend",
+        "Full Stack"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Freelancer"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "BR"
+      }
+    }
+    </script>
+    
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" href="/assets/images/moises-semfundo.png" as="image" />
+    
+    <!-- Acessibilidade -->
+    <meta name="color-scheme" content="light dark" />
   </head>
   <body>
+    <noscript>
+      <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; text-align: center; z-index: 9999;">
+        <div>
+          <h1>JavaScript Necessário</h1>
+          <p>Este site requer JavaScript para funcionar corretamente.</p>
+          <p>Por favor, habilite o JavaScript em seu navegador.</p>
+        </div>
+      </div>
+    </noscript>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

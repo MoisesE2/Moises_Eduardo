@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "Home",
+    "skills": "Skills",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Moisés Eduardo",
+    "titles": [
+      "FULL STACK DEV",
+      "FRONTEND DEV",
+      "BACKEND DEV"
+    ],
+    "available": "Available for work",
+    "description": "Finishing Full Stack Development degree. Specialized in creating modern and functional solutions. Ready for the next challenge!",
+    "mobileDescription": "Finishing Full Stack Development degree. Ready to contribute with modern and creative solutions. Let's talk!",
+    "downloadCV": "Download CV",
+    "greetingMobile": "HELLO, I'M"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I master to create exceptional digital experiences",
+    "categories": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "framework": "Framework",
+      "design": "Design",
+      "tools": "Tools"
+    },
+    "filter": "Filter",
+    "sort": "Sort",
+    "sortBy": {
+      "proficiency": "Proficiency",
+      "alphabetical": "Alphabetical"
+    },
+    "viewMode": {
+      "cards": "Cards",
+      "list": "List"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "expert": "Expert"
+    },
+    "descriptions": {
+      "react": "Library for building modern and reactive user interfaces",
+      "typescript": "JavaScript superset that adds static typing to development",
+      "javascript": "Essential programming language for modern web development",
+      "tailwind": "Utility-first CSS framework for rapid and consistent development",
+      "css": "Styling language for creating responsive layouts and animations",
+      "nextjs": "React framework for applications with SSR, SSG and automatic optimizations",
+      "nodejs": "JavaScript runtime for server-side application development",
+      "python": "Versatile language for automation, scripts and web development",
+      "java": "Robust language for enterprise application development",
+      "figma": "Collaborative tool for interface design and prototyping",
+      "git": "Version control and collaboration in development projects",
+      "docker": "Containerization platform for deployment and application isolation"
+    },
+    "noResults": "No skills found",
+    "noResultsDescription": "Try selecting a different category"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "Projects that demonstrate my skills and passion for development",
+    "loading": "Loading projects...",
+    "error": "Error loading projects",
+    "retry": "Try again",
+    "viewGithub": "View on GitHub",
+    "viewLive": "View project",
+    "watchVideo": "Watch video",
+    "technologies": "Technologies",
+    "category": "Category",
+    "featured": "Featured",
+    "noProjects": "No projects found",
+    "filter": "Filter projects"
+  },
+  "contact": {
+    "title": "Let's Talk",
+    "subtitle": "Ready to turn your idea into reality? Get in touch and let's create something amazing together!",
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location",
+      "locationValue": "Maceió, Alagoas, Brazil",
+      "hours": "Business Hours",
+      "hoursValue": "Mon-Sat 9AM-7PM"
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "Your email (optional)",
+      "phone": "Phone",
+      "phonePlaceholder": "Your phone (optional)",
+      "message": "Message",
+      "messagePlaceholder": "Your message",
+      "send": "Send via WhatsApp",
+      "sending": "Opening WhatsApp...",
+      "success": "WhatsApp Opened!",
+      "successMessage": "Your message has been prepared in WhatsApp. Complete the sending there and I'll respond quickly!",
+      "newMessage": "Send New Message",
+      "error": "Error Opening WhatsApp",
+      "tryAgain": "Try Again",
+      "useEmail": "Use Email"
+    },
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
+  },
+  "footer": {
+    "rights": "© 2024 Moisés Eduardo. All rights reserved.",
+    "madeWith": "Made with ❤️ and React"
+  },
+  "accessibility": {
+    "skipToContent": "Skip to main content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "toggleTheme": "Toggle theme",
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme",
+    "changeLanguage": "Change language",
+    "loading": "Loading...",
+    "external": "External link",
+    "video": "Project video",
+    "image": "Project image"
+  },
+  "meta": {
+    "title": "Moisés Eduardo - Full Stack Developer",
+    "description": "Full Stack Developer specialized in React, TypeScript and modern web solutions. Check out my portfolio and get in touch for amazing projects.",
+    "keywords": "developer, full stack, react, typescript, javascript, web, frontend, backend, portfolio",
+    "author": "Moisés Eduardo"
+  }
+} 

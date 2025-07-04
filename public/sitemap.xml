@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://moiseseduardo.dev</loc>
+    <lastmod>2025-07-04T13:59:54.828Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://moiseseduardo.dev" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://moiseseduardo.dev?lang=en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://moiseseduardo.dev?lang=es" />
+  </url>
+  <url>
+    <loc>https://moiseseduardo.dev/#habilidades</loc>
+    <lastmod>2025-07-04T13:59:54.828Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://moiseseduardo.dev/#habilidades" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://moiseseduardo.dev?lang=en#habilidades" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://moiseseduardo.dev?lang=es#habilidades" />
+  </url>
+  <url>
+    <loc>https://moiseseduardo.dev/#portfolio</loc>
+    <lastmod>2025-07-04T13:59:54.828Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://moiseseduardo.dev/#portfolio" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://moiseseduardo.dev?lang=en#portfolio" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://moiseseduardo.dev?lang=es#portfolio" />
+  </url>
+  <url>
+    <loc>https://moiseseduardo.dev/#contato</loc>
+    <lastmod>2025-07-04T13:59:54.828Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://moiseseduardo.dev/#contato" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://moiseseduardo.dev?lang=en#contato" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://moiseseduardo.dev?lang=es#contato" />
+  </url>
+</urlset>

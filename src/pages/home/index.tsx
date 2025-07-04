@@ -1,16 +1,97 @@
 // src/pages/index.tsx
-import Header from "./../../components/Header";
-import ProfileSection from "./../../components/ProfileSection";
-import SkillsSection from "../../components/SkillsSection";
-import PortfolioSection from "./../../components/PortfolioSection";
+import React, { useEffect } from 'react';
+import HeroSection from '../../components/HeroSection';
+import { 
+  SkillsSectionLazy, 
+  PortfolioSectionLazy, 
+  ContactSectionLazy,
+  usePreloadComponents,
+  LazyErrorBoundary 
+} from '../../components/LazyComponents';
+import { ComponentLoadingFallback } from '../../components/LazyImage';
 
-export default function PortfolioPage() {
+const HomeIndex: React.FC = () => {
+  const { preloadSkills, preloadPortfolio, preloadContact } = usePreloadComponents();
+
+  useEffect(() => {
+    // Precarrega componentes após um delay para não afetar o carregamento inicial
+    const preloadTimer = setTimeout(() => {
+      // Precarrega na ordem que o usuário provavelmente navegará
+      preloadSkills();
+      
+      setTimeout(() => {
+        preloadPortfolio();
+      }, 1000);
+      
+      setTimeout(() => {
+        preloadContact();
+      }, 2000);
+    }, 2000); // Aguarda 2s após carregamento inicial
+
+    return () => clearTimeout(preloadTimer);
+  }, [preloadSkills, preloadPortfolio, preloadContact]);
+
+  // Precarrega componentes quando o usuário interage com a página
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      preloadSkills();
+      preloadPortfolio();
+      preloadContact();
+    };
+
+    // Precarrega em eventos de interação do usuário
+    const events = ['mousedown', 'touchstart', 'keydown'];
+    events.forEach(event => {
+      document.addEventListener(event, handleUserInteraction, { once: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, handleUserInteraction);
+      });
+    };
+  }, [preloadSkills, preloadPortfolio, preloadContact]);
+
   return (
-    <div id="home" className="min-h-screen bg-black text-white font-sans">
-      <Header />
-      <ProfileSection />
-      <SkillsSection />
-      <PortfolioSection />
+    <div className="min-h-screen">
+      {/* Hero Section carregado imediatamente */}
+      <HeroSection />
+      
+      {/* Componentes lazy com error boundaries */}
+      <LazyErrorBoundary 
+        fallback={
+          <ComponentLoadingFallback 
+            message="Erro ao carregar seção. Recarregue a página." 
+            height="h-64"
+          />
+        }
+      >
+        <SkillsSectionLazy />
+      </LazyErrorBoundary>
+      
+      <LazyErrorBoundary 
+        fallback={
+          <ComponentLoadingFallback 
+            message="Erro ao carregar portfólio. Recarregue a página." 
+            height="h-64"
+          />
+        }
+      >
+        <PortfolioSectionLazy />
+      </LazyErrorBoundary>
+      
+      <LazyErrorBoundary 
+        fallback={
+          <ComponentLoadingFallback 
+            message="Erro ao carregar contato. Recarregue a página." 
+            height="h-64"
+          />
+        }
+      >
+        <ContactSectionLazy />
+      </LazyErrorBoundary>
     </div>
   );
-}
+};
+
+export default HomeIndex;
