@@ -217,7 +217,7 @@ const FormErrorFallback: React.FC<{ onRetry: () => void }> = ({ onRetry }) => {
 
 // Hook para relatório de erros
 export const useErrorReporting = () => {
-  const reportError = (error: Error, context: string, extra?: Record<string, any>) => {
+  const reportError = (error: Error, context: string, extra?: Record<string, unknown>) => {
     const errorReport = {
       message: error.message,
       stack: error.stack,

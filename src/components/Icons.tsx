@@ -40,7 +40,7 @@ interface IconProps {
 }
 
 // Wrapper para padronizar ícones
-const createIcon = (IconComponent: React.ComponentType<any>) => {
+const createIcon = (IconComponent: React.ComponentType<IconProps>) => {
   return React.forwardRef<SVGElement, IconProps>(({ size = 24, className = '', ...props }, ref) => (
     <IconComponent
       ref={ref}

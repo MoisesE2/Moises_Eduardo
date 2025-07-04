@@ -1,6 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import usePortfolio from '../usePortfolio';
-import { ApiError } from '../../services/api';
 
 // Mock do serviço API
 jest.mock('../../services/api', () => ({
@@ -13,7 +12,11 @@ jest.mock('../../services/api', () => ({
   }
 }));
 
-const mockFetchPortfolioItems = jest.mocked(require('../../services/api').fetchPortfolioItems);
+import { jest } from '@jest/globals';
+
+const mockFetchPortfolioItems = jest.mocked(
+  jest.requireActual('../../services/api') as { fetchPortfolioItems: jest.Mock }
+).fetchPortfolioItems;
 
 describe('usePortfolio', () => {
   beforeEach(() => {
@@ -60,7 +63,7 @@ describe('usePortfolio', () => {
   });
 
   it('deve lidar com erro da API', async () => {
-    const { ApiError } = require('../../services/api');
+    const { ApiError } = jest.requireActual('../../services/api') as { ApiError: new (message: string) => Error };
     const apiError = new ApiError('Erro de conexão');
     mockFetchPortfolioItems.mockRejectedValue(apiError);
 
@@ -91,7 +94,7 @@ describe('usePortfolio', () => {
   });
 
   it('deve permitir retry após erro', async () => {
-    const { ApiError } = require('../../services/api');
+    const { ApiError } = jest.requireActual('../../services/api') as { ApiError: new (message: string) => Error };
     const apiError = new ApiError('Erro de conexão');
     mockFetchPortfolioItems.mockRejectedValueOnce(apiError);
 

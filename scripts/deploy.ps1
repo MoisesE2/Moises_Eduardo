@@ -68,7 +68,7 @@ npm run type-check
 
 # Build da aplicação
 Write-Host "🏗️ Fazendo build da aplicação..." -ForegroundColor Yellow
-npm run build
+npm run build:production
 
 # Verificar se o build foi bem-sucedido
 if (-not (Test-Path "dist")) {
