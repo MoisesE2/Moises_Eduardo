@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Aplicação frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  # API JSON Server (para desenvolvimento)
+  api:
+    image: node:18-alpine
+    working_dir: /app
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./src/api:/app
+    command: npx json-server --watch db.json --port 3001 --host 0.0.0.0
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+
+  # Serviço de desenvolvimento (opcional)
+  dev:
+    image: node:18-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+      - "3001:3001"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev"
+    environment:
+      - NODE_ENV=development
+    profiles:
+      - dev
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  node_modules: 

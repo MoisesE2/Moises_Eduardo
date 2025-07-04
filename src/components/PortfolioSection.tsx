@@ -27,7 +27,7 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
   // Memoizar projetos filtrados
   const filteredProjects = useMemo(() => 
     activeCategory === 'all'
-      ? portfolioItems
+    ? portfolioItems
       : portfolioItems.filter(project => project.category === activeCategory),
     [activeCategory, portfolioItems]
   );
