@@ -1,0 +1,141 @@
+{
+  "nav": {
+    "home": "Início",
+    "skills": "Habilidades",
+    "portfolio": "Portfólio",
+    "contact": "Contato"
+  },
+  "hero": {
+    "greeting": "Olá, eu sou",
+    "name": "Moisés Eduardo",
+    "titles": [
+      "DEV FULL STACK",
+      "DEV FRONTEND", 
+      "DEV BACKEND"
+    ],
+    "available": "Disponível para trabalho",
+    "description": "Finalizando graduação em Desenvolvimento Full Stack. Especializado em criar soluções modernas e funcionais. Pronto para o próximo desafio!",
+    "mobileDescription": "Finalizando graduação em Desenvolvimento Full Stack. Pronto para contribuir com soluções modernas e criativas. Vamos conversar!",
+    "downloadCV": "Download CV",
+    "greetingMobile": "OLÁ, EU SOU"
+  },
+  "skills": {
+    "title": "Habilidades",
+    "subtitle": "Tecnologias e ferramentas que domino para criar experiências digitais excepcionais",
+    "categories": {
+      "all": "Todos",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "framework": "Framework",
+      "design": "Design",
+      "tools": "Ferramentas"
+    },
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "sortBy": {
+      "proficiency": "Proficiência",
+      "alphabetical": "Alfabética"
+    },
+    "viewMode": {
+      "cards": "Cards",
+      "list": "Lista"
+    },
+    "levels": {
+      "beginner": "Iniciante",
+      "intermediate": "Intermediário",
+      "advanced": "Avançado",
+      "expert": "Expert"
+    },
+    "descriptions": {
+      "react": "Biblioteca para construção de interfaces de usuário modernas e reativas",
+      "typescript": "Superset do JavaScript que adiciona tipagem estática ao desenvolvimento",
+      "javascript": "Linguagem de programação essencial para desenvolvimento web moderno",
+      "tailwind": "Framework CSS utilitário para desenvolvimento rápido e consistente",
+      "css": "Linguagem de estilização para criar layouts responsivos e animações",
+      "nextjs": "Framework React para aplicações com SSR, SSG e otimizações automáticas",
+      "nodejs": "Runtime JavaScript para desenvolvimento de aplicações server-side",
+      "python": "Linguagem versátil para automação, scripts e desenvolvimento web",
+      "java": "Linguagem robusta para desenvolvimento de aplicações empresariais",
+      "figma": "Ferramenta colaborativa para design de interfaces e prototipagem",
+      "git": "Controle de versão e colaboração em projetos de desenvolvimento",
+      "docker": "Plataforma de containerização para deploy e isolamento de aplicações"
+    },
+    "noResults": "Nenhuma habilidade encontrada",
+    "noResultsDescription": "Tente selecionar uma categoria diferente"
+  },
+  "contact": {
+    "title": "Vamos Conversar",
+    "subtitle": "Pronto para transformar sua ideia em realidade? Entre em contato e vamos criar algo incrível juntos!",
+    "info": {
+      "title": "Informações de Contato",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Localização",
+      "locationValue": "Maceió, Alagoas, Brasil",
+      "hours": "Horário de Atendimento",
+      "hoursValue": "Seg-Sab 9h-19h"
+    },
+    "form": {
+      "title": "Envie uma Mensagem",
+      "name": "Nome",
+      "namePlaceholder": "Seu nome",
+      "email": "E-mail",
+      "emailPlaceholder": "Seu email (opcional)",
+      "phone": "Telefone",
+      "phonePlaceholder": "Seu telefone (opcional)",
+      "message": "Mensagem",
+      "messagePlaceholder": "Sua mensagem",
+      "send": "Enviar via WhatsApp",
+      "sending": "Abrindo WhatsApp...",
+      "success": "WhatsApp Aberto!",
+      "successMessage": "Sua mensagem foi preparada no WhatsApp. Complete o envio por lá e respondo rapidamente!",
+      "newMessage": "Enviar Nova Mensagem",
+      "error": "Erro ao Abrir WhatsApp",
+      "tryAgain": "Tentar Novamente",
+      "useEmail": "Usar Email"
+    },
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "E-mail"
+    }
+  },
+  "portfolio": {
+    "title": "Portfólio",
+    "subtitle": "Projetos que demonstram minhas habilidades e paixão por desenvolvimento",
+    "loading": "Carregando projetos...",
+    "error": "Erro ao carregar projetos",
+    "retry": "Tentar novamente",
+    "viewGithub": "Ver no GitHub",
+    "viewLive": "Ver projeto",
+    "watchVideo": "Assistir vídeo",
+    "technologies": "Tecnologias",
+    "category": "Categoria",
+    "featured": "Destaque",
+    "noProjects": "Nenhum projeto encontrado",
+    "filter": "Filtrar projetos"
+  },
+  "footer": {
+    "rights": "© 2024 Moisés Eduardo. Todos os direitos reservados.",
+    "madeWith": "Feito com ❤️ e React"
+  },
+  "accessibility": {
+    "skipToContent": "Pular para o conteúdo principal",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "toggleTheme": "Alternar tema",
+    "lightTheme": "Tema claro",
+    "darkTheme": "Tema escuro",
+    "changeLanguage": "Alterar idioma",
+    "loading": "Carregando...",
+    "external": "Link externo",
+    "video": "Vídeo do projeto",
+    "image": "Imagem do projeto"
+  },
+  "meta": {
+    "title": "Moisés Eduardo - Desenvolvedor Full Stack",
+    "description": "Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis.",
+    "keywords": "desenvolvedor, full stack, react, typescript, javascript, web, frontend, backend, portfólio",
+    "author": "Moisés Eduardo"
+  }
+} 

@@ -1,0 +1,16 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://moiseseduardo.dev/sitemap.xml
+
+# Disallow development files
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /*.json
+Disallow: /*.ts
+Disallow: /*.tsx
+Disallow: /*.js.map
+Disallow: /vite.config.ts
+Disallow: /tsconfig.json
+Disallow: /package.json
+Disallow: /README.md
