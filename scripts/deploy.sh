@@ -52,7 +52,7 @@ npm run type-check
 
 # Build da aplicação
 echo "🏗️ Fazendo build da aplicação..."
-npm run build
+npm run build:production
 
 # Verificar se o build foi bem-sucedido
 if [ ! -d "dist" ]; then

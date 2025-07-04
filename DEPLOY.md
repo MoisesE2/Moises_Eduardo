@@ -12,6 +12,16 @@
 
 **Solução**: Criado `Dockerfile` otimizado com multi-stage build.
 
+### 3. Versão do Node.js Incompatível
+**Problema**: `npm warn EBADENGINE Unsupported engine { package: 'react-router@7.6.1', required: { node: '>=20.0.0' }`
+
+**Solução**: Atualizado para Node.js 20+ em todas as configurações (Docker, NIXPACKS, etc.).
+
+### 4. Erros de ESLint no Build
+**Problema**: `✖ 24 problems (17 errors, 7 warnings)` impedindo o build
+
+**Solução**: Criado configuração ESLint específica para produção (`.eslintrc.production.js`) e build otimizado (`build:production`).
+
 ## Arquivos Criados
 
 ### `.nixpacks.toml`

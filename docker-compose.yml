@@ -16,7 +16,7 @@ services:
 
   # API JSON Server (para desenvolvimento)
   api:
-    image: node:18-alpine
+    image: node:20-alpine
     working_dir: /app
     ports:
       - "3001:3001"
@@ -29,7 +29,7 @@ services:
 
   # Serviço de desenvolvimento (opcional)
   dev:
-    image: node:18-alpine
+    image: node:20-alpine
     working_dir: /app
     ports:
       - "5173:5173"

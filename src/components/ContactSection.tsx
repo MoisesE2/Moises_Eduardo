@@ -34,7 +34,7 @@ type SubmissionStatus = 'idle' | 'sending' | 'success' | 'error';
 
 const ContactSection: React.FC = () => {
   const { t } = useTranslation();
-  const { isDark, getCardClasses, getInputClasses } = useThemeStyles();
+  const { isDark } = useThemeStyles();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -85,7 +85,7 @@ const ContactSection: React.FC = () => {
 
   // Validação de telefone
   const isValidPhone = (phone: string): boolean => {
-    const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,}$/;
+    const phoneRegex = /^[+]?[\d\s\-()]{10,}$/;
     return phoneRegex.test(phone);
   };
 

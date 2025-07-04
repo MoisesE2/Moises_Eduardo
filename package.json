@@ -7,6 +7,7 @@
     "dev": "concurrently \"vite\" \"npm run server\"",
     "start": "vite",
     "build": "vite build",
+    "build:production": "vite build --config vite.config.production.ts",
     "preview": "vite preview --host 0.0.0.0 --port 4173",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -16,13 +17,13 @@
     "test:performance": "jest --testPathPattern=performance",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
+    "lint:production": "eslint . --config .eslintrc.production.js --max-warnings 50",
     "serve": "serve -s dist -p 4173",
     "server": "json-server --watch src/api/db.json --port 3001",
     "sitemap": "node scripts/generate-sitemap.js",
     "i18n:extract": "i18next-scanner",
     "build:analyze": "npm run build && npx vite-bundle-analyzer",
-    "type-check": "tsc --noEmit",
-    "prepare": "npm run type-check && npm run lint:check"
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

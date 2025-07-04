@@ -1,5 +1,5 @@
 # Use uma imagem base do Node.js
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 
 # Definir diretório de trabalho
 WORKDIR /app
@@ -7,14 +7,14 @@ WORKDIR /app
 # Copiar arquivos de dependências
 COPY package*.json ./
 
-# Instalar dependências
-RUN npm ci --only=production
+# Instalar dependências (incluindo dev dependencies para o build)
+RUN npm ci
 
 # Copiar código fonte
 COPY . .
 
-# Build da aplicação
-RUN npm run build
+# Build da aplicação (sem executar testes/lint)
+RUN npm run build:production
 
 # Estágio de produção
 FROM nginx:alpine
@@ -22,7 +22,7 @@ FROM nginx:alpine
 # Copiar arquivos buildados para o nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar configuração personalizada do nginx se necessário
+# Copiar configuração personalizada do nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expor porta 80

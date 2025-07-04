@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import PortfolioSection from '../PortfolioSection';
 
 // Mock do hook usePortfolio
@@ -12,12 +11,16 @@ jest.mock('../../hooks/usePortfolio', () => ({
 // Mock do LazyImage
 jest.mock('../LazyImage', () => ({
   __esModule: true,
-  default: ({ src, alt, className }: any) => (
+  default: ({ src, alt, className }: { src: string; alt: string; className?: string }) => (
     <img src={src} alt={alt} className={className} />
   ),
 }));
 
-const mockUsePortfolio = jest.mocked(require('../../hooks/usePortfolio').default);
+import { jest } from '@jest/globals';
+
+const mockUsePortfolio = jest.mocked(
+  jest.requireActual('../../hooks/usePortfolio') as { default: jest.Mock }
+).default;
 
 describe('PortfolioSection - Integração', () => {
   const mockPortfolioData = [
