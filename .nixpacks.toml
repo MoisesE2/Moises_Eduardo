@@ -1,0 +1,27 @@
+[phases.setup]
+nixPkgs = ["nodejs-18_x", "npm-9_x"]
+
+[phases.install]
+cmds = [
+    "npm ci --include=dev"
+]
+
+[phases.build]
+cmds = [
+    "npm run build"
+]
+
+[start]
+cmd = "npm run preview"
+
+[variables]
+NODE_ENV = "production"
+NPM_CONFIG_PRODUCTION = "false"
+
+[build]
+# Configuração específica para resolver o problema do NIXPACKS_PATH
+env = ["NIXPACKS_PATH=/app/node_modules/.bin:$PATH"]
+
+[providers]
+# Usa o provider do Node.js
+nodejs = {} 

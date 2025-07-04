@@ -1,0 +1,75 @@
+# Dependências
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de build
+dist
+build
+.next
+.nuxt
+.vuepress/dist
+
+# Arquivos de teste
+coverage
+.nyc_output
+*.test.js
+*.spec.js
+__tests__
+*.test.ts
+*.spec.ts
+
+# Arquivos de desenvolvimento
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs
+*.log
+
+# Arquivos temporários
+.tmp
+.temp
+*.tmp
+*.temp
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos do editor
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Documentação
+README.md
+CHANGELOG.md
+LICENSE
+*.md
+
+# Configuração de CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+.circleci
+
+# Outros
+.cache
+.parcel-cache
+.eslintcache 

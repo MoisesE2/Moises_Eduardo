@@ -7,7 +7,7 @@
     "dev": "concurrently \"vite\" \"npm run server\"",
     "start": "vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
