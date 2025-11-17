@@ -15,7 +15,6 @@ import {
   NextJS,
   Docker,
   Adjustments,
-  SortAscending,
   ViewGrid,
   ViewList,
 } from "./Icons";
@@ -142,6 +141,20 @@ const skillsData: Skill[] = [
   },
 ];
 
+// Helper function to check if a color is dark
+const isDarkColor = (color: string): boolean => {
+  const darkColors = ['#181717', '#000000'];
+  return darkColors.includes(color.toUpperCase());
+};
+
+// Helper function to get contrast color for dark colors in dark mode
+const getContrastColor = (color: string, isDark: boolean): string => {
+  if (isDark && isDarkColor(color)) {
+    return '#ffffff';
+  }
+  return color;
+};
+
 const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'minimal' }> = React.memo(({ 
   skill, 
   index, 
@@ -154,12 +167,9 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
     threshold: 0.3,
   });
 
-  // Simplificado: cálculos simples não precisam de useMemo
-  const radius = 40;
-  const stroke = 7;
-  const normalizedRadius = radius - stroke / 2;
-  const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset = circumference - (skill.percent / 100) * circumference;
+  // Check if this skill needs special dark mode treatment
+  const needsDarkModeContrast = isDark && isDarkColor(skill.color);
+  const iconColor = getContrastColor(skill.color, isDark);
 
   if (viewMode === 'minimal') {
     return (
@@ -177,50 +187,30 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
           transitionDelay: `${index * 50}ms`,
         }}
       >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div 
-              className="p-3 rounded-xl text-2xl transition-all duration-300 group-hover:scale-110"
-              style={{ 
-                background: `linear-gradient(135deg, ${skill.color}15, ${skill.color}25)`,
-                color: skill.color 
-              }}
-            >
-              {skill.icon}
-            </div>
-            <div>
-              <h3 className={`text-lg font-semibold group-hover:text-purple-300 transition-colors ${
-                isDark ? 'text-white' : 'text-gray-900'
-              }`}>
-                {skill.label}
-              </h3>
-              <span className={`text-sm ${
-                isDark ? 'text-gray-400' : 'text-gray-600'
-              }`}>{t(`skills.levels.${skill.level}`)}</span>
-            </div>
+        <div className="flex items-center gap-3 mb-4">
+          <div 
+            className={`p-3 rounded-xl text-2xl transition-all duration-300 group-hover:scale-110 ${
+              needsDarkModeContrast ? 'ring-2 ring-white/30 ring-offset-2 ring-offset-gray-800' : ''
+            }`}
+            style={{ 
+              background: needsDarkModeContrast 
+                ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.25))'
+                : `linear-gradient(135deg, ${skill.color}15, ${skill.color}25)`,
+              color: iconColor,
+              boxShadow: needsDarkModeContrast ? '0 0 20px rgba(255,255,255,0.2)' : 'none'
+            }}
+          >
+            {skill.icon}
           </div>
-          <div className="text-right">
-            <div className={`text-2xl font-bold ${
+          <div className="flex-1">
+            <h3 className={`text-lg font-semibold group-hover:text-purple-300 transition-colors ${
               isDark ? 'text-white' : 'text-gray-900'
-            }`}>{skill.percent}%</div>
-            <div className={`text-xs uppercase tracking-wider ${
+            }`}>
+              {skill.label}
+            </h3>
+            <div className={`text-xs uppercase tracking-wider mt-1 ${
               isDark ? 'text-gray-400' : 'text-gray-600'
             }`}>{t(`skills.categories.${skill.category}`)}</div>
-          </div>
-        </div>
-        
-        <div className="mb-4">
-          <div className={`w-full rounded-full h-2 overflow-hidden ${
-            isDark ? 'bg-gray-700/50' : 'bg-gray-200/80'
-          }`}>
-            <div 
-              className="h-2 rounded-full transition-all duration-1000 ease-out"
-              style={{ 
-                width: inView ? `${skill.percent}%` : '0%',
-                background: `linear-gradient(90deg, ${skill.color}, ${skill.color}80)`,
-                transitionDelay: `${index * 100 + 200}ms`
-              }}
-            />
           </div>
         </div>
         
@@ -234,7 +224,9 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
         <div 
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`
+            background: needsDarkModeContrast && isDark
+              ? 'radial-gradient(circle at center, rgba(255,255,255,0.3), transparent 70%)'
+              : `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`
           }}
         />
       </div>
@@ -249,11 +241,18 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
                  hover:border-purple-500/50 hover:shadow-2xl
                  hover:-translate-y-3 hover:scale-105 ${
         isDark 
-          ? 'bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50 hover:shadow-purple-500/20'
+          ? `bg-gradient-to-br from-gray-900/60 to-gray-800/40 ${
+              needsDarkModeContrast 
+                ? 'border-white/30 ring-2 ring-white/20 ring-offset-2 ring-offset-gray-900' 
+                : 'border-gray-700/50'
+            } hover:shadow-purple-500/20`
           : 'bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60 hover:shadow-purple-500/30'
       } ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{
         transitionDelay: `${index * 75}ms`,
+        boxShadow: needsDarkModeContrast && isDark 
+          ? '0 0 30px rgba(255,255,255,0.15), inset 0 0 20px rgba(255,255,255,0.05)' 
+          : undefined
       }}
     >
       {/* Background Pattern */}
@@ -262,53 +261,17 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
       </div>
       
       <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-        {/* Circular Progress */}
-        <div className="relative">
-          <svg 
-            width={radius * 2} 
-            height={radius * 2} 
-            className="transform -rotate-90 drop-shadow-lg"
-          >
-            {/* Background Circle */}
-            <circle
-              cx={radius}
-              cy={radius}
-              r={normalizedRadius}
-              stroke={isDark ? "rgba(55, 65, 81, 0.3)" : "rgba(209, 213, 219, 0.5)"}
-              strokeWidth={stroke}
-              fill="transparent"
-            />
-            {/* Progress Circle */}
-            <circle
-              cx={radius}
-              cy={radius}
-              r={normalizedRadius}
-              stroke={skill.color}
-              strokeWidth={stroke}
-              strokeLinecap="round"
-              fill="transparent"
-              strokeDasharray={`${circumference} ${circumference}`}
-              strokeDashoffset={inView ? strokeDashoffset : circumference}
-              style={{ 
-                transition: "stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)",
-                transitionDelay: `${index * 100 + 300}ms`,
-                filter: `drop-shadow(0 0 8px ${skill.color}40)`
-              }}
-            />
-          </svg>
-          
-          {/* Center Content */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div 
-              className="text-3xl mb-1 transition-all duration-300 group-hover:scale-110"
-              style={{ color: skill.color }}
-            >
-              {skill.icon}
-            </div>
-            <div className={`text-xl font-bold ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>{skill.percent}%</div>
-          </div>
+        {/* Icon */}
+        <div 
+          className={`text-5xl transition-all duration-300 group-hover:scale-110 ${
+            needsDarkModeContrast ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : ''
+          }`}
+          style={{ 
+            color: iconColor,
+            filter: needsDarkModeContrast ? 'drop-shadow(0 0 8px rgba(255,255,255,0.6))' : 'none'
+          }}
+        >
+          {skill.icon}
         </div>
         
         {/* Skill Info */}
@@ -318,17 +281,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
           }`}>
             {skill.label}
           </h3>
-          <div className="flex items-center justify-center gap-3">
-            <span 
-              className="px-3 py-1 rounded-full text-xs font-medium uppercase tracking-wider"
-              style={{ 
-                backgroundColor: `${skill.color}20`,
-                color: skill.color,
-                border: `1px solid ${skill.color}30`
-              }}
-            >
-              {t(`skills.levels.${skill.level}`)}
-            </span>
+          <div className="flex items-center justify-center">
             <span className={`text-sm ${
               isDark ? 'text-gray-400' : 'text-gray-600'
             }`}>{t(`skills.categories.${skill.category}`)}</span>
@@ -345,7 +298,9 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
       <div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none blur-xl"
         style={{
-          background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)`
+          background: needsDarkModeContrast && isDark
+            ? 'radial-gradient(circle at center, rgba(255,255,255,0.4), transparent 70%)'
+            : `radial-gradient(circle at center, ${skill.color}, transparent 70%)`
         }}
       />
     </div>
@@ -356,7 +311,6 @@ const SkillsSection: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { isDark } = useThemeStyles();
   const [filter, setFilter] = useState<string>('all');
-  const [sort, setSort] = useState<'percent' | 'alphabetical'>('percent');
   const [viewMode, setViewMode] = useState<'cards' | 'minimal'>('cards');
   const [isVisible, setIsVisible] = useState(false);
 
@@ -375,24 +329,12 @@ const SkillsSection: React.FC = React.memo(() => {
   const categories = ['all', ...Array.from(new Set(skillsData.map(skill => skill.category)))];
   
   const filteredSkills = useMemo(() => 
-    skillsData
-      .filter(skill => filter === 'all' || skill.category === filter)
-      .sort((a, b) => {
-        if (sort === 'percent') {
-          return b.percent - a.percent;
-        } else {
-          return a.label.localeCompare(b.label);
-        }
-      }),
-    [filter, sort]
+    skillsData.filter(skill => filter === 'all' || skill.category === filter),
+    [filter]
   );
 
   const handleFilterChange = useCallback((newFilter: string) => {
     setFilter(newFilter);
-  }, []);
-
-  const handleSortChange = useCallback((newSort: 'percent' | 'alphabetical') => {
-    setSort(newSort);
   }, []);
 
   const handleViewModeToggle = useCallback(() => {
@@ -458,25 +400,6 @@ const SkillsSection: React.FC = React.memo(() => {
                 </button>
               ))}
             </div>
-          </div>
-          
-          {/* Sort */}
-          <div className={`flex items-center backdrop-blur-sm border rounded-2xl p-2 ${
-            isDark 
-              ? 'bg-gray-900/80 border-gray-700/50' 
-              : 'bg-white/80 border-gray-200/50'
-          }`}>
-            <SortAscending className="text-purple-400 mr-3 text-lg" />
-            <select 
-              value={sort}
-              onChange={(e) => handleSortChange(e.target.value as 'percent' | 'alphabetical')}
-              className={`bg-transparent px-3 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 ${
-                isDark ? 'text-white' : 'text-gray-900'
-              }`}
-            >
-              <option value="percent" className={isDark ? 'bg-gray-800' : 'bg-white'}>{t('skills.sortBy.proficiency')}</option>
-              <option value="alphabetical" className={isDark ? 'bg-gray-800' : 'bg-white'}>{t('skills.sortBy.alphabetical')}</option>
-            </select>
           </div>
           
           {/* View Mode */}
