@@ -270,20 +270,22 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     </div>
                   </div>
 
-                  <div>
-                    <h4 className={`text-lg font-semibold mb-2 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>Demonstração</h4>
-                    <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
-                      <iframe
-                        src={resolveVideoUrl(selectedProject.videoUrl)}
-                        title={`${selectedProject.title} Demo`}
-                        className="w-full h-64 rounded-lg"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
+                  {selectedProject.videoUrl && (
+                    <div>
+                      <h4 className={`text-lg font-semibold mb-2 ${
+                        isDark ? 'text-white' : 'text-gray-900'
+                      }`}>Demonstração</h4>
+                      <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
+                        <iframe
+                          src={resolveVideoUrl(selectedProject.videoUrl)}
+                          title={`${selectedProject.title} Demo`}
+                          className="w-full h-64 rounded-lg"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
             </div>
