@@ -10,7 +10,7 @@ export const PortfolioItemSchema = z.object({
   title: z.string().trim().min(1),
   imageUrl: z.string().url().or(z.string().min(1)), // Aceita URL ou caminho local
   description: z.string().trim().min(10),
-  videoUrl: z.string().url().or(z.string().min(1)), // Aceita URL ou caminho local
+  videoUrl: z.string().url().or(z.string().min(1)).optional(), // Opcional - nem todos os projetos têm vídeo
   liveUrl: z.string().url().optional().or(z.literal('')), // URL válida ou string vazia
   githubUrl: z.string().url(), // Sempre deve ser URL válida
   technologies: z.array(z.string().trim().min(1)).min(1),

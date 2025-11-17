@@ -26,10 +26,15 @@ export const resolveImageUrl = (imageUrl: string): string => {
 
 /**
  * Resolve URL de vídeo considerando se é relativo ou absoluto
- * @param videoUrl - URL do vídeo que pode ser relativo ou absoluto  
- * @returns URL absoluto do vídeo
+ * @param videoUrl - URL do vídeo que pode ser relativo, absoluto ou undefined
+ * @returns URL absoluto do vídeo ou string vazia se não fornecido
  */
-export const resolveVideoUrl = (videoUrl: string): string => {
+export const resolveVideoUrl = (videoUrl: string | undefined): string => {
+  // Se não foi fornecido, retorna string vazia
+  if (!videoUrl) {
+    return '';
+  }
+  
   // Se já é um URL absoluto (http/https), retorna como está
   if (videoUrl.startsWith('http://') || videoUrl.startsWith('https://')) {
     return videoUrl;
