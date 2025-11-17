@@ -1,6 +1,7 @@
 import { PortfolioItem, validatePortfolioItems } from '../types/portfolio';
 
-const API_BASE_URL = 'https://backend.gcodevs.com.br';
+// Usar variável de ambiente ou fallback para URL padrão
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.gcodevs.com';
 
 // Configurações de retry
 const RETRY_CONFIG = {
