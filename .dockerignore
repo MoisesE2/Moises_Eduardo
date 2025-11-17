@@ -53,9 +53,9 @@ Thumbs.db
 .gitattributes
 
 # Docker
-Dockerfile
+# Dockerfile - NÃO IGNORAR (necessário para build)
 .dockerignore
-docker-compose*.yml
+# docker-compose*.yml - NÃO IGNORAR se necessário
 
 # Documentação
 README.md
