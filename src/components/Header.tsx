@@ -138,12 +138,13 @@ const Header: React.FC = React.memo(() => {
         >
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center group">
+            <div className="flex items-center group overflow-hidden">
               <a
                 href="#inicio"
                 className={`relative text-xl font-bold transition-all duration-300 focus:outline-none focus:ring-2 
-                           focus:ring-purple-300 rounded-lg px-3 py-2 group-hover:scale-105
-                           group-hover:drop-shadow-lg ${
+                           focus:ring-purple-300 rounded-lg px-4 py-2.5 group-hover:scale-105
+                           group-hover:drop-shadow-lg overflow-hidden will-change-transform
+                           origin-center ${
                   isDark 
                     ? 'text-white hover:text-transparent bg-clip-text hover:bg-gradient-to-r hover:from-purple-400 hover:to-blue-400'
                     : 'text-gray-900 hover:text-transparent bg-clip-text hover:bg-gradient-to-r hover:from-purple-600 hover:to-blue-600'
@@ -161,14 +162,15 @@ const Header: React.FC = React.memo(() => {
             <div className="hidden md:flex items-center space-x-8">
               <ul className="flex space-x-2" role="menubar">
                 {navItems.map((item, index) => (
-                  <li key={item.href} role="none">
+                  <li key={item.href} role="none" className="overflow-hidden">
                     <a
                       href={item.href}
-                      className={`group relative transition-all duration-300 
+                      className={`group relative flex items-center transition-all duration-300 
                                  focus:outline-none focus:ring-2 focus:ring-purple-300 
-                                 rounded-xl px-4 py-2.5 text-sm font-medium overflow-hidden
+                                 rounded-xl px-5 py-3 text-sm font-medium overflow-hidden
                                  hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                                 hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 ${
+                                 hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105
+                                 will-change-transform origin-center ${
                         isDark 
                           ? 'text-gray-300 hover:text-white' 
                           : 'text-gray-600 hover:text-gray-900'
@@ -177,15 +179,15 @@ const Header: React.FC = React.memo(() => {
                       tabIndex={0}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <span className="relative z-10 flex items-center space-x-2">
-                        <item.icon className="w-4 h-4 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300" />
-                        <span className="group-hover:font-semibold transition-all duration-300">{item.label}</span>
+                      <span className="relative z-10 flex items-center space-x-2 w-full">
+                        <item.icon className="w-4 h-4 group-hover:scale-110 group-hover:text-purple-300 transition-all duration-300 flex-shrink-0" />
+                        <span className="group-hover:font-semibold transition-all duration-300 group-hover:text-purple-300 flex-1">{item.label}</span>
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 
-                                      opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                                      opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-xl"></div>
                       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r 
                                       from-purple-500 to-blue-500 scale-x-0 group-hover:scale-x-100 
-                                      transition-transform duration-300 origin-left"></div>
+                                      transition-transform duration-300 origin-left rounded-xl"></div>
                     </a>
                   </li>
                 ))}
@@ -194,14 +196,15 @@ const Header: React.FC = React.memo(() => {
               {/* Desktop Controls */}
               <div className="flex items-center space-x-3">
                 {/* Language Selector */}
-                <div className="relative">
+                <div className="relative overflow-hidden">
                   <button
                     data-language-button
                     onClick={() => setIsLanguageMenuOpen(!isLanguageMenuOpen)}
                     className={`group flex items-center space-x-2 transition-all duration-300 focus:outline-none focus:ring-2 
-                               focus:ring-purple-300 rounded-xl px-3 py-2.5 
+                               focus:ring-purple-300 rounded-xl px-4 py-3 overflow-hidden
                                hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                               hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 ${
+                               hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105
+                               will-change-transform origin-center ${
                       isDark 
                         ? 'text-gray-300 hover:text-white' 
                         : 'text-gray-600 hover:text-gray-900'
@@ -237,7 +240,8 @@ const Header: React.FC = React.memo(() => {
                           className={`w-full text-left px-4 py-3 text-sm transition-all duration-200 
                                      focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl mx-2
                                      hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                                     flex items-center space-x-3 group hover:scale-105
+                                     flex items-center space-x-3 group hover:scale-105 overflow-hidden
+                                     will-change-transform origin-center
                                      ${i18n.language === lang.code 
                                        ? 'text-purple-300 bg-gradient-to-r from-purple-600/30 to-blue-600/30 shadow-lg' 
                                        : (isDark 
@@ -261,10 +265,11 @@ const Header: React.FC = React.memo(() => {
                 {/* Theme Toggle */}
                 <button
                   onClick={handleThemeToggle}
-                  className={`group p-3 transition-all duration-300 
+                  className={`group p-3.5 transition-all duration-300 
                              focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl
                              hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                             hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 ${
+                             hover:shadow-lg hover:shadow-purple-500/20 hover:scale-105 overflow-hidden
+                             will-change-transform origin-center ${
                     isDark 
                       ? 'text-gray-300 hover:text-white' 
                       : 'text-gray-600 hover:text-gray-900'
@@ -284,10 +289,11 @@ const Header: React.FC = React.memo(() => {
             {/* Mobile Menu Button */}
             <button
               onClick={handleMenuToggle}
-              className={`md:hidden group p-3 transition-all duration-300 
+              className={`md:hidden group p-3.5 transition-all duration-300 
                          focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl
                          hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                         hover:shadow-lg hover:shadow-purple-500/20 ${
+                         hover:shadow-lg hover:shadow-purple-500/20 overflow-hidden
+                         will-change-transform origin-center ${
                 isDark 
                   ? 'text-gray-300 hover:text-white' 
                   : 'text-gray-600 hover:text-gray-900'
@@ -318,13 +324,14 @@ const Header: React.FC = React.memo(() => {
             >
               <ul className="space-y-2">
                 {navItems.map((item, index) => (
-                  <li key={item.href} role="none">
+                  <li key={item.href} role="none" className="overflow-hidden">
                     <a
                       href={item.href}
                       className={`group flex items-center space-x-3 px-4 py-3 transition-all duration-300 focus:outline-none focus:ring-2 
                                  focus:ring-purple-300 rounded-xl hover:bg-gradient-to-r 
                                  hover:from-purple-600/20 hover:to-blue-600/20 hover:scale-105
-                                 hover:shadow-lg hover:shadow-purple-500/20 ${
+                                 hover:shadow-lg hover:shadow-purple-500/20 overflow-hidden
+                                 will-change-transform origin-center w-full ${
                         isDark 
                           ? 'text-gray-300 hover:text-white' 
                           : 'text-gray-600 hover:text-gray-900'
@@ -334,8 +341,8 @@ const Header: React.FC = React.memo(() => {
                       onClick={() => setIsMenuOpen(false)}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <item.icon className="w-5 h-5 group-hover:scale-110 group-hover:text-purple-300 transition-transform duration-200" />
-                      <span className="font-medium group-hover:font-semibold transition-all duration-300">{item.label}</span>
+                      <item.icon className="w-5 h-5 group-hover:scale-110 group-hover:text-purple-300 transition-transform duration-200 flex-shrink-0" />
+                      <span className="font-medium group-hover:font-semibold transition-all duration-300 group-hover:text-purple-300 flex-1">{item.label}</span>
                     </a>
                   </li>
                 ))}
@@ -356,9 +363,10 @@ const Header: React.FC = React.memo(() => {
                         <button
                           key={lang.code}
                           onClick={() => handleLanguageChange(lang.code)}
-                          className={`p-2.5 rounded-xl transition-all duration-300 
+                          className={`p-3 rounded-xl transition-all duration-300 
                                      focus:outline-none focus:ring-2 focus:ring-purple-300
-                                     hover:scale-110 ${i18n.language === lang.code 
+                                     hover:scale-110 overflow-hidden will-change-transform origin-center
+                                     ${i18n.language === lang.code 
                                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg' 
                                        : (isDark 
                                           ? 'text-gray-300 hover:text-white hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20'
@@ -376,10 +384,10 @@ const Header: React.FC = React.memo(() => {
                 {/* Mobile Theme Toggle */}
                 <button
                   onClick={handleThemeToggle}
-                  className={`group p-3 transition-all duration-300 
+                  className={`group p-3.5 transition-all duration-300 
                              focus:outline-none focus:ring-2 focus:ring-purple-300 rounded-xl
                              hover:bg-gradient-to-r hover:from-purple-600/20 hover:to-blue-600/20
-                             hover:scale-105 ${
+                             hover:scale-105 overflow-hidden will-change-transform origin-center ${
                     isDark 
                       ? 'text-gray-300 hover:text-white' 
                       : 'text-gray-600 hover:text-gray-900'
