@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import HeroSection from '../../components/HeroSection';
 import { 
   SkillsSectionLazy, 
+  ProjectsTypesSectionLazy,
   PortfolioSectionLazy, 
   ContactSectionLazy,
   usePreloadComponents,
@@ -11,13 +12,17 @@ import {
 import { ComponentLoadingFallback } from '../../components/LazyImage';
 
 const HomeIndex: React.FC = () => {
-  const { preloadSkills, preloadPortfolio, preloadContact } = usePreloadComponents();
+  const { preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact } = usePreloadComponents();
 
   useEffect(() => {
     // Precarrega componentes após um delay para não afetar o carregamento inicial
     const preloadTimer = setTimeout(() => {
       // Precarrega na ordem que o usuário provavelmente navegará
       preloadSkills();
+      
+      setTimeout(() => {
+        preloadProjectsTypes();
+      }, 500);
       
       setTimeout(() => {
         preloadPortfolio();
@@ -29,12 +34,13 @@ const HomeIndex: React.FC = () => {
     }, 2000); // Aguarda 2s após carregamento inicial
 
     return () => clearTimeout(preloadTimer);
-  }, [preloadSkills, preloadPortfolio, preloadContact]);
+  }, [preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact]);
 
   // Precarrega componentes quando o usuário interage com a página
   useEffect(() => {
     const handleUserInteraction = () => {
       preloadSkills();
+      preloadProjectsTypes();
       preloadPortfolio();
       preloadContact();
     };
@@ -50,7 +56,7 @@ const HomeIndex: React.FC = () => {
         document.removeEventListener(event, handleUserInteraction);
       });
     };
-  }, [preloadSkills, preloadPortfolio, preloadContact]);
+  }, [preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact]);
 
   return (
     <div className="min-h-screen">
@@ -67,6 +73,17 @@ const HomeIndex: React.FC = () => {
         }
       >
         <SkillsSectionLazy />
+      </LazyErrorBoundary>
+      
+      <LazyErrorBoundary 
+        fallback={
+          <ComponentLoadingFallback 
+            message="Erro ao carregar tipos de projetos. Recarregue a página." 
+            height="h-64"
+          />
+        }
+      >
+        <ProjectsTypesSectionLazy />
       </LazyErrorBoundary>
       
       <LazyErrorBoundary 

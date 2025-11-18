@@ -13,7 +13,8 @@ import {
   CpuChipIcon,
   BriefcaseIcon,
   ChatBubbleLeftRightIcon,
-  CodeBracketIcon
+  CodeBracketIcon,
+  RectangleStackIcon
 } from "@heroicons/react/24/outline";
 
 const Header: React.FC = React.memo(() => {
@@ -32,6 +33,7 @@ const Header: React.FC = React.memo(() => {
   const navItems = [
     { href: "#inicio", label: t('nav.home'), icon: HomeIcon },
     { href: "#habilidades", label: t('nav.skills'), icon: CpuChipIcon },
+    { href: "#tipos-projetos", label: t('nav.projectsTypes'), icon: RectangleStackIcon },
     { href: "#portfolio", label: t('nav.portfolio'), icon: BriefcaseIcon },
     { href: "#contato", label: t('nav.contact'), icon: ChatBubbleLeftRightIcon },
   ];
