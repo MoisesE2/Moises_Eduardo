@@ -3,6 +3,7 @@
     "home": "Home",
     "skills": "Skills",
     "portfolio": "Portfolio",
+    "projectsTypes": "Project Types",
     "contact": "Contact"
   },
   "hero": {
@@ -77,6 +78,41 @@
     "featured": "Featured",
     "noProjects": "No projects found",
     "filter": "Filter projects"
+  },
+  "projectsTypes": {
+    "title": "Project Types",
+    "subtitle": "Discover the types of projects I offer with personalized and modern solutions",
+    "mockup": "Project preview",
+    "requestQuote": "Get a Quote",
+    "tabs": {
+      "linkInBio": "Link-in-Bio Mobile",
+      "landingPage": "Landing Page",
+      "ecommerce": "E-commerce"
+    },
+    "linkInBio": {
+      "title": "Link-in-Bio Mobile",
+      "description": "An elegant and personalized mobile page that centralizes all your important links in one place. Perfect for social media, personal presentations, and content sharing.",
+      "feature1": "Mobile-first responsive and modern design",
+      "feature2": "Profile photo and personalized text about you",
+      "feature3": "Organized and easy-to-access link list",
+      "feature4": "Integration with your social networks and platforms"
+    },
+    "landingPage": {
+      "title": "Landing Page",
+      "description": "Conversion-optimized pages to showcase products, services, or campaigns. Attractive design, fast loading, and conversion-focused to maximize results.",
+      "feature1": "Conversion-focused design optimized for SEO",
+      "feature2": "Responsive layout for all devices",
+      "feature3": "Integrated forms and strategic call-to-actions",
+      "feature4": "Optimized performance and ultra-fast loading"
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "Complete and functional online store with product management, shopping cart, secure checkout, and admin panel. Complete solution for online sales.",
+      "feature1": "Complete and organized product catalog",
+      "feature2": "Shopping cart and secure checkout system",
+      "feature3": "Admin panel for order management",
+      "feature4": "Integration with payment gateways and delivery systems"
+    }
   },
   "contact": {
     "title": "Let's Talk",

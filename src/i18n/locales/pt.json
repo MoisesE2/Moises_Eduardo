@@ -3,6 +3,7 @@
     "home": "Início",
     "skills": "Habilidades",
     "portfolio": "Portfólio",
+    "projectsTypes": "Tipos de Projetos",
     "contact": "Contato"
   },
   "hero": {
@@ -114,6 +115,41 @@
     "featured": "Destaque",
     "noProjects": "Nenhum projeto encontrado",
     "filter": "Filtrar projetos"
+  },
+  "projectsTypes": {
+    "title": "Tipos de Projetos",
+    "subtitle": "Conheça os tipos de projetos que ofereço com soluções personalizadas e modernas",
+    "mockup": "Visualização do projeto",
+    "requestQuote": "Faça seu orçamento",
+    "tabs": {
+      "linkInBio": "Link-in-Bio Mobile",
+      "landingPage": "Landing Page",
+      "ecommerce": "E-commerce"
+    },
+    "linkInBio": {
+      "title": "Link-in-Bio Mobile",
+      "description": "Uma página mobile elegante e personalizada que centraliza todos os seus links importantes em um só lugar. Ideal para redes sociais, apresentações pessoais e compartilhamento de conteúdo.",
+      "feature1": "Design mobile-first responsivo e moderno",
+      "feature2": "Foto do perfil e texto personalizado sobre você",
+      "feature3": "Lista de links organizados e fáceis de acessar",
+      "feature4": "Integração com suas redes sociais e plataformas"
+    },
+    "landingPage": {
+      "title": "Landing Page",
+      "description": "Páginas de conversão otimizadas para apresentar produtos, serviços ou campanhas. Design atraente, carregamento rápido e foco em conversão para maximizar resultados.",
+      "feature1": "Design focado em conversão e otimizado para SEO",
+      "feature2": "Layout responsivo para todos os dispositivos",
+      "feature3": "Formulários integrados e chamadas para ação estratégicas",
+      "feature4": "Performance otimizada e carregamento ultrarrápido"
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "Loja virtual completa e funcional com gerenciamento de produtos, carrinho de compras, checkout seguro e painel administrativo. Solução completa para vendas online.",
+      "feature1": "Catálogo de produtos completo e organizado",
+      "feature2": "Carrinho de compras e sistema de checkout seguro",
+      "feature3": "Painel administrativo para gerenciamento de pedidos",
+      "feature4": "Integração com gateways de pagamento e sistemas de entrega"
+    }
   },
   "footer": {
     "rights": "© 2024 Moisés Eduardo. Todos os direitos reservados.",

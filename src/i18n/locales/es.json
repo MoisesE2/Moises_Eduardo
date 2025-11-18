@@ -3,6 +3,7 @@
     "home": "Inicio",
     "skills": "Habilidades",
     "portfolio": "Portafolio",
+    "projectsTypes": "Tipos de Proyectos",
     "contact": "Contacto"
   },
   "hero": {
@@ -77,6 +78,41 @@
     "featured": "Destacado",
     "noProjects": "No se encontraron proyectos",
     "filter": "Filtrar proyectos"
+  },
+  "projectsTypes": {
+    "title": "Tipos de Proyectos",
+    "subtitle": "Descubre los tipos de proyectos que ofrezco con soluciones personalizadas y modernas",
+    "mockup": "Vista previa del proyecto",
+    "requestQuote": "Solicita tu Presupuesto",
+    "tabs": {
+      "linkInBio": "Link-in-Bio Mobile",
+      "landingPage": "Landing Page",
+      "ecommerce": "E-commerce"
+    },
+    "linkInBio": {
+      "title": "Link-in-Bio Mobile",
+      "description": "Una página móvil elegante y personalizada que centraliza todos tus enlaces importantes en un solo lugar. Perfecto para redes sociales, presentaciones personales y compartir contenido.",
+      "feature1": "Diseño responsive moderno orientado a móvil",
+      "feature2": "Foto de perfil y texto personalizado sobre ti",
+      "feature3": "Lista de enlaces organizados y fáciles de acceder",
+      "feature4": "Integración con tus redes sociales y plataformas"
+    },
+    "landingPage": {
+      "title": "Landing Page",
+      "description": "Páginas optimizadas para conversión para presentar productos, servicios o campañas. Diseño atractivo, carga rápida y enfocado en conversión para maximizar resultados.",
+      "feature1": "Diseño enfocado en conversión optimizado para SEO",
+      "feature2": "Layout responsive para todos los dispositivos",
+      "feature3": "Formularios integrados y llamados a la acción estratégicos",
+      "feature4": "Rendimiento optimizado y carga ultrarrápida"
+    },
+    "ecommerce": {
+      "title": "E-commerce",
+      "description": "Tienda virtual completa y funcional con gestión de productos, carrito de compras, checkout seguro y panel administrativo. Solución completa para ventas online.",
+      "feature1": "Catálogo de productos completo y organizado",
+      "feature2": "Carrito de compras y sistema de checkout seguro",
+      "feature3": "Panel administrativo para gestión de pedidos",
+      "feature4": "Integración con pasarelas de pago y sistemas de entrega"
+    }
   },
   "contact": {
     "title": "Hablemos",

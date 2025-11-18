@@ -3,6 +3,7 @@ import { ComponentLoadingFallback } from './LazyImage';
 
 // Lazy components para carregamento sob demanda
 const LazySkillsSection = lazy(() => import('./SkillsSection'));
+const LazyProjectsTypesSection = lazy(() => import('./ProjectsTypesSection'));
 const LazyPortfolioSection = lazy(() => import('./PortfolioSection'));
 const LazyContactSection = lazy(() => import('./ContactSection'));
 
@@ -17,6 +18,19 @@ export const SkillsSectionLazy: React.FC = () => (
     }
   >
     <LazySkillsSection />
+  </Suspense>
+);
+
+export const ProjectsTypesSectionLazy: React.FC = () => (
+  <Suspense 
+    fallback={
+      <ComponentLoadingFallback 
+        message="Carregando tipos de projetos..." 
+        height="h-96"
+      />
+    }
+  >
+    <LazyProjectsTypesSection />
   </Suspense>
 );
 
@@ -49,11 +63,13 @@ export const ContactSectionLazy: React.FC = () => (
 // Hook para precarregar componentes quando necessário
 export const usePreloadComponents = () => {
   const preloadSkills = () => import('./SkillsSection');
+  const preloadProjectsTypes = () => import('./ProjectsTypesSection');
   const preloadPortfolio = () => import('./PortfolioSection');
   const preloadContact = () => import('./ContactSection');
 
   return {
     preloadSkills,
+    preloadProjectsTypes,
     preloadPortfolio,
     preloadContact,
   };
