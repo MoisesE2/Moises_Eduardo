@@ -71,7 +71,7 @@ const HeroSection: React.FC = () => {
                 isDark ? 'border-2 border-gray-600 bg-gray-800' : 'border-2 border-gray-300 bg-gray-100'
               }`}>
                 <img
-                  src="/assets/images/Moises.jpg"
+                  src="/assets/site/images/Moises.jpg"
                   alt="Moisés Eduardo"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
@@ -144,8 +144,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-8 animate-fade-in-delay">
               <a
-                href="/assets/Moisés Eduardo.pdf"
-                download
+                href="/assets/site/cv/moises-eduardo.pdf"
+                download="Moises-Eduardo-CV.pdf"
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -233,8 +233,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-10 animate-fade-in-delay">
               <a
-                href="/assets/Moisés Eduardo.pdf"
-                download
+                href="/assets/site/cv/moises-eduardo.pdf"
+                download="Moises-Eduardo-CV.pdf"
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden text-lg"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -251,7 +251,7 @@ const HeroSection: React.FC = () => {
                 isDark ? 'border-4 border-gray-600 bg-gray-800 hover:border-gray-500' : 'border-4 border-gray-300 bg-gray-100 hover:border-gray-400'
               }`}>
                 <img
-                  src="/assets/images/Moises.jpg"
+                  src="/assets/site/images/Moises.jpg"
                   alt="Moisés Eduardo"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
