@@ -6,6 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import LinkInBioPreview from "./LinkInBioPreview";
 import LandingPagePreview from "./LandingPagePreview";
 import EcommercePreview from "./EcommercePreview";
+import SiteAmbientDecor from "./SiteAmbientDecor";
 
 type ProjectType = 'linkInBio' | 'landingPage' | 'ecommerce';
 
@@ -38,12 +39,13 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
       id="tipos-projetos" 
       className={`relative py-16 px-4 sm:px-6 overflow-hidden ${
         isDark 
-          ? 'bg-gradient-to-b from-gray-900 to-black' 
+          ? 'bg-gradient-to-b from-gray-900 via-gray-950 to-black' 
           : 'bg-gradient-to-b from-white to-gray-50'
       }`}
     >
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <SiteAmbientDecor isDark={isDark} pattern={2} density="section" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>

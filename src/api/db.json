@@ -1,25 +1,6 @@
 {
   "items": [
     {
-      "id": 1,
-      "title": "Pensamentos de Quinta",
-      "imageUrl": "/assets/projects/pensamento-quinta/Pensamentos.png",
-      "description": " Pensamentos de Quinta foi um projeto freelancer colaborativo no qual atuei majoritariamente no desenvolvimento do front-end. Durante essa experiência, aprendi bastante sobre estilização utilizando TailwindCSS e trabalhei com uma API fake usando o JSON Server. Tive a oportunidade de vivenciar na prática o trabalho em equipe através do GitHub, assumindo inclusive a responsabilidade de revisar e aprovar pull requests de colegas. Também participei de reuniões de integração entre o front-end e o back-end, além de vivenciar diversas outras experiências enriquecedoras no processo de desenvolvimento colaborativo.",
-      "videoUrl": "/assets/projects/pensamento-quinta/pensamentos.mp4",
-      "githubUrl": "https://github.com/MoisesE2/pensamento-quinta",
-      "technologies": [
-        "React",
-        "Tailwindcss",
-        "Typescript",
-        "Node.js",
-        "API",
-        "GitHub",
-        "JSON Server"
-      ],
-      "category": "frontend",
-      "featured": true
-    },
-    {
       "id": 2,
       "title": "Portifólio Pessoal",
       "imageUrl": "/assets/projects/portfolio-pessoal/portifolio.png",
@@ -114,6 +95,7 @@
       "description": "Painel administrativo para acompanhamento do Termômetro de Arrecadação da IPF Farol. Além do controle principal, existe um dashboard onde são inseridos dados por meio de planilha, com gráficos para melhor visualização dos dados por período e impressão de relatórios detalhados.",
       "videoUrl": "/assets/projects/termometro/termometro.mp4",
       "githubUrl": "https://github.com/MoisesE2",
+      "liveUrl": "https://ipbfarol.org/",
       "technologies": [
         "React",
         "TypeScript",

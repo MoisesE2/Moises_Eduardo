@@ -5,6 +5,9 @@ import {
   validatePortfolioItems
 } from '../types/portfolio';
 
+/** Projeto removido da vitrine; a API legada ainda pode enviar `id` 1. */
+const HIDDEN_PORTFOLIO_IDS = new Set(['1']);
+
 /** Itens do `db.json` que não vieram na API (ex.: termômetro antes do deploy do backend). */
 function mergeExtrasFromStatic(apiItems: PortfolioItem[]): PortfolioItem[] {
   const rows = (portfolioStatic as { items: unknown[] }).items;
@@ -46,6 +49,37 @@ function enrichGalleryFromStatic(items: PortfolioItem[]): PortfolioItem[] {
     const urls = galleryById.get(String(item.id));
     if (!urls) return item;
     return { ...item, imageUrls: urls };
+  });
+}
+
+function isHttpUrl(value: unknown): value is string {
+  if (typeof value !== 'string') return false;
+  const t = value.trim();
+  if (!t) return false;
+  try {
+    const u = new URL(t);
+    return u.protocol === 'http:' || u.protocol === 'https:';
+  } catch {
+    return false;
+  }
+}
+
+/** Preenche `liveUrl` a partir do `db.json` quando a API não envia (mesmo `id`). */
+function enrichLiveUrlFromStatic(items: PortfolioItem[]): PortfolioItem[] {
+  const rows = (portfolioStatic as { items: unknown[] }).items;
+  const liveById = new Map<string, string>();
+  for (const row of rows) {
+    const r = row as { id?: unknown; liveUrl?: unknown };
+    const id = String(r.id ?? '');
+    if (!id || !isHttpUrl(r.liveUrl)) continue;
+    liveById.set(id, (r.liveUrl as string).trim());
+  }
+  return items.map((item) => {
+    const fromStatic = liveById.get(String(item.id));
+    if (!fromStatic) return item;
+    const current = item.liveUrl?.trim();
+    if (current) return item;
+    return { ...item, liveUrl: fromStatic };
   });
 }
 
@@ -119,7 +153,10 @@ export const fetchPortfolioItems = async (): Promise<PortfolioItem[]> => {
     
     // Validar os dados recebidos
     const validatedItems = validatePortfolioItems(data);
-    return enrichGalleryFromStatic(mergeExtrasFromStatic(validatedItems));
+    const merged = enrichLiveUrlFromStatic(
+      enrichGalleryFromStatic(mergeExtrasFromStatic(validatedItems))
+    );
+    return merged.filter((item) => !HIDDEN_PORTFOLIO_IDS.has(String(item.id)));
   } catch (error) {
     console.error('Erro ao buscar itens do portfólio:', error);
     

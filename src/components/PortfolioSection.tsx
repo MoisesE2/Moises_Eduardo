@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useThemeStyles } from '../hooks/useThemeStyles';
 import usePortfolio from '../hooks/usePortfolio';
@@ -6,6 +7,7 @@ import { PortfolioItem, getPortfolioImageUrls } from '../types/portfolio';
 import PortfolioImageCarousel from './PortfolioImageCarousel';
 import { resolveVideoUrl } from '../utils/imageUtils';
 import { ApiErrorBoundary } from './ErrorBoundaries';
+import SiteAmbientDecor from './SiteAmbientDecor';
 
 const PortfolioSectionContent: React.FC = React.memo(() => {
   const { t } = useTranslation();
@@ -30,6 +32,15 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!selectedProject) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeModal();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedProject, closeModal]);
+
   // Memoizar projetos filtrados
   const filteredProjects = useMemo(() => 
     activeCategory === 'all'
@@ -49,15 +60,20 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
     setActiveCategory(category);
   }, []);
 
+  const portfolioShellBg = isDark
+    ? 'bg-gradient-to-b from-black via-gray-900 to-black'
+    : 'bg-gradient-to-b from-gray-50 via-white to-slate-100';
+
   if (loading) {
     return (
-      <section id="portfolio" className={`relative py-20 overflow-hidden ${
-        isDark 
-          ? 'bg-gradient-to-b from-gray-900 to-black' 
-          : 'bg-gradient-to-b from-gray-50 to-white'
-      }`}>
+      <section id="portfolio" className={`relative py-20 overflow-hidden ${portfolioShellBg}`}>
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <SiteAmbientDecor isDark={isDark} pattern={3} density="section" />
+          <div
+            className="absolute inset-x-0 -top-px h-56 bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent"
+            aria-hidden
+          />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
@@ -76,13 +92,14 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
 
   if (error) {
     return (
-      <section id="portfolio" className={`relative py-20 overflow-hidden ${
-        isDark 
-          ? 'bg-gradient-to-b from-gray-900 to-black' 
-          : 'bg-gradient-to-b from-gray-50 to-white'
-      }`}>
+      <section id="portfolio" className={`relative py-20 overflow-hidden ${portfolioShellBg}`}>
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <SiteAmbientDecor isDark={isDark} pattern={3} density="section" />
+          <div
+            className="absolute inset-x-0 -top-px h-56 bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent"
+            aria-hidden
+          />
           <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
         </div>
@@ -119,13 +136,14 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
   }
 
   return (
-    <section id="portfolio" className={`relative py-20 overflow-hidden ${
-      isDark 
-        ? 'bg-gradient-to-b from-gray-900 to-black' 
-        : 'bg-gradient-to-b from-gray-50 to-white'
-    }`}>
+    <section id="portfolio" className={`relative py-20 overflow-hidden ${portfolioShellBg}`}>
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <SiteAmbientDecor isDark={isDark} pattern={3} density="section" />
+        <div
+          className="absolute inset-x-0 -top-px h-56 bg-gradient-to-b from-purple-500/[0.07] via-blue-500/[0.04] to-transparent"
+          aria-hidden
+        />
         <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
@@ -198,118 +216,159 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     </span>
                   )}
                 </div>
+                {project.liveUrl?.trim() && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-700/80 to-blue-700/80 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/30"
+                  >
+                    {t('portfolio.viewLive')}
+                  </a>
+                )}
               </div>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Modal */}
-        {selectedProject && (
-          <div className="fixed inset-0 bg-black/95 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-            <div className={`rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border shadow-2xl ${
-              isDark 
-                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 shadow-purple-900/30'
-                : 'bg-gradient-to-br from-white to-gray-50 border-gray-300 shadow-purple-900/50'
-            }`}>
-              <div className="p-6">
-                <div className="flex justify-between items-start gap-4 mb-4">
-                  <div className="min-w-0 flex-1">
-                    <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-                      {selectedProject.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {selectedProject.technologies.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="bg-gradient-to-r from-purple-800/80 to-blue-800/80 text-purple-200 px-2 py-1 rounded-full text-xs"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={closeModal}
-                    className={`text-3xl transition-colors ${
-                      isDark 
-                        ? 'text-gray-400 hover:text-purple-400'
-                        : 'text-gray-600 hover:text-purple-600'
-                    }`}
-                  >
-                    &times;
-                  </button>
-                </div>
-
-                {getPortfolioImageUrls(selectedProject).length > 1 && (
-                  <div
-                    className={`mb-6 aspect-video w-full overflow-hidden rounded-lg border ${
-                      isDark ? 'border-gray-600' : 'border-gray-200'
-                    }`}
-                  >
-                    <PortfolioImageCarousel
-                      urls={getPortfolioImageUrls(selectedProject)}
-                      alt={selectedProject.title}
-                    />
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className={`text-lg font-semibold mb-2 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>Descrição</h4>
-                    <p className={`mb-6 ${
-                      isDark ? 'text-gray-300' : 'text-gray-700'
-                    }`}>{selectedProject.description}</p>
-
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <a
-                        href={selectedProject.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30"
+        {/* Portal: acima do header (z-40) e fora do stacking/overflow da seção */}
+        {selectedProject &&
+          createPortal(
+            <div
+              className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-6"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="portfolio-modal-title"
+            >
+              <div
+                className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+                aria-hidden="true"
+                onClick={closeModal}
+              />
+              <div
+                className={`relative z-[1] w-full max-w-3xl max-h-[min(82dvh,760px)] overflow-y-auto overscroll-contain rounded-xl border shadow-2xl ${
+                  isDark
+                    ? 'bg-gradient-to-br from-gray-800 to-gray-900 border-gray-700 shadow-purple-900/30'
+                    : 'bg-gradient-to-br from-white to-gray-50 border-gray-300 shadow-purple-900/50'
+                }`}
+              >
+                <div className="p-5 sm:p-6">
+                  <div className="flex justify-between items-start gap-4 mb-4">
+                    <div className="min-w-0 flex-1">
+                      <h3
+                        id="portfolio-modal-title"
+                        className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent"
                       >
-                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-                        </svg>
-                        {t('portfolio.viewGithub')}
-                      </a>
-                      {selectedProject.liveUrl && (
-                        <a
-                          href={selectedProject.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-6 py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30"
-                        >
-                          {t('portfolio.viewLive')}
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
-                  {selectedProject.videoUrl && (
-                    <div>
-                      <h4 className={`text-lg font-semibold mb-2 ${
-                        isDark ? 'text-white' : 'text-gray-900'
-                      }`}>Demonstração</h4>
-                      <div className="aspect-video w-full bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
-                        <video
-                          src={resolveVideoUrl(selectedProject.videoUrl)}
-                          title={`${selectedProject.title} Demo`}
-                          className="w-full h-full rounded-lg"
-                          controls
-                          preload="metadata"
-                        />
+                        {selectedProject.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {selectedProject.technologies.map((tech, index) => (
+                          <span
+                            key={index}
+                            className="bg-gradient-to-r from-purple-800/80 to-blue-800/80 text-purple-200 px-2 py-1 rounded-full text-xs"
+                          >
+                            {tech}
+                          </span>
+                        ))}
                       </div>
                     </div>
+                    <button
+                      type="button"
+                      onClick={closeModal}
+                      className={`shrink-0 text-3xl leading-none transition-colors ${
+                        isDark
+                          ? 'text-gray-400 hover:text-purple-400'
+                          : 'text-gray-600 hover:text-purple-600'
+                      }`}
+                      aria-label={t('accessibility.closeModal', { defaultValue: 'Fechar' })}
+                    >
+                      &times;
+                    </button>
+                  </div>
+
+                  {getPortfolioImageUrls(selectedProject).length > 1 && (
+                    <div
+                      className={`mb-5 aspect-video w-full max-h-[40vh] overflow-hidden rounded-lg border ${
+                        isDark ? 'border-gray-600' : 'border-gray-200'
+                      }`}
+                    >
+                      <PortfolioImageCarousel
+                        urls={getPortfolioImageUrls(selectedProject)}
+                        alt={selectedProject.title}
+                      />
+                    </div>
                   )}
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+                    <div>
+                      <h4
+                        className={`text-lg font-semibold mb-2 ${
+                          isDark ? 'text-white' : 'text-gray-900'
+                        }`}
+                      >
+                        Descrição
+                      </h4>
+                      <p
+                        className={`mb-6 text-sm sm:text-base ${
+                          isDark ? 'text-gray-300' : 'text-gray-700'
+                        }`}
+                      >
+                        {selectedProject.description}
+                      </p>
+
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <a
+                          href={selectedProject.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30 text-sm sm:text-base"
+                        >
+                          <svg className="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                          </svg>
+                          {t('portfolio.viewGithub')}
+                        </a>
+                        {selectedProject.liveUrl && (
+                          <a
+                            href={selectedProject.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30 text-sm sm:text-base"
+                          >
+                            {t('portfolio.viewLive')}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+
+                    {selectedProject.videoUrl && (
+                      <div>
+                        <h4
+                          className={`text-lg font-semibold mb-2 ${
+                            isDark ? 'text-white' : 'text-gray-900'
+                          }`}
+                        >
+                          Demonstração
+                        </h4>
+                        <div className="aspect-video w-full max-h-[38vh] bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
+                          <video
+                            src={resolveVideoUrl(selectedProject.videoUrl)}
+                            title={`${selectedProject.title} Demo`}
+                            className="w-full h-full rounded-lg object-contain bg-black/20"
+                            controls
+                            preload="metadata"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
-      </div>
+            </div>,
+            document.body
+          )}
     </section>
   );
 });
