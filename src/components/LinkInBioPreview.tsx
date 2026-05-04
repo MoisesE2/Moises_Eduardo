@@ -92,7 +92,7 @@ const LinkInBioPreview: React.FC<LinkInBioPreviewProps> = ({ className = "" }) =
                   isDark ? 'ring-3 sm:ring-4 ring-purple-500/30' : 'ring-3 sm:ring-4 ring-purple-200'
                 }`}>
                   <img
-                    src="/assets/images/Moises.jpg"
+                    src="/assets/site/images/Moises.jpg"
                     alt={t('hero.name')}
                     className="w-full h-full object-cover"
                   />
