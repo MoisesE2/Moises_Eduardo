@@ -1,4 +1,53 @@
-import { PortfolioItem, validatePortfolioItems } from '../types/portfolio';
+import portfolioStatic from '../api/db.json';
+import {
+  PortfolioItem,
+  validatePortfolioItem,
+  validatePortfolioItems
+} from '../types/portfolio';
+
+/** Itens do `db.json` que não vieram na API (ex.: termômetro antes do deploy do backend). */
+function mergeExtrasFromStatic(apiItems: PortfolioItem[]): PortfolioItem[] {
+  const rows = (portfolioStatic as { items: unknown[] }).items;
+  const apiIds = new Set(apiItems.map((i) => String(i.id)));
+  const extras: PortfolioItem[] = [];
+  for (const row of rows) {
+    const id = String((row as { id?: unknown }).id ?? '');
+    if (!id || apiIds.has(id)) continue;
+    try {
+      extras.push(validatePortfolioItem(row));
+    } catch {
+      // ignora linhas inválidas no JSON estático
+    }
+  }
+  const merged = [...apiItems, ...extras];
+  merged.sort((a, b) => Number(a.id) - Number(b.id));
+  return merged;
+}
+
+function isGalleryUrls(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) &&
+    value.length >= 2 &&
+    value.every((u) => typeof u === 'string' && u.length > 0)
+  );
+}
+
+/** Sobrepõe `imageUrls` do `db.json` quando a API ainda não envia a galeria (mesmo `id`). */
+function enrichGalleryFromStatic(items: PortfolioItem[]): PortfolioItem[] {
+  const rows = (portfolioStatic as { items: unknown[] }).items;
+  const galleryById = new Map<string, string[]>();
+  for (const row of rows) {
+    const r = row as { id?: unknown; imageUrls?: unknown };
+    const id = String(r.id ?? '');
+    if (!id || !isGalleryUrls(r.imageUrls)) continue;
+    galleryById.set(id, r.imageUrls);
+  }
+  return items.map((item) => {
+    const urls = galleryById.get(String(item.id));
+    if (!urls) return item;
+    return { ...item, imageUrls: urls };
+  });
+}
 
 // Usar variável de ambiente ou fallback para URL padrão
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.gcodevs.com';
@@ -70,8 +119,7 @@ export const fetchPortfolioItems = async (): Promise<PortfolioItem[]> => {
     
     // Validar os dados recebidos
     const validatedItems = validatePortfolioItems(data);
-    
-    return validatedItems;
+    return enrichGalleryFromStatic(mergeExtrasFromStatic(validatedItems));
   } catch (error) {
     console.error('Erro ao buscar itens do portfólio:', error);
     

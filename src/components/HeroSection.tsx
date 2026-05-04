@@ -22,7 +22,7 @@ const HeroSection: React.FC = () => {
   }, [titles.length]);
 
   return (
-    <section id="sobre" className={`min-h-screen w-full relative overflow-hidden pt-20 ${
+    <section id="sobre" className={`min-h-[100dvh] w-full relative overflow-hidden pt-20 md:pt-24 ${
       isDark 
         ? 'bg-gradient-to-b from-gray-900 to-black' 
         : 'bg-gradient-to-b from-blue-50 to-white'
@@ -62,7 +62,7 @@ const HeroSection: React.FC = () => {
       </div>
 
       {/* Mobile Version */}
-      <div className="md:hidden h-screen w-full relative flex items-center justify-center px-6">
+      <div className="md:hidden min-h-[calc(100dvh-5rem)] w-full relative flex items-center justify-center px-6 py-10">
         <div className={`w-full max-w-sm text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Profile Image - PROFESSIONAL */}
           <div className="relative mb-8 flex justify-center">
@@ -73,7 +73,7 @@ const HeroSection: React.FC = () => {
                 <img
                   src="/assets/site/images/Moises.jpg"
                   alt="Moisés Eduardo"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover transition-transform duration-300"
                 />
               </div>
               
@@ -99,8 +99,8 @@ const HeroSection: React.FC = () => {
               }`}>
                 {t('hero.name')}
               </h1>
-              <div className="h-8 overflow-hidden">
-                <div className={`text-lg font-semibold animate-slide-up ${
+              <div className="min-h-12 flex items-center justify-center px-2">
+                <div className={`text-base sm:text-lg font-semibold animate-slide-up text-center leading-snug line-clamp-2 ${
                   isDark ? 'text-purple-400' : 'text-blue-600'
                 }`}>
                   {titles[currentTitle]}
@@ -127,7 +127,7 @@ const HeroSection: React.FC = () => {
                 <a
                   key={label}
                   href={href}
-                  className={`group relative p-3 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg animate-fade-in-delay ${
+                  className={`group relative p-3 rounded-full backdrop-blur-sm transition-all duration-300 hover:shadow-lg animate-fade-in-delay ${
                     isDark 
                       ? 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-purple-400 hover:shadow-purple-500/25' 
                       : 'bg-white/80 border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-blue-400 hover:shadow-blue-500/25'
@@ -146,7 +146,7 @@ const HeroSection: React.FC = () => {
               <a
                 href="/assets/site/cv/moises-eduardo.pdf"
                 download="Moises-Eduardo-CV.pdf"
-                className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden"
+                className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Download size={16} className="group-hover:animate-bounce" />
@@ -158,8 +158,8 @@ const HeroSection: React.FC = () => {
       </div>
 
       {/* Desktop Version */}
-      <div className="hidden md:flex h-screen w-full items-center max-w-7xl mx-auto px-8 lg:px-16">
-        <div className="grid grid-cols-2 gap-16 lg:gap-24 w-full items-center">
+      <div className="hidden md:flex min-h-[calc(100dvh-6rem)] w-full items-center max-w-7xl mx-auto px-6 lg:px-16 py-8">
+        <div className="grid grid-cols-2 gap-10 lg:gap-20 w-full items-center">
           {/* Left Content */}
           <div className={`space-y-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             <div className="space-y-6">
@@ -171,7 +171,7 @@ const HeroSection: React.FC = () => {
               </div>
               
               <div className="space-y-4">
-                <h1 className={`text-6xl 2xl:text-7xl font-bold leading-[1.1] animate-gradient-x ${
+                <h1 className={`text-5xl xl:text-6xl 2xl:text-7xl font-bold leading-[1.1] animate-gradient-x ${
                   isDark 
                     ? 'bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent' 
                     : 'bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent'
@@ -187,8 +187,8 @@ const HeroSection: React.FC = () => {
                   </span>
                 </h1>
                 
-                <div className="h-16 overflow-hidden">
-                  <div className={`text-3xl 2xl:text-4xl font-semibold animate-slide-up ${
+                <div className="min-h-16 flex items-center">
+                  <div className={`text-2xl xl:text-3xl 2xl:text-4xl font-semibold animate-slide-up leading-snug ${
                     isDark ? 'text-purple-400' : 'text-blue-600'
                   }`}>
                     {titles[currentTitle]}
@@ -216,7 +216,7 @@ const HeroSection: React.FC = () => {
                 <a
                   key={label}
                   href={href}
-                  className={`group relative p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:shadow-lg animate-fade-in-delay ${
+                  className={`group relative p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:shadow-lg animate-fade-in-delay ${
                     isDark 
                       ? 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:border-purple-400 hover:shadow-purple-500/25' 
                       : 'bg-white/80 border border-gray-200 text-gray-600 hover:text-gray-900 hover:border-blue-400 hover:shadow-blue-500/25'
@@ -235,7 +235,7 @@ const HeroSection: React.FC = () => {
               <a
                 href="/assets/site/cv/moises-eduardo.pdf"
                 download="Moises-Eduardo-CV.pdf"
-                className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden text-lg"
+                className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95 text-lg"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Download size={20} className="group-hover:animate-bounce" />
@@ -253,7 +253,7 @@ const HeroSection: React.FC = () => {
                 <img
                   src="/assets/site/images/Moises.jpg"
                   alt="Moisés Eduardo"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover transition-transform duration-300"
                 />
               </div>
               

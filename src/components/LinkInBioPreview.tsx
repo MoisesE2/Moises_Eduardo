@@ -131,7 +131,7 @@ const LinkInBioPreview: React.FC<LinkInBioPreviewProps> = ({ className = "" }) =
                   rel={link.external ? "noopener noreferrer" : undefined}
                   className={`group relative flex items-center justify-center gap-2 sm:gap-3 w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl sm:rounded-2xl 
                     bg-gradient-to-r ${link.color} text-white font-medium cursor-pointer
-                    transition-all duration-300 active:scale-95 hover:scale-105 hover:shadow-xl touch-manipulation
+                    transition-all duration-300 active:scale-95 hover:shadow-xl touch-manipulation
                     ${index === 0 ? 'animate-fade-in' : ''}`}
                   style={{
                     animationDelay: `${index * 100}ms`,

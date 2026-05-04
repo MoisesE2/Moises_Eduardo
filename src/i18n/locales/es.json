@@ -59,7 +59,20 @@
       "java": "Lenguaje robusto para desarrollo de aplicaciones empresariales",
       "figma": "Herramienta colaborativa para diseño de interfaces y prototipado",
       "git": "Control de versiones y colaboración en proyectos de desarrollo",
-      "docker": "Plataforma de contenedorización para implementación y aislamiento de aplicaciones"
+      "docker": "Plataforma de contenedorización para implementación y aislamiento de aplicaciones",
+      "api": "Construcción y consumo de APIs REST enfocadas en integración frontend-backend",
+      "jsonServer": "Mock rápido de backend para pruebas y desarrollo de interfaces",
+      "firebase": "Servicios en la nube para autenticación, base de datos y hosting",
+      "turborepo": "Herramienta de monorepo con orquestación optimizada de builds y pipelines",
+      "shadcn": "Colección de componentes accesibles y personalizables para interfaces modernas",
+      "prisma": "ORM tipado para modelado de datos y consultas seguras",
+      "postgresql": "Base de datos relacional robusta para aplicaciones escalables",
+      "redis": "Cache en memoria para mejorar rendimiento y reducir latencia",
+      "zustand": "Gestión de estado ligera y simple para aplicaciones React",
+      "tanstackQuery": "Gestión de estado asíncrono y cache de datos remotos",
+      "zod": "Validación de datos con esquemas tipados para mayor seguridad",
+      "reactIcons": "Biblioteca de íconos para interfaces consistentes y productivas",
+      "pokeapi": "Integración con API pública para datos de Pokémon en tiempo real"
     },
     "noResults": "No se encontraron habilidades",
     "noResultsDescription": "Intenta seleccionar una categoría diferente"

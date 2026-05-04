@@ -68,6 +68,10 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 html {
   scroll-behavior: smooth;
   background-color: var(--bg-primary);
@@ -321,4 +325,19 @@ input[type="checkbox"]:checked + span span {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-gradient-x,
+  .animate-slide-up,
+  .animate-fade-in,
+  .animate-fade-in-delay,
+  .animate-bounce,
+  .animate-float,
+  .animate-particle,
+  .animate-slide-right,
+  .animate-slide-left,
+  .animate-rotate-glow {
+    animation: none !important;
+  }
 }
