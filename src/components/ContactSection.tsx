@@ -275,18 +275,18 @@ const ContactSection: React.FC = () => {
                   <a
                     key={index}
                     href={info.href}
-                    className={`flex items-center p-4 rounded-xl transition-colors ${
+                    className={`flex items-center p-4 rounded-xl transition-colors min-w-0 ${
                       isDark 
                         ? 'bg-gray-800/50 hover:bg-gray-800' 
                         : 'bg-gray-50 hover:bg-gray-100'
                     }`}
                   >
-                    <info.icon className="w-6 h-6 text-purple-400 mr-4" />
-                    <div>
+                    <info.icon className="w-6 h-6 text-purple-400 mr-4 shrink-0" />
+                    <div className="min-w-0">
                       <div className={`text-sm ${
                         isDark ? 'text-gray-400' : 'text-gray-500'
                       }`}>{info.label}</div>
-                      <div className={`${
+                      <div className={`break-words ${
                         isDark ? 'text-white' : 'text-gray-900'
                       }`}>{info.value}</div>
                     </div>
@@ -471,7 +471,7 @@ const ContactSection: React.FC = () => {
                     <button
                       type="submit"
                       disabled={submissionStatus === 'sending'}
-                      className="w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:from-gray-600 disabled:to-gray-700 text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 disabled:scale-100 disabled:opacity-50"
+                      className="w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 disabled:from-gray-600 disabled:to-gray-700 text-white font-semibold rounded-lg transition-all duration-300 disabled:scale-100 disabled:opacity-50"
                     >
                       {submissionStatus === 'sending' ? (
                         <>

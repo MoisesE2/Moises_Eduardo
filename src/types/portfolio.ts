@@ -9,6 +9,11 @@ export const PortfolioItemSchema = z.object({
   id: z.coerce.string(), // Coerce converte automaticamente number para string
   title: z.string().trim().min(1),
   imageUrl: z.string().url().or(z.string().min(1)), // Aceita URL ou caminho local
+  /** Duas ou mais URLs ativam carrossel animado no portfólio (ex.: termômetro). */
+  imageUrls: z
+    .array(z.string().url().or(z.string().min(1)))
+    .min(2)
+    .optional(),
   description: z.string().trim().min(10),
   videoUrl: z.string().url().or(z.string().min(1)).optional(), // Opcional - nem todos os projetos têm vídeo
   liveUrl: z.string().url().optional().or(z.literal('')), // URL válida ou string vazia
@@ -31,6 +36,14 @@ export const PortfolioApiResponseSchema = z.union([
 // Tipos inferidos
 export type PortfolioItem = z.infer<typeof PortfolioItemSchema>;
 export type PortfolioApiResponse = z.infer<typeof PortfolioApiResponseSchema>;
+
+/** URLs exibidas no card (galeria ou imagem única). */
+export const getPortfolioImageUrls = (item: PortfolioItem): string[] => {
+  if (item.imageUrls && item.imageUrls.length >= 2) {
+    return item.imageUrls;
+  }
+  return [item.imageUrl];
+};
 
 // Função otimizada para validação
 export const validatePortfolioItems = (data: unknown): PortfolioItem[] => {

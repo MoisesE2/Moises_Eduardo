@@ -24,11 +24,15 @@ i18n
   .init({
     resources,
     fallbackLng: 'pt',
+    supportedLngs: ['pt', 'en', 'es'],
+    load: 'languageOnly',
+    nonExplicitSupportedLngs: true,
     debug: import.meta.env.MODE === 'development',
-    
+
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
+      convertDetectedLanguage: (lng: string) => lng.split('-')[0],
     },
 
     interpolation: {

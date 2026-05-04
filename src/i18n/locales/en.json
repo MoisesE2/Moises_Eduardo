@@ -59,7 +59,20 @@
       "java": "Robust language for enterprise application development",
       "figma": "Collaborative tool for interface design and prototyping",
       "git": "Version control and collaboration in development projects",
-      "docker": "Containerization platform for deployment and application isolation"
+      "docker": "Containerization platform for deployment and application isolation",
+      "api": "Building and consuming REST APIs focused on frontend-backend integration",
+      "jsonServer": "Fast backend mocking for interface development and testing",
+      "firebase": "Cloud services for authentication, database and hosting",
+      "turborepo": "Monorepo tool with optimized build orchestration and pipelines",
+      "shadcn": "Accessible and customizable component collection for modern interfaces",
+      "prisma": "Type-safe ORM for data modeling and reliable queries",
+      "postgresql": "Robust relational database for scalable applications",
+      "redis": "In-memory cache to improve performance and reduce latency",
+      "zustand": "Lightweight and simple state management for React apps",
+      "tanstackQuery": "Async state management and remote data caching",
+      "zod": "Schema-based data validation with strong typing",
+      "reactIcons": "Icon library for consistent and productive UI development",
+      "pokeapi": "Public API integration for real-time Pokemon data"
     },
     "noResults": "No skills found",
     "noResultsDescription": "Try selecting a different category"

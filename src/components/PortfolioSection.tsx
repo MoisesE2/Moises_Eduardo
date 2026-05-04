@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useThemeStyles } from '../hooks/useThemeStyles';
 import usePortfolio from '../hooks/usePortfolio';
-import { PortfolioItem } from '../types/portfolio';
-import LazyImage from './LazyImage';
-import { resolveImageUrl, resolveVideoUrl } from '../utils/imageUtils';
+import { PortfolioItem, getPortfolioImageUrls } from '../types/portfolio';
+import PortfolioImageCarousel from './PortfolioImageCarousel';
+import { resolveVideoUrl } from '../utils/imageUtils';
 import { ApiErrorBoundary } from './ErrorBoundaries';
 
 const PortfolioSectionContent: React.FC = React.memo(() => {
@@ -22,6 +22,12 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
   const closeModal = useCallback(() => {
     setSelectedProject(null);
     document.body.classList.remove('modal-open');
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
   }, []);
 
   // Memoizar projetos filtrados
@@ -165,14 +171,12 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                 }`}>
                   {project.title}
                 </h3>
-                <div className={`aspect-video overflow-hidden rounded-lg border group-hover:border-purple-500/50 transition-colors ${
+                <div className={`relative aspect-video overflow-hidden rounded-lg border group-hover:border-purple-500/50 transition-colors ${
                   isDark ? 'border-gray-700' : 'border-gray-200'
                 }`}>
-                  <LazyImage
-                    src={resolveImageUrl(project.imageUrl)}
+                  <PortfolioImageCarousel
+                    urls={getPortfolioImageUrls(project)}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
                   />
                 </div>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -208,8 +212,8 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                 : 'bg-gradient-to-br from-white to-gray-50 border-gray-300 shadow-purple-900/50'
             }`}>
               <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
+                <div className="flex justify-between items-start gap-4 mb-4">
+                  <div className="min-w-0 flex-1">
                     <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
                       {selectedProject.title}
                     </h3>
@@ -225,6 +229,7 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     </div>
                   </div>
                   <button
+                    type="button"
                     onClick={closeModal}
                     className={`text-3xl transition-colors ${
                       isDark 
@@ -235,6 +240,19 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     &times;
                   </button>
                 </div>
+
+                {getPortfolioImageUrls(selectedProject).length > 1 && (
+                  <div
+                    className={`mb-6 aspect-video w-full overflow-hidden rounded-lg border ${
+                      isDark ? 'border-gray-600' : 'border-gray-200'
+                    }`}
+                  >
+                    <PortfolioImageCarousel
+                      urls={getPortfolioImageUrls(selectedProject)}
+                      alt={selectedProject.title}
+                    />
+                  </div>
+                )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                   <div>
@@ -275,14 +293,14 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                       <h4 className={`text-lg font-semibold mb-2 ${
                         isDark ? 'text-white' : 'text-gray-900'
                       }`}>Demonstração</h4>
-                      <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
-                        <iframe
+                      <div className="aspect-video w-full bg-gradient-to-br from-purple-900/30 to-blue-900/30 rounded-lg p-1">
+                        <video
                           src={resolveVideoUrl(selectedProject.videoUrl)}
                           title={`${selectedProject.title} Demo`}
-                          className="w-full h-64 rounded-lg"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                        ></iframe>
+                          className="w-full h-full rounded-lg"
+                          controls
+                          preload="metadata"
+                        />
                       </div>
                     </div>
                   )}

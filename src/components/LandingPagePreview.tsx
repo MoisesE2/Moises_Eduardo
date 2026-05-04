@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 
 interface LandingPagePreviewProps {
@@ -7,7 +6,6 @@ interface LandingPagePreviewProps {
 }
 
 const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({ className = "" }) => {
-  const { t } = useTranslation();
   const { isDark } = useThemeStyles();
 
   // Tema: Design Gráfico
@@ -110,7 +108,7 @@ const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({ className = "" 
                     Contato
                   </a>
                 </nav>
-                <button className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-lg active:scale-95 hover:scale-105 transition-all touch-manipulation whitespace-nowrap`}>
+                <button className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-lg active:scale-95 transition-all touch-manipulation max-w-[9rem] sm:max-w-none text-center leading-tight`}>
                   Solicitar Orçamento
                 </button>
               </div>
@@ -135,7 +133,7 @@ const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({ className = "" 
                 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4 pt-3 sm:pt-4 px-4 sm:px-0">
-                  <button className={`group w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-xl active:shadow-purple-500/50 active:scale-95 hover:scale-105 transition-all flex items-center justify-center gap-2 touch-manipulation`}>
+                  <button className={`group w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-xl active:shadow-purple-500/50 active:scale-95 transition-all flex items-center justify-center gap-2 touch-manipulation`}>
                     Ver Portfólio
                     <span className="group-active:translate-x-1 transition-transform">→</span>
                   </button>
@@ -221,7 +219,7 @@ const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({ className = "" 
                 {features.map((feature, index) => (
                   <div
                     key={feature.id}
-                    className={`group p-4 sm:p-6 rounded-xl border transition-all active:scale-95 hover:shadow-lg hover:-translate-y-1 touch-manipulation ${
+                    className={`group p-4 sm:p-6 rounded-xl border transition-all active:scale-95 hover:shadow-lg hover:-translate-y-0.5 touch-manipulation ${
                       isDark 
                         ? 'bg-gray-800/50 border-gray-700 active:border-purple-500/50' 
                         : 'bg-white border-gray-200 active:border-purple-300 active:shadow-purple-100'
@@ -263,7 +261,7 @@ const LandingPagePreview: React.FC<LandingPagePreviewProps> = ({ className = "" 
                 }`}>
                   Vamos conversar sobre como podemos transformar suas ideias em design
                 </p>
-                <button className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-xl active:shadow-purple-500/50 active:scale-95 hover:scale-105 transition-all touch-manipulation text-sm sm:text-base`}>
+                <button className={`px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 text-white active:shadow-xl active:shadow-purple-500/50 active:scale-95 transition-all touch-manipulation text-sm sm:text-base`}>
                   Solicitar Orçamento Grátis
                 </button>
               </div>

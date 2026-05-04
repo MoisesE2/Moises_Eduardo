@@ -1,9 +1,14 @@
 import { fetchPortfolioItems, ApiError, checkApiHealth } from '../api';
 import { validatePortfolioItems } from '../../types/portfolio';
 
+jest.mock('../../api/db.json', () => ({
+  default: { items: [] }
+}));
+
 // Mock da validação
 jest.mock('../../types/portfolio', () => ({
   validatePortfolioItems: jest.fn(),
+  validatePortfolioItem: jest.requireActual('../../types/portfolio').validatePortfolioItem
 }));
 
 const mockValidatePortfolioItems = jest.mocked(validatePortfolioItems);

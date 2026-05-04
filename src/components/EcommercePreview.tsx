@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 import LazyImage from "./LazyImage";
 
@@ -22,7 +21,6 @@ interface CartItem extends Product {
 }
 
 const EcommercePreview: React.FC<EcommercePreviewProps> = ({ className = "" }) => {
-  const { t } = useTranslation();
   const { isDark } = useThemeStyles();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
@@ -359,7 +357,7 @@ const EcommercePreview: React.FC<EcommercePreviewProps> = ({ className = "" }) =
                     return (
                       <div
                         key={product.id}
-                        className={`group relative p-1.5 sm:p-3 rounded-lg sm:rounded-xl border transition-all active:scale-95 hover:shadow-lg hover:-translate-y-1 touch-manipulation ${
+                        className={`group relative p-1.5 sm:p-3 rounded-lg sm:rounded-xl border transition-all active:scale-95 hover:shadow-lg hover:-translate-y-0.5 touch-manipulation ${
                           justAdded ? 'ring-2 ring-green-500 ring-offset-1 sm:ring-offset-2' : ''
                         } ${
                           isDark 

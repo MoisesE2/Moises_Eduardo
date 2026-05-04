@@ -67,7 +67,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
         <div className={`flex flex-wrap justify-center gap-4 mb-10 transition-all duration-1000 delay-200 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <div className={`flex items-center backdrop-blur-sm border rounded-2xl p-2 ${
+          <div className={`flex flex-wrap items-center justify-center gap-2 backdrop-blur-sm border rounded-2xl p-2 max-w-full ${
             isDark 
               ? 'bg-gray-900/80 border-gray-700/50' 
               : 'bg-white/80 border-gray-200/50'
@@ -76,7 +76,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
               <button
                 key={tab}
                 onClick={() => handleTabChange(tab)}
-                className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${
                   activeTab === tab
                     ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30'
                     : (isDark 
@@ -94,7 +94,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
         <div className={`transition-all duration-500 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <div className={`backdrop-blur-md border rounded-3xl p-8 sm:p-12 ${
+          <div className={`backdrop-blur-md border rounded-3xl p-5 sm:p-8 lg:p-12 ${
             isDark 
               ? 'bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50' 
               : 'bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60'
@@ -126,7 +126,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
                       href={`https://wa.me/5585998444203?text=${encodeURIComponent(`Olá! Gostaria de fazer um orçamento para um projeto de ${t('projectsTypes.tabs.linkInBio')}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all`}
+                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 transition-all`}
                     >
                       <FaWhatsapp className="w-5 h-5" />
                       {t('projectsTypes.requestQuote')}
@@ -165,7 +165,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
                       href={`https://wa.me/5585998444203?text=${encodeURIComponent(`Olá! Gostaria de fazer um orçamento para um projeto de ${t('projectsTypes.tabs.landingPage')}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all`}
+                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 transition-all`}
                     >
                       <FaWhatsapp className="w-5 h-5" />
                       {t('projectsTypes.requestQuote')}
@@ -204,7 +204,7 @@ const ProjectsTypesSection: React.FC = React.memo(() => {
                       href={`https://wa.me/5585998444203?text=${encodeURIComponent(`Olá! Gostaria de fazer um orçamento para um projeto de ${t('projectsTypes.tabs.ecommerce')}.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 hover:scale-105 transition-all`}
+                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-green-500 to-green-600 text-white hover:shadow-lg hover:shadow-green-500/50 transition-all`}
                     >
                       <FaWhatsapp className="w-5 h-5" />
                       {t('projectsTypes.requestQuote')}

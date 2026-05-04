@@ -19,6 +19,16 @@ import {
   ViewList,
 } from "./Icons";
 import { useInView } from "react-intersection-observer";
+import {
+  SiOpenapiinitiative,
+  SiJson,
+  SiFirebase,
+  SiTurborepo,
+  SiPrisma,
+  SiPostgresql,
+  SiRedis,
+  SiZod,
+} from "react-icons/si";
 
 interface Skill {
   icon: React.ReactElement;
@@ -29,6 +39,22 @@ interface Skill {
   color: string;
   level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
 }
+
+const PokeBallIcon: React.FC = () => (
+  <svg viewBox="0 0 64 64" width="1em" height="1em" aria-hidden="true">
+    <defs>
+      <clipPath id="pokeball-top">
+        <rect x="0" y="0" width="64" height="32" />
+      </clipPath>
+    </defs>
+    <circle cx="32" cy="32" r="30" fill="#ffffff" />
+    <circle cx="32" cy="32" r="30" fill="#ef4444" clipPath="url(#pokeball-top)" />
+    <line x1="2" y1="32" x2="62" y2="32" stroke="#111827" strokeWidth="6" />
+    <circle cx="32" cy="32" r="10" fill="#ffffff" stroke="#111827" strokeWidth="5" />
+    <circle cx="32" cy="32" r="4" fill="#d1d5db" />
+    <circle cx="32" cy="32" r="30" fill="none" stroke="#111827" strokeWidth="4" />
+  </svg>
+);
 
 const skillsData: Skill[] = [
   { 
@@ -82,7 +108,7 @@ const skillsData: Skill[] = [
     percent: 75,
     category: "framework",
     descriptionKey: "nextjs",
-    color: "#000000",
+    color: "#FFFFFF",
     level: "advanced"
   },
   { 
@@ -127,7 +153,7 @@ const skillsData: Skill[] = [
     percent: 95,
     category: "tools",
     descriptionKey: "git",
-    color: "#181717",
+    color: "#FFFFFF",
     level: "expert"
   },
   {
@@ -139,21 +165,88 @@ const skillsData: Skill[] = [
     color: "#2496ED",
     level: "intermediate"
   },
-];
-
-// Helper function to check if a color is dark
-const isDarkColor = (color: string): boolean => {
-  const darkColors = ['#181717', '#000000'];
-  return darkColors.includes(color.toUpperCase());
-};
-
-// Helper function to get contrast color for dark colors in dark mode
-const getContrastColor = (color: string, isDark: boolean): string => {
-  if (isDark && isDarkColor(color)) {
-    return '#ffffff';
+  {
+    icon: <SiOpenapiinitiative />,
+    label: "API/REST",
+    percent: 78,
+    category: "backend",
+    descriptionKey: "api",
+    color: "#4F46E5",
+    level: "advanced"
+  },
+  {
+    icon: <SiJson />,
+    label: "JSON Server",
+    percent: 72,
+    category: "backend",
+    descriptionKey: "jsonServer",
+    color: "#F97316",
+    level: "advanced"
+  },
+  {
+    icon: <SiFirebase />,
+    label: "Firebase",
+    percent: 70,
+    category: "backend",
+    descriptionKey: "firebase",
+    color: "#FFCA28",
+    level: "advanced"
+  },
+  {
+    icon: <SiTurborepo />,
+    label: "Turborepo",
+    percent: 67,
+    category: "tools",
+    descriptionKey: "turborepo",
+    color: "#EF4444",
+    level: "advanced"
+  },
+  {
+    icon: <SiPrisma />,
+    label: "Prisma",
+    percent: 71,
+    category: "backend",
+    descriptionKey: "prisma",
+    color: "#0EA5E9",
+    level: "advanced"
+  },
+  {
+    icon: <SiPostgresql />,
+    label: "PostgreSQL",
+    percent: 69,
+    category: "backend",
+    descriptionKey: "postgresql",
+    color: "#2563EB",
+    level: "advanced"
+  },
+  {
+    icon: <SiRedis />,
+    label: "Redis",
+    percent: 66,
+    category: "backend",
+    descriptionKey: "redis",
+    color: "#DC2626",
+    level: "intermediate"
+  },
+  {
+    icon: <SiZod />,
+    label: "Zod",
+    percent: 76,
+    category: "tools",
+    descriptionKey: "zod",
+    color: "#3B82F6",
+    level: "advanced"
+  },
+  {
+    icon: <PokeBallIcon />,
+    label: "PokéAPI",
+    percent: 64,
+    category: "tools",
+    descriptionKey: "pokeapi",
+    color: "#EF4444",
+    level: "intermediate"
   }
-  return color;
-};
+];
 
 const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'minimal' }> = React.memo(({ 
   skill, 
@@ -167,16 +260,14 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
     threshold: 0.3,
   });
 
-  // Check if this skill needs special dark mode treatment
-  const needsDarkModeContrast = isDark && isDarkColor(skill.color);
-  const iconColor = getContrastColor(skill.color, isDark);
+  const iconColor = skill.color;
 
   if (viewMode === 'minimal') {
     return (
       <div 
         ref={ref}
         className={`group relative backdrop-blur-sm 
-                   border rounded-2xl p-6 transition-all duration-500 ease-out
+                   border rounded-2xl p-6 transition-all duration-300 ease-out
                    hover:border-purple-500/40 hover:shadow-2xl
                    hover:-translate-y-2 ${
           isDark 
@@ -189,15 +280,11 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
       >
         <div className="flex items-center gap-3 mb-4">
           <div 
-            className={`p-3 rounded-xl text-2xl transition-all duration-300 group-hover:scale-110 ${
-              needsDarkModeContrast ? 'ring-2 ring-white/30 ring-offset-2 ring-offset-gray-800' : ''
-            }`}
+            className="p-3 rounded-xl text-2xl transition-all duration-300"
             style={{ 
-              background: needsDarkModeContrast 
-                ? 'linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.25))'
-                : `linear-gradient(135deg, ${skill.color}15, ${skill.color}25)`,
+              background: `linear-gradient(135deg, ${skill.color}15, ${skill.color}25)`,
               color: iconColor,
-              boxShadow: needsDarkModeContrast ? '0 0 20px rgba(255,255,255,0.2)' : 'none'
+              boxShadow: 'none'
             }}
           >
             {skill.icon}
@@ -224,9 +311,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
         <div 
           className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none"
           style={{
-            background: needsDarkModeContrast && isDark
-              ? 'radial-gradient(circle at center, rgba(255,255,255,0.3), transparent 70%)'
-              : `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`
+            background: `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`
           }}
         />
       </div>
@@ -237,22 +322,16 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
     <div 
       ref={ref}
       className={`group relative backdrop-blur-md 
-                 border rounded-3xl p-6 transition-all duration-700 ease-out
-                 hover:border-purple-500/50 hover:shadow-2xl
-                 hover:-translate-y-3 hover:scale-105 ${
+                 border rounded-3xl p-6 transition-all duration-300 ease-out
+                 hover:border-purple-500/50 hover:shadow-xl
+                 hover:-translate-y-1 ${
         isDark 
-          ? `bg-gradient-to-br from-gray-900/60 to-gray-800/40 ${
-              needsDarkModeContrast 
-                ? 'border-white/30 ring-2 ring-white/20 ring-offset-2 ring-offset-gray-900' 
-                : 'border-gray-700/50'
-            } hover:shadow-purple-500/20`
+          ? 'bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50 hover:shadow-purple-500/20'
           : 'bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60 hover:shadow-purple-500/30'
       } ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
       style={{
-        transitionDelay: `${index * 75}ms`,
-        boxShadow: needsDarkModeContrast && isDark 
-          ? '0 0 30px rgba(255,255,255,0.15), inset 0 0 20px rgba(255,255,255,0.05)' 
-          : undefined
+        transitionDelay: `${index * 30}ms`,
+        boxShadow: undefined
       }}
     >
       {/* Background Pattern */}
@@ -263,12 +342,10 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
       <div className="relative z-10 flex flex-col items-center text-center space-y-4">
         {/* Icon */}
         <div 
-          className={`text-5xl transition-all duration-300 group-hover:scale-110 ${
-            needsDarkModeContrast ? 'drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]' : ''
-          }`}
+          className="text-5xl transition-all duration-300"
           style={{ 
             color: iconColor,
-            filter: needsDarkModeContrast ? 'drop-shadow(0 0 8px rgba(255,255,255,0.6))' : 'none'
+            filter: 'none'
           }}
         >
           {skill.icon}
@@ -298,9 +375,7 @@ const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'mi
       <div 
         className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none blur-xl"
         style={{
-          background: needsDarkModeContrast && isDark
-            ? 'radial-gradient(circle at center, rgba(255,255,255,0.4), transparent 70%)'
-            : `radial-gradient(circle at center, ${skill.color}, transparent 70%)`
+          background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)`
         }}
       />
     </div>
