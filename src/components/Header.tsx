@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "../contexts/ThemeContext";
 import { useThemeStyles } from "../hooks/useThemeStyles";
@@ -26,7 +26,10 @@ const Header: React.FC = React.memo(() => {
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const [reduceMotionScroll, setReduceMotionScroll] = useState(false);
+  const lastScrollY = useRef(0);
+
   const { ref: headerRef, announce } = useA11y({
     role: 'banner'
   });
@@ -48,8 +51,18 @@ const Header: React.FC = React.memo(() => {
   /** pt-BR / en-US etc. → código usado nos recursos (pt, en, es) */
   const resolvedLangCode = (i18n.resolvedLanguage || i18n.language || 'pt').split('-')[0];
 
-  // Scroll effect
   useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotionScroll(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // Scroll: barra de progresso + esconder ao descer / mostrar ao subir
+  useEffect(() => {
+    lastScrollY.current = window.scrollY;
+
     const handleScroll = () => {
       const offset = window.scrollY;
       setScrolled(offset > 50);
@@ -58,12 +71,34 @@ const Header: React.FC = React.memo(() => {
       const scrollableHeight = doc.scrollHeight - doc.clientHeight;
       const progress = scrollableHeight > 0 ? (offset / scrollableHeight) * 100 : 0;
       setScrollProgress(Math.min(100, Math.max(0, progress)));
+
+      const menusOpen = isMenuOpen || isLanguageMenuOpen;
+      if (reduceMotionScroll || menusOpen) {
+        setHeaderHidden(false);
+        lastScrollY.current = offset;
+        return;
+      }
+
+      const delta = offset - lastScrollY.current;
+      lastScrollY.current = offset;
+
+      const TOP_BUFFER = 40;
+      if (offset <= TOP_BUFFER) {
+        setHeaderHidden(false);
+        return;
+      }
+
+      if (delta > 12) {
+        setHeaderHidden(true);
+      } else if (delta < -12) {
+        setHeaderHidden(false);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMenuOpen, isLanguageMenuOpen, reduceMotionScroll]);
 
   const handleThemeToggle = useCallback(() => {
     toggleTheme();
@@ -126,9 +161,23 @@ const Header: React.FC = React.memo(() => {
         {t('accessibility.skipToContent')}
       </a>
 
+      {/* Barra de progresso do scroll: fora do header para permanecer visível quando o menu some */}
+      <div
+        className={`fixed top-0 left-0 right-0 z-[55] h-1 pointer-events-none ${
+          isDark ? "bg-gray-800/70" : "bg-gray-200/70"
+        }`}
+        aria-hidden="true"
+      >
+        <div
+          className="h-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transition-[width] duration-150 ease-out"
+          style={{ width: `${scrollProgress}%` }}
+        />
+      </div>
+
       <header
         ref={headerRef}
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-500 ease-out
+        className={`fixed top-0 left-0 right-0 z-40 transition-[transform,background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-out will-change-transform
+                   ${headerHidden ? "-translate-y-full pointer-events-none" : "translate-y-0"}
                    ${scrolled 
                      ? (isDark 
                         ? 'bg-black/90 backdrop-blur-xl shadow-2xl shadow-purple-500/10 border-b border-purple-500/20' 
@@ -137,18 +186,8 @@ const Header: React.FC = React.memo(() => {
                         ? 'bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80 backdrop-blur-md border-b border-transparent shadow-none'
                         : 'bg-gradient-to-r from-white/80 via-gray-50/80 to-white/80 backdrop-blur-md border-b border-transparent shadow-none')}`}
         role="banner"
+        inert={headerHidden ? true : undefined}
       >
-        {/* Scroll progress bar */}
-        <div className={`absolute top-0 left-0 right-0 h-1 ${
-          isDark ? 'bg-gray-800/70' : 'bg-gray-200/70'
-        }`}>
-          <div
-            className="h-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 transition-[width] duration-150 ease-out"
-            style={{ width: `${scrollProgress}%` }}
-            aria-hidden="true"
-          />
-        </div>
-        
         <nav
           className="container mx-auto px-4 sm:px-6 py-4"
           role="navigation"

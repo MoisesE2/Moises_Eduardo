@@ -19,6 +19,7 @@ import {
   ViewList,
 } from "./Icons";
 import { useInView } from "react-intersection-observer";
+import SiteAmbientDecor from "./SiteAmbientDecor";
 import {
   SiOpenapiinitiative,
   SiJson,
@@ -428,6 +429,7 @@ const SkillsSection: React.FC = React.memo(() => {
     >
       {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <SiteAmbientDecor isDark={isDark} pattern={1} density="section" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>

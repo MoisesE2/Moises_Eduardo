@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { GitHub, LinkedIn, Instagram, Download, Email } from "./Icons";
 import { useThemeStyles } from "../hooks/useThemeStyles";
+import SiteAmbientDecor from "./SiteAmbientDecor";
+
+/** Ficheiro em `public/assets/site/cv/` — a URL usa encodeURIComponent por causa do acento e do espaço. */
+const CV_FILENAME = "Moisés Eduardo.pdf";
+const CV_HREF = `/assets/site/cv/${encodeURIComponent(CV_FILENAME)}`;
+const CV_DOWNLOAD_FILENAME = "Moises-Eduardo-CV.pdf";
 
 const HeroSection: React.FC = () => {
   const { t } = useTranslation();
@@ -27,38 +33,11 @@ const HeroSection: React.FC = () => {
         ? 'bg-gradient-to-b from-gray-900 to-black' 
         : 'bg-gradient-to-b from-blue-50 to-white'
     }`}>
-      {/* Automatic Background Elements */}
+      {/* Fundo decorativo (anéis, pontos, traços) — mesmo padrão espalhado nas outras seções */}
       <div className="absolute inset-0 overflow-hidden">
-        {/* Geometric Patterns */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="absolute top-20 left-20 w-64 h-64 border border-purple-500/20 rounded-full animate-pulse" />
-          <div className="absolute top-40 right-32 w-32 h-32 border border-blue-500/20 rounded-full animate-pulse delay-700" />
-          <div className="absolute bottom-32 left-32 w-48 h-48 border border-purple-500/20 rounded-full animate-pulse delay-1000" />
-        </div>
-        
-        {/* Gradient Orbs */}
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
-        
-        {/* Automatic Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-blue-400 rounded-full animate-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 10}s`,
-              animationDuration: `${8 + Math.random() * 12}s`,
-            }}
-          />
-        ))}
-        
-        {/* Moving Gradient Lines */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          <div className="absolute top-1/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent animate-slide-right" />
-          <div className="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent animate-slide-left" />
-        </div>
+        <SiteAmbientDecor isDark={isDark} pattern={0} density="hero" />
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse pointer-events-none" />
+        <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000 pointer-events-none" />
       </div>
 
       {/* Mobile Version */}
@@ -144,8 +123,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-8 animate-fade-in-delay">
               <a
-                href="/assets/site/cv/moises-eduardo.pdf"
-                download="Moises-Eduardo-CV.pdf"
+                href={CV_HREF}
+                download={CV_DOWNLOAD_FILENAME}
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -233,8 +212,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-10 animate-fade-in-delay">
               <a
-                href="/assets/site/cv/moises-eduardo.pdf"
-                download="Moises-Eduardo-CV.pdf"
+                href={CV_HREF}
+                download={CV_DOWNLOAD_FILENAME}
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95 text-lg"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
