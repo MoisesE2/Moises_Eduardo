@@ -4,8 +4,12 @@ import {
   validatePortfolioItems
 } from '../types/portfolio';
 
-/** Projeto removido da vitrine; mantemos o filtro caso o `db.json` volte a incluí-lo. */
-const HIDDEN_PORTFOLIO_IDS = new Set(['1']);
+/**
+ * IDs ocultos da vitrine.
+ * - '1': projeto descontinuado.
+ * - '5': IPF Farol — aguardando deploy do termômetro; remover daqui quando o site estiver no ar.
+ */
+const HIDDEN_PORTFOLIO_IDS = new Set(['1', '5']);
 
 // Mantemos a classe ApiError exportada para preservar contratos do hook usePortfolio
 // e dos ErrorBoundaries, que diferenciam erros de API de erros genéricos.
