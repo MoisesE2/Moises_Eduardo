@@ -216,17 +216,16 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     </span>
                   )}
                 </div>
-                {project.liveUrl?.trim() && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-700/80 to-blue-700/80 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/30"
-                  >
-                    {t('portfolio.viewLive')}
-                  </a>
-                )}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal(project);
+                  }}
+                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-purple-700/80 to-blue-700/80 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:from-purple-700 hover:to-blue-700 hover:shadow-purple-500/30"
+                >
+                  {t('portfolio.viewLive')}
+                </button>
               </div>
             </div>
           ))}
@@ -337,7 +336,7 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                             rel="noopener noreferrer"
                             className="flex items-center justify-center gap-2 bg-gradient-to-r from-purple-700/80 to-blue-700/80 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg transition-all shadow-md hover:shadow-purple-500/30 text-sm sm:text-base"
                           >
-                            {t('portfolio.viewLive')}
+                            {t('portfolio.goToSite')}
                           </a>
                         )}
                       </div>
