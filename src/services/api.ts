@@ -1,102 +1,14 @@
 import portfolioStatic from '../api/db.json';
 import {
   PortfolioItem,
-  validatePortfolioItem,
   validatePortfolioItems
 } from '../types/portfolio';
 
-/** Projeto removido da vitrine; a API legada ainda pode enviar `id` 1. */
+/** Projeto removido da vitrine; mantemos o filtro caso o `db.json` volte a incluí-lo. */
 const HIDDEN_PORTFOLIO_IDS = new Set(['1']);
 
-/** Itens do `db.json` que não vieram na API (ex.: termômetro antes do deploy do backend). */
-function mergeExtrasFromStatic(apiItems: PortfolioItem[]): PortfolioItem[] {
-  const rows = (portfolioStatic as { items: unknown[] }).items;
-  const apiIds = new Set(apiItems.map((i) => String(i.id)));
-  const extras: PortfolioItem[] = [];
-  for (const row of rows) {
-    const id = String((row as { id?: unknown }).id ?? '');
-    if (!id || apiIds.has(id)) continue;
-    try {
-      extras.push(validatePortfolioItem(row));
-    } catch {
-      // ignora linhas inválidas no JSON estático
-    }
-  }
-  const merged = [...apiItems, ...extras];
-  merged.sort((a, b) => Number(a.id) - Number(b.id));
-  return merged;
-}
-
-function isGalleryUrls(value: unknown): value is string[] {
-  return (
-    Array.isArray(value) &&
-    value.length >= 2 &&
-    value.every((u) => typeof u === 'string' && u.length > 0)
-  );
-}
-
-/** Sobrepõe `imageUrls` do `db.json` quando a API ainda não envia a galeria (mesmo `id`). */
-function enrichGalleryFromStatic(items: PortfolioItem[]): PortfolioItem[] {
-  const rows = (portfolioStatic as { items: unknown[] }).items;
-  const galleryById = new Map<string, string[]>();
-  for (const row of rows) {
-    const r = row as { id?: unknown; imageUrls?: unknown };
-    const id = String(r.id ?? '');
-    if (!id || !isGalleryUrls(r.imageUrls)) continue;
-    galleryById.set(id, r.imageUrls);
-  }
-  return items.map((item) => {
-    const urls = galleryById.get(String(item.id));
-    if (!urls) return item;
-    return { ...item, imageUrls: urls };
-  });
-}
-
-function isHttpUrl(value: unknown): value is string {
-  if (typeof value !== 'string') return false;
-  const t = value.trim();
-  if (!t) return false;
-  try {
-    const u = new URL(t);
-    return u.protocol === 'http:' || u.protocol === 'https:';
-  } catch {
-    return false;
-  }
-}
-
-/** Preenche `liveUrl` a partir do `db.json` quando a API não envia (mesmo `id`). */
-function enrichLiveUrlFromStatic(items: PortfolioItem[]): PortfolioItem[] {
-  const rows = (portfolioStatic as { items: unknown[] }).items;
-  const liveById = new Map<string, string>();
-  for (const row of rows) {
-    const r = row as { id?: unknown; liveUrl?: unknown };
-    const id = String(r.id ?? '');
-    if (!id || !isHttpUrl(r.liveUrl)) continue;
-    liveById.set(id, (r.liveUrl as string).trim());
-  }
-  return items.map((item) => {
-    const fromStatic = liveById.get(String(item.id));
-    if (!fromStatic) return item;
-    const current = item.liveUrl?.trim();
-    if (current) return item;
-    return { ...item, liveUrl: fromStatic };
-  });
-}
-
-// Usar variável de ambiente ou fallback para URL padrão
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.gcodevs.com';
-
-// Configurações de retry
-const RETRY_CONFIG = {
-  maxRetries: 3,
-  retryDelay: 1000, // 1 segundo
-  backoffMultiplier: 2
-};
-
-// Função para delay
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
-// Classe para erros customizados da API
+// Mantemos a classe ApiError exportada para preservar contratos do hook usePortfolio
+// e dos ErrorBoundaries, que diferenciam erros de API de erros genéricos.
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -108,72 +20,31 @@ export class ApiError extends Error {
   }
 }
 
-// Função auxiliar para fazer requisições com retry
-async function fetchWithRetry(
-  url: string,
-  options: RequestInit = {},
-  retryCount = 0
-): Promise<Response> {
-  try {
-    const response = await fetch(url, {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
-    });
-
-  if (!response.ok) {
-      throw new ApiError(
-        `HTTP Error: ${response.status} - ${response.statusText}`,
-        response.status
-      );
-    }
-
-    return response;
-  } catch (error) {
-    if (retryCount < RETRY_CONFIG.maxRetries) {
-      const delayTime = RETRY_CONFIG.retryDelay * Math.pow(RETRY_CONFIG.backoffMultiplier, retryCount);
-      console.warn(`Tentativa ${retryCount + 1} falhou. Tentando novamente em ${delayTime}ms...`);
-      await delay(delayTime);
-      return fetchWithRetry(url, options, retryCount + 1);
-    }
-    
-    throw error instanceof ApiError 
-      ? error 
-      : new ApiError('Falha na requisição à API', undefined, error as Error);
-  }
-}
-
-// Função principal para buscar itens do portfólio
+/**
+ * Carrega os itens do portfólio diretamente do `db.json` empacotado no bundle.
+ * Sem chamadas de rede: evita CORS, indisponibilidade do backend e simplifica o deploy.
+ */
 export const fetchPortfolioItems = async (): Promise<PortfolioItem[]> => {
   try {
-    const response = await fetchWithRetry(`${API_BASE_URL}/items`);
-    const data = await response.json();
-    
-    // Validar os dados recebidos
-    const validatedItems = validatePortfolioItems(data);
-    const merged = enrichLiveUrlFromStatic(
-      enrichGalleryFromStatic(mergeExtrasFromStatic(validatedItems))
-    );
-    return merged.filter((item) => !HIDDEN_PORTFOLIO_IDS.has(String(item.id)));
+    const rawItems = (portfolioStatic as { items: unknown[] }).items;
+    const validatedItems = validatePortfolioItems(rawItems);
+    return validatedItems
+      .filter((item) => !HIDDEN_PORTFOLIO_IDS.has(String(item.id)))
+      .sort((a, b) => Number(a.id) - Number(b.id));
   } catch (error) {
-    console.error('Erro ao buscar itens do portfólio:', error);
-    
-    if (error instanceof ApiError) {
-      throw error;
-    }
-    
-    throw new ApiError('Falha ao carregar dados do portfólio', undefined, error as Error);
+    console.error('Erro ao carregar itens do portfólio:', error);
+    throw new ApiError(
+      'Falha ao carregar dados do portfólio',
+      undefined,
+      error as Error
+    );
   }
 };
 
-// Função para verificar se a API está disponível
+/**
+ * Mantido por compatibilidade. Como os dados são locais e empacotados no build,
+ * a "saúde" do serviço é sempre verdadeira.
+ */
 export const checkApiHealth = async (): Promise<boolean> => {
-  try {
-    const response = await fetchWithRetry(`${API_BASE_URL}/`, {}, 0);
-    return response.ok;
-  } catch {
-    return false;
-  }
+  return true;
 };

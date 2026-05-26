@@ -1,71 +1,80 @@
 import { fetchPortfolioItems, ApiError, checkApiHealth } from '../api';
 import { validatePortfolioItems } from '../../types/portfolio';
 
+const mockItems = [
+  {
+    id: '1',
+    title: 'Projeto Oculto',
+    imageUrl: '/img/hidden.png',
+    description: 'Este projeto deve ser filtrado pela HIDDEN_PORTFOLIO_IDS',
+    githubUrl: 'https://github.com/teste/hidden',
+    technologies: ['React'],
+    category: 'frontend',
+    featured: false
+  },
+  {
+    id: '2',
+    title: 'Projeto Visível',
+    imageUrl: '/img/visible.png',
+    description: 'Este projeto deve aparecer normalmente',
+    githubUrl: 'https://github.com/teste/visible',
+    technologies: ['React', 'TypeScript'],
+    category: 'frontend',
+    featured: true
+  }
+];
+
 jest.mock('../../api/db.json', () => ({
-  default: { items: [] }
+  items: [
+    {
+      id: 1,
+      title: 'Projeto Oculto',
+      imageUrl: '/img/hidden.png',
+      description: 'Este projeto deve ser filtrado pela HIDDEN_PORTFOLIO_IDS',
+      githubUrl: 'https://github.com/teste/hidden',
+      technologies: ['React'],
+      category: 'frontend',
+      featured: false
+    },
+    {
+      id: 2,
+      title: 'Projeto Visível',
+      imageUrl: '/img/visible.png',
+      description: 'Este projeto deve aparecer normalmente',
+      githubUrl: 'https://github.com/teste/visible',
+      technologies: ['React', 'TypeScript'],
+      category: 'frontend',
+      featured: true
+    }
+  ]
 }));
 
-// Mock da validação
 jest.mock('../../types/portfolio', () => ({
-  validatePortfolioItems: jest.fn(),
-  validatePortfolioItem: jest.requireActual('../../types/portfolio').validatePortfolioItem
+  validatePortfolioItems: jest.fn()
 }));
 
 const mockValidatePortfolioItems = jest.mocked(validatePortfolioItems);
 
-// Mock do fetch global
-global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
-
-describe('API Service', () => {
+describe('API Service (dados locais)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   describe('fetchPortfolioItems', () => {
-    it('deve buscar dados com sucesso', async () => {
-      const mockData = [{ id: '1', title: 'Test' }];
-      const mockResponse = {
-        ok: true,
-        json: jest.fn().mockResolvedValue(mockData)
-      };
-
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
-      mockValidatePortfolioItems.mockReturnValue(mockData);
+    it('deve retornar itens validados a partir do db.json local', async () => {
+      mockValidatePortfolioItems.mockReturnValue(mockItems);
 
       const result = await fetchPortfolioItems();
 
-      expect(global.fetch).toHaveBeenCalledWith(
-        'https://backend.gcodevs.com.br/items',
-        expect.objectContaining({
-          headers: { 'Content-Type': 'application/json' }
-        })
-      );
-      expect(mockValidatePortfolioItems).toHaveBeenCalledWith(mockData);
-      expect(result).toEqual(mockData);
+      expect(mockValidatePortfolioItems).toHaveBeenCalledTimes(1);
+      // O item com id "1" está em HIDDEN_PORTFOLIO_IDS e deve ser filtrado
+      expect(result).toHaveLength(1);
+      expect(result[0].id).toBe('2');
     });
 
-    it('deve lançar ApiError para resposta HTTP não ok', async () => {
-      const mockResponse = {
-        ok: false,
-        status: 404,
-        statusText: 'Not Found'
-      };
-
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
-
-      await expect(fetchPortfolioItems()).rejects.toThrow(ApiError);
-    });
-
-    it('deve lançar ApiError se validação falhar', async () => {
-      const mockData = [{ id: '1', title: 'Test' }];
-      const mockResponse = {
-        ok: true,
-        json: jest.fn().mockResolvedValue(mockData)
-      };
-
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
+    it('deve lançar ApiError quando a validação falhar', async () => {
       mockValidatePortfolioItems.mockImplementation(() => {
-        throw new Error('Validation error');
+        throw new Error('Formato inválido');
       });
 
       await expect(fetchPortfolioItems()).rejects.toThrow(ApiError);
@@ -73,36 +82,9 @@ describe('API Service', () => {
   });
 
   describe('checkApiHealth', () => {
-    it('deve retornar true se API estiver saudável', async () => {
-      const mockResponse = {
-        ok: true
-      };
-
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
-
+    it('deve sempre retornar true (dados locais)', async () => {
       const result = await checkApiHealth();
-
       expect(result).toBe(true);
     });
-
-    it('deve retornar false se API não estiver saudável', async () => {
-      const mockResponse = {
-        ok: false
-      };
-
-      (global.fetch as jest.Mock).mockResolvedValue(mockResponse);
-
-      const result = await checkApiHealth();
-
-      expect(result).toBe(false);
-    });
-
-    it('deve retornar false em caso de erro', async () => {
-      (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
-
-      const result = await checkApiHealth();
-
-      expect(result).toBe(false);
-    });
   });
-}); 
+});
