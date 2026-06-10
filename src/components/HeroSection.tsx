@@ -1,19 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { GitHub, LinkedIn, Instagram, Download, Email } from "./Icons";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 import SiteAmbientDecor from "./SiteAmbientDecor";
 
-/** Ficheiro em `public/assets/site/cv/` — a URL usa encodeURIComponent por causa do acento e do espaço. */
-const CV_FILENAME = "Moisés Eduardo.pdf";
-const CV_HREF = `/assets/site/cv/${encodeURIComponent(CV_FILENAME)}`;
-const CV_DOWNLOAD_FILENAME = "Moises-Eduardo-CV.pdf";
+/** PDFs em `public/assets/site/cv/` — encodeURIComponent por causa de acentos e espaços. */
+const CV_FILES = {
+  pt: {
+    filename: "Moisés Eduardo - Currículo (PT).pdf",
+    downloadAs: "Moises-Eduardo-Curriculo-PT.pdf",
+  },
+  en: {
+    filename: "Moisés Eduardo - Currículo (EN).pdf",
+    downloadAs: "Moises-Eduardo-Resume-EN.pdf",
+  },
+} as const;
+
+function getCvForLanguage(language: string) {
+  const lang = language.split("-")[0];
+  return lang === "en" ? CV_FILES.en : CV_FILES.pt;
+}
+
+function getCvHref(filename: string) {
+  return `/assets/site/cv/${encodeURIComponent(filename)}`;
+}
 
 const HeroSection: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isDark } = useThemeStyles();
   const [isVisible, setIsVisible] = useState(false);
   const [currentTitle, setCurrentTitle] = useState(0);
+
+  const cv = useMemo(() => getCvForLanguage(i18n.language), [i18n.language]);
+  const cvHref = getCvHref(cv.filename);
   
   const titles = t('hero.titles', { returnObjects: true }) as string[];
 
@@ -123,8 +142,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-8 animate-fade-in-delay">
               <a
-                href={CV_HREF}
-                download={CV_DOWNLOAD_FILENAME}
+                href={cvHref}
+                download={cv.downloadAs}
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -212,8 +231,8 @@ const HeroSection: React.FC = () => {
             {/* Download Button */}
             <div className="mt-10 animate-fade-in-delay">
               <a
-                href={CV_HREF}
-                download={CV_DOWNLOAD_FILENAME}
+                href={cvHref}
+                download={cv.downloadAs}
                 className="group relative inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl hover:shadow-purple-900/40 transition-all duration-300 active:scale-95 text-lg"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
