@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://moiseseduardo.dev/sitemap.xml
+Sitemap: https://moises.gcodevs.com/sitemap.xml
 
 # Disallow development files
 Disallow: /src/
