@@ -21,10 +21,18 @@ __tests__
 *.spec.ts
 
 # Arquivos de desenvolvimento
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
+.env.*
+!.env.example
+public/assets/site/cv/*.pdf
+
+# Documentação interna de infra (manter só docs/DEPLOY.md genérico)
+CONFIGURAR_*.md
+DEPLOY_*.md
+DOCKPLOY_*.md
+ENV_*.md
+FIX_*.md
+QUICK_*.md
 
 # Logs
 logs

@@ -29,7 +29,7 @@ Este é meu portfólio pessoal desenvolvido com as mais modernas tecnologias web
 
 ### ✨ Principais Funcionalidades
 
-- **Portfólio Interativo**: Apresentação de projetos com integração à API
+- **Portfólio Interativo**: Apresentação de projetos com dados estáticos validados
 - **Seção de Habilidades**: Visualização dinâmica de competências técnicas
 - **Tema Claro/Escuro**: Alternância entre temas com persistência
 - **Multilíngue**: Suporte a Português, Inglês e Espanhol
@@ -119,17 +119,19 @@ cd portfolio
 npm install
 ```
 
-3. **Configure as variáveis de ambiente**
+3. **Configure as variáveis de ambiente (opcional)**
 ```bash
-cp .env.example .env
+cp .env.example .env.local
 ```
 
-4. **Execute o projeto**
+4. **Adicione os PDFs de currículo localmente** em `public/assets/site/cv/` (não versionados).
+
+5. **Execute o projeto**
 ```bash
 npm run dev
 ```
 
-5. **Acesse o projeto**
+6. **Acesse o projeto**
 ```
 http://localhost:5173
 ```
@@ -183,8 +185,10 @@ src/
 │       └── es.json     # Espanhol
 ├── pages/              # Páginas da aplicação
 │   └── home/           # Página inicial
-├── services/           # Serviços e API
-│   ├── api.ts          # Cliente da API
+├── data/               # Dados estáticos do portfólio
+│   └── portfolio.json  # Projetos (empacotados no build)
+├── services/           # Camada de dados
+│   ├── api.ts          # Carregamento e validação do portfólio
 │   └── __tests__/      # Testes dos serviços
 ├── styles/             # Estilos globais
 │   └── index.css       # CSS principal
@@ -313,34 +317,14 @@ npm test -- --testNamePattern="Header"
 
 ## 🚀 Deploy
 
-### Vercel (Recomendado)
-```bash
-# Instalar Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel --prod
-```
-
-### Netlify
-```bash
-# Build
-npm run build
-
-# Deploy manual ou conectar ao Git
-```
-
-### GitHub Pages
-```bash
-# Usar GitHub Actions workflow
-# Ver .github/workflows/deploy.yml
-```
+Consulte [docs/DEPLOY.md](docs/DEPLOY.md) para instruções completas (Docker, variáveis de ambiente e checklist de segurança).
 
 ### Variáveis de Ambiente
+
+Use `.env.example` como template. Nunca commite arquivos `.env*` com valores reais.
+
 ```bash
-# Exemplo de .env
-VITE_API_URL=https://backend.gcodevs.com.br
-VITE_SITE_URL=https://moiseseduardo.dev
+cp .env.example .env.local
 ```
 
 ## 📊 Performance

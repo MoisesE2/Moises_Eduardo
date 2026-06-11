@@ -12,6 +12,23 @@ dist
 dist-ssr
 *.local
 
+# Variáveis de ambiente (nunca commitar)
+.env
+.env.*
+!.env.example
+
+# Segredos e credenciais
+*.pem
+*.key
+*.p12
+*.crt
+credentials.json
+secrets.json
+.secrets/
+
+# Currículos (PII) — manter apenas localmente
+public/assets/site/cv/*.pdf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +39,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Cobertura de testes
+coverage

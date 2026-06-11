@@ -24,7 +24,7 @@ const mockItems = [
   }
 ];
 
-jest.mock('../../api/db.json', () => ({
+jest.mock('../../data/portfolio.json', () => ({
   items: [
     {
       id: 1,
@@ -61,7 +61,7 @@ describe('API Service (dados locais)', () => {
   });
 
   describe('fetchPortfolioItems', () => {
-    it('deve retornar itens validados a partir do db.json local', async () => {
+    it('deve retornar itens validados a partir do portfolio.json local', async () => {
       mockValidatePortfolioItems.mockReturnValue(mockItems);
 
       const result = await fetchPortfolioItems();

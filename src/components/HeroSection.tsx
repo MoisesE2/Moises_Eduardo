@@ -4,14 +4,18 @@ import { GitHub, LinkedIn, Instagram, Download, Email } from "./Icons";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 import SiteAmbientDecor from "./SiteAmbientDecor";
 
-/** PDFs em `public/assets/site/cv/` — encodeURIComponent por causa de acentos e espaços. */
+/** PDFs em `public/assets/site/cv/` — não versionados; configure via .env.local */
 const CV_FILES = {
   pt: {
-    filename: "Moisés Eduardo - Currículo (PT).pdf",
+    filename:
+      import.meta.env.VITE_CV_PT_FILENAME ??
+      "Moisés Eduardo - Currículo (PT).pdf",
     downloadAs: "Moises-Eduardo-Curriculo-PT.pdf",
   },
   en: {
-    filename: "Moisés Eduardo - Currículo (EN).pdf",
+    filename:
+      import.meta.env.VITE_CV_EN_FILENAME ??
+      "Moisés Eduardo - Currículo (EN).pdf",
     downloadAs: "Moises-Eduardo-Resume-EN.pdf",
   },
 } as const;

@@ -1,4 +1,4 @@
-import portfolioStatic from '../api/db.json';
+import portfolioStatic from '../data/portfolio.json';
 import {
   PortfolioItem,
   validatePortfolioItems
@@ -25,7 +25,7 @@ export class ApiError extends Error {
 }
 
 /**
- * Carrega os itens do portfólio diretamente do `db.json` empacotado no bundle.
+ * Carrega os itens do portfólio a partir de `portfolio.json` empacotado no bundle.
  * Sem chamadas de rede: evita CORS, indisponibilidade do backend e simplifica o deploy.
  */
 export const fetchPortfolioItems = async (): Promise<PortfolioItem[]> => {
