@@ -85,8 +85,10 @@ const portfolioUrls = [
 const gcodevsUrls = [
   { loc: gcodevsUrl, lastmod: currentDate, changefreq: 'monthly', priority: '1.0' },
   { loc: `${gcodevsUrl}/#servicos`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' },
-  { loc: `${gcodevsUrl}/#como-funciona`, lastmod: currentDate, changefreq: 'monthly', priority: '0.8' },
+  { loc: `${gcodevsUrl}/#processo`, lastmod: currentDate, changefreq: 'monthly', priority: '0.8' },
   { loc: `${gcodevsUrl}/#clientes`, lastmod: currentDate, changefreq: 'weekly', priority: '0.8' },
+  { loc: `${gcodevsUrl}/#depoimentos`, lastmod: currentDate, changefreq: 'monthly', priority: '0.7' },
+  { loc: `${gcodevsUrl}/#investimento`, lastmod: currentDate, changefreq: 'monthly', priority: '0.8' },
   { loc: `${gcodevsUrl}/#faq`, lastmod: currentDate, changefreq: 'monthly', priority: '0.7' },
   { loc: `${gcodevsUrl}/#orcamento`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' }
 ];

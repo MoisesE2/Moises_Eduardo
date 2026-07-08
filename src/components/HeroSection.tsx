@@ -201,11 +201,16 @@ const HeroSection: React.FC = () => {
               <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full animate-pulse" />
             </div>
             
-            <p className={`text-xl 2xl:text-2xl leading-relaxed max-w-2xl animate-fade-in-delay ${
+            <div className={`space-y-4 max-w-2xl animate-fade-in-delay ${
               isDark ? 'text-gray-300' : 'text-gray-600'
             }`}>
-              {t('hero.description')}
-            </p>
+              <p className="text-base lg:text-lg xl:text-xl leading-relaxed">
+                {t('hero.description')}
+              </p>
+              <p className="text-base lg:text-lg xl:text-xl leading-relaxed">
+                {t('hero.descriptionContinued')}
+              </p>
+            </div>
             
             {/* Social Links */}
             <div className="flex gap-6 mt-12">

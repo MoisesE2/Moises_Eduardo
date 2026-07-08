@@ -16,8 +16,9 @@
       "DEV BACKEND"
     ],
     "available": "Disponible para trabajar",
-    "description": "Desarrollador Full Stack con experiencia en productos SaaS EdTech y proyectos freelance. Me motiva aprender con el equipo, intercambiar ideas y mejorar con cada entrega.",
-    "mobileDescription": "Desarrollador Full Stack con experiencia en productos SaaS EdTech y proyectos freelance. ¡Listo para el próximo desafío!",
+    "description": "Me llamo Moisés Eduardo. Soy cearense, actualmente vivo en Maceió, Alagoas, y soy tecnólogo en Desarrollo Full Stack. Mi especialidad principal es React, pero también he desarrollado aplicaciones y portafolios con Angular y Next.js.",
+    "descriptionContinued": "Tengo un año de experiencia profesional desarrollando un SaaS educacional (EdTech). En ese rol, mi rutina incluía crear páginas de informes, dashboards, formularios y cuestionarios, además de integrar herramientas de Inteligencia Artificial para entregar resultados dinámicos y eficientes al cliente final.",
+    "mobileDescription": "Cearense, viviendo en Maceió/AL. Tecnólogo en Desarrollo Full Stack, con React como stack principal y experiencia en Angular y Next.js. Un año en SaaS EdTech: informes, dashboards, formularios e integración de IA.",
     "downloadCV": "Descargar CV",
     "greetingMobile": "HOLA, SOY"
   },

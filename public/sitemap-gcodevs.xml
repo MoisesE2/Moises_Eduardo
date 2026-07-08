@@ -3,37 +3,49 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://gcodevs.com</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://gcodevs.com/#servicos</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://gcodevs.com/#como-funciona</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <loc>https://gcodevs.com/#processo</loc>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://gcodevs.com/#clientes</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://gcodevs.com/#depoimentos</loc>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://gcodevs.com/#investimento</loc>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://gcodevs.com/#faq</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://gcodevs.com/#orcamento</loc>
-    <lastmod>2026-07-08T16:49:20.712Z</lastmod>
+    <lastmod>2026-07-08T17:22:25.146Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

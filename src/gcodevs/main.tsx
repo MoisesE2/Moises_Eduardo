@@ -1,14 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '../styles/index.css'
-import i18n from '../i18n/config'
-import { ThemeProvider } from '../contexts/ThemeContext'
+import './gcodevs.css'
 import GcodevsApp from './GcodevsApp'
 
-// ponytail: site comercial é PT-only; força pt para os componentes compartilhados
-// que usam i18n (ProjectsTypesSection, previews). Se um dia precisar de EN, basta
-// remover esta linha e adicionar um seletor de idioma no header.
-i18n.changeLanguage('pt')
+// O site comercial é sempre claro; garante que o tema escuro do portfólio
+// (persistido em localStorage) não vaze para cá via classe no <html>.
+document.documentElement.classList.remove('dark')
+document.documentElement.classList.add('light')
 
 // Easter egg também para clientes curiosos
 console.log(
@@ -19,8 +18,6 @@ console.log('%cConheça o desenvolvedor: https://moises.gcodevs.com', 'color:#3b
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <GcodevsApp />
-    </ThemeProvider>
+    <GcodevsApp />
   </React.StrictMode>,
 )
