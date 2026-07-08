@@ -51,7 +51,7 @@ const HeroSection: React.FC = () => {
   }, [titles.length]);
 
   return (
-    <section id="sobre" className={`min-h-[100dvh] w-full relative overflow-hidden pt-20 md:pt-24 ${
+    <section id="inicio" className={`min-h-[100dvh] w-full relative overflow-hidden pt-20 md:pt-24 ${
       isDark 
         ? 'bg-gradient-to-b from-gray-900 to-black' 
         : 'bg-gradient-to-b from-blue-50 to-white'

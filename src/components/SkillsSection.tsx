@@ -1,430 +1,146 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useThemeStyles } from "../hooks/useThemeStyles";
-import {
-  ReactIcon,
-  NodeJS,
-  Java,
-  CSS3,
-  Python,
-  GitHubAlt,
-  TypeScript,
-  TailwindCSS,
-  JavaScript,
-  Figma,
-  NextJS,
-  Docker,
-  Adjustments,
-  ViewGrid,
-  ViewList,
-} from "./Icons";
 import { useInView } from "react-intersection-observer";
 import SiteAmbientDecor from "./SiteAmbientDecor";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import {
-  SiOpenapiinitiative,
-  SiJson,
-  SiFirebase,
-  SiTurborepo,
+  FaReact,
+  FaNodeJs,
+  FaPython,
+  FaGithub,
+} from "react-icons/fa";
+import {
+  SiTypescript,
+  SiJavascript,
+  SiTailwindcss,
+  SiNextdotjs,
+  SiShadcnui,
+  SiFramer,
+  SiZod,
+  SiExpo,
+  SiFlask,
+  SiExpress,
+  SiFastify,
   SiPrisma,
   SiPostgresql,
+  SiMysql,
+  SiSqlite,
   SiRedis,
-  SiZod,
+  SiOpencv,
+  SiOpenapiinitiative,
+  SiGithubactions,
+  SiDocker,
+  SiTurborepo,
+  SiVite,
+  SiJest,
+  SiEslint,
+  SiPostman,
+  SiFigma,
 } from "react-icons/si";
 
 interface Skill {
-  icon: React.ReactElement;
   label: string;
-  percent: number;
-  category: string;
-  descriptionKey: string;
-  color: string;
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  icon?: React.ReactElement;
+  color?: string;
 }
 
-const PokeBallIcon: React.FC = () => (
-  <svg viewBox="0 0 64 64" width="1em" height="1em" aria-hidden="true">
-    <defs>
-      <clipPath id="pokeball-top">
-        <rect x="0" y="0" width="64" height="32" />
-      </clipPath>
-    </defs>
-    <circle cx="32" cy="32" r="30" fill="#ffffff" />
-    <circle cx="32" cy="32" r="30" fill="#ef4444" clipPath="url(#pokeball-top)" />
-    <line x1="2" y1="32" x2="62" y2="32" stroke="#111827" strokeWidth="6" />
-    <circle cx="32" cy="32" r="10" fill="#ffffff" stroke="#111827" strokeWidth="5" />
-    <circle cx="32" cy="32" r="4" fill="#d1d5db" />
-    <circle cx="32" cy="32" r="30" fill="none" stroke="#111827" strokeWidth="4" />
-  </svg>
-);
+interface SkillGroup {
+  key: "frontend" | "backend" | "devops";
+  skills: Skill[];
+}
 
-const skillsData: Skill[] = [
-  { 
-    icon: <ReactIcon />, 
-    label: "React", 
-    percent: 90,
-    category: "frontend",
-    descriptionKey: "react",
-    color: "#61DAFB",
-    level: "expert"
-  },
-  { 
-    icon: <TypeScript />, 
-    label: "TypeScript", 
-    percent: 85,
-    category: "frontend",
-    descriptionKey: "typescript",
-    color: "#3178C6",
-    level: "expert"
-  },
-  { 
-    icon: <JavaScript />, 
-    label: "JavaScript", 
-    percent: 88,
-    category: "frontend",
-    descriptionKey: "javascript",
-    color: "#F7DF1E",
-    level: "expert"
-  },
-  { 
-    icon: <TailwindCSS />, 
-    label: "Tailwind CSS", 
-    percent: 92,
-    category: "frontend",
-    descriptionKey: "tailwind",
-    color: "#06B6D4",
-    level: "expert"
-  },
-  { 
-    icon: <CSS3 />, 
-    label: "CSS3", 
-    percent: 95,
-    category: "frontend",
-    descriptionKey: "css",
-    color: "#1572B6",
-    level: "expert"
-  },
-  { 
-    icon: <NextJS />,
-    label: "Next.js",
-    percent: 75,
-    category: "framework",
-    descriptionKey: "nextjs",
-    color: "#FFFFFF",
-    level: "advanced"
-  },
-  { 
-    icon: <NodeJS />, 
-    label: "Node.js", 
-    percent: 70,
-    category: "backend",
-    descriptionKey: "nodejs",
-    color: "#339933",
-    level: "advanced"
-  },
-  { 
-    icon: <Python />, 
-    label: "Python", 
-    percent: 65,
-    category: "backend",
-    descriptionKey: "python",
-    color: "#3776AB",
-    level: "advanced"
-  },
-  { 
-    icon: <Java />, 
-    label: "Java", 
-    percent: 60,
-    category: "backend",
-    descriptionKey: "java",
-    color: "#ED8B00",
-    level: "intermediate"
-  },
-  { 
-    icon: <Figma />, 
-    label: "Figma", 
-    percent: 80,
-    category: "design",
-    descriptionKey: "figma",
-    color: "#F24E1E",
-    level: "advanced"
-  },
-  { 
-    icon: <GitHubAlt />, 
-    label: "Git & GitHub", 
-    percent: 95,
-    category: "tools",
-    descriptionKey: "git",
-    color: "#FFFFFF",
-    level: "expert"
+/**
+ * Grupos e ordem espelham o currículo (seção "Habilidades Técnicas").
+ * As primeiras COLLAPSED_COUNT skills de cada grupo aparecem na visão compacta.
+ */
+const SKILL_GROUPS: SkillGroup[] = [
+  {
+    key: "frontend",
+    skills: [
+      { label: "React 19", icon: <FaReact />, color: "#61DAFB" },
+      { label: "Next.js 15/16", icon: <SiNextdotjs /> },
+      { label: "TypeScript", icon: <SiTypescript />, color: "#3178C6" },
+      { label: "Tailwind CSS 4", icon: <SiTailwindcss />, color: "#06B6D4" },
+      { label: "React Native / Expo", icon: <SiExpo /> },
+      { label: "JavaScript", icon: <SiJavascript />, color: "#F7DF1E" },
+      { label: "ShadCN / Radix UI", icon: <SiShadcnui /> },
+      { label: "Framer Motion", icon: <SiFramer />, color: "#E64CD9" },
+      { label: "Zod", icon: <SiZod />, color: "#3B82F6" },
+      { label: "Zustand" },
+    ],
   },
   {
-    icon: <Docker />,
-    label: "Docker",
-    percent: 45,
-    category: "tools",
-    descriptionKey: "docker",
-    color: "#2496ED",
-    level: "intermediate"
+    key: "backend",
+    skills: [
+      { label: "Node.js", icon: <FaNodeJs />, color: "#339933" },
+      { label: "Python", icon: <FaPython />, color: "#3776AB" },
+      { label: "PostgreSQL", icon: <SiPostgresql />, color: "#2563EB" },
+      { label: "Prisma", icon: <SiPrisma />, color: "#0EA5E9" },
+      { label: "REST APIs", icon: <SiOpenapiinitiative />, color: "#4F46E5" },
+      { label: "Express", icon: <SiExpress /> },
+      { label: "Fastify", icon: <SiFastify /> },
+      { label: "Flask", icon: <SiFlask /> },
+      { label: "Redis", icon: <SiRedis />, color: "#DC2626" },
+      { label: "MySQL", icon: <SiMysql />, color: "#00758F" },
+      { label: "SQLite", icon: <SiSqlite />, color: "#003B57" },
+      { label: "OpenCV", icon: <SiOpencv />, color: "#5C3EE8" },
+    ],
   },
   {
-    icon: <SiOpenapiinitiative />,
-    label: "API/REST",
-    percent: 78,
-    category: "backend",
-    descriptionKey: "api",
-    color: "#4F46E5",
-    level: "advanced"
+    key: "devops",
+    skills: [
+      { label: "Git & GitHub", icon: <FaGithub /> },
+      { label: "GitHub Actions", icon: <SiGithubactions />, color: "#2088FF" },
+      { label: "Docker", icon: <SiDocker />, color: "#2496ED" },
+      { label: "Playwright" },
+      { label: "Vite", icon: <SiVite />, color: "#646CFF" },
+      { label: "Turborepo", icon: <SiTurborepo />, color: "#EF4444" },
+      { label: "Jest", icon: <SiJest />, color: "#C21325" },
+      { label: "ESLint", icon: <SiEslint />, color: "#4B32C3" },
+      { label: "Postman", icon: <SiPostman />, color: "#FF6C37" },
+      { label: "Figma", icon: <SiFigma />, color: "#F24E1E" },
+      { label: "Dokploy" },
+    ],
   },
-  {
-    icon: <SiJson />,
-    label: "JSON Server",
-    percent: 72,
-    category: "backend",
-    descriptionKey: "jsonServer",
-    color: "#F97316",
-    level: "advanced"
-  },
-  {
-    icon: <SiFirebase />,
-    label: "Firebase",
-    percent: 70,
-    category: "backend",
-    descriptionKey: "firebase",
-    color: "#FFCA28",
-    level: "advanced"
-  },
-  {
-    icon: <SiTurborepo />,
-    label: "Turborepo",
-    percent: 67,
-    category: "tools",
-    descriptionKey: "turborepo",
-    color: "#EF4444",
-    level: "advanced"
-  },
-  {
-    icon: <SiPrisma />,
-    label: "Prisma",
-    percent: 71,
-    category: "backend",
-    descriptionKey: "prisma",
-    color: "#0EA5E9",
-    level: "advanced"
-  },
-  {
-    icon: <SiPostgresql />,
-    label: "PostgreSQL",
-    percent: 69,
-    category: "backend",
-    descriptionKey: "postgresql",
-    color: "#2563EB",
-    level: "advanced"
-  },
-  {
-    icon: <SiRedis />,
-    label: "Redis",
-    percent: 66,
-    category: "backend",
-    descriptionKey: "redis",
-    color: "#DC2626",
-    level: "intermediate"
-  },
-  {
-    icon: <SiZod />,
-    label: "Zod",
-    percent: 76,
-    category: "tools",
-    descriptionKey: "zod",
-    color: "#3B82F6",
-    level: "advanced"
-  },
-  {
-    icon: <PokeBallIcon />,
-    label: "PokéAPI",
-    percent: 64,
-    category: "tools",
-    descriptionKey: "pokeapi",
-    color: "#EF4444",
-    level: "intermediate"
-  }
 ];
 
-const SkillCard: React.FC<{ skill: Skill; index: number; viewMode: 'cards' | 'minimal' }> = React.memo(({ 
-  skill, 
-  index, 
-  viewMode 
-}) => {
-  const { t } = useTranslation();
-  const { isDark } = useThemeStyles();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.3,
-  });
+/** Quantas skills por grupo na visão compacta */
+const COLLAPSED_COUNT = 5;
 
-  const iconColor = skill.color;
-
-  if (viewMode === 'minimal') {
-    return (
-      <div 
-        ref={ref}
-        className={`group relative backdrop-blur-sm 
-                   border rounded-2xl p-6 transition-all duration-300 ease-out
-                   hover:border-purple-500/40 hover:shadow-2xl
-                   hover:-translate-y-2 ${
-          isDark 
-            ? 'bg-gradient-to-br from-gray-900/50 to-gray-800/30 border-gray-700/30 hover:shadow-purple-500/10'
-            : 'bg-gradient-to-br from-white/80 to-gray-50/50 border-gray-200/50 hover:shadow-purple-500/20'
-        } ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        style={{
-          transitionDelay: `${index * 50}ms`,
-        }}
+const SkillChip: React.FC<{ skill: Skill; isDark: boolean }> = ({ skill, isDark }) => (
+  <span
+    className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-medium border transition-all duration-300 hover:border-purple-500/50 hover:-translate-y-0.5 ${
+      isDark
+        ? "bg-gray-800/60 border-gray-700/50 text-gray-200"
+        : "bg-white/80 border-gray-200 text-gray-700 shadow-sm"
+    }`}
+  >
+    {skill.icon && (
+      <span
+        className="text-base"
+        style={{ color: skill.color ?? (isDark ? "#e5e7eb" : "#374151") }}
+        aria-hidden="true"
       >
-        <div className="flex items-center gap-3 mb-4">
-          <div 
-            className="p-3 rounded-xl text-2xl transition-all duration-300"
-            style={{ 
-              background: `linear-gradient(135deg, ${skill.color}15, ${skill.color}25)`,
-              color: iconColor,
-              boxShadow: 'none'
-            }}
-          >
-            {skill.icon}
-          </div>
-          <div className="flex-1">
-            <h3 className={`text-lg font-semibold group-hover:text-purple-300 transition-colors ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              {skill.label}
-            </h3>
-            <div className={`text-xs uppercase tracking-wider mt-1 ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>{t(`skills.categories.${skill.category}`)}</div>
-          </div>
-        </div>
-        
-        <p className={`text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-          isDark ? 'text-gray-300' : 'text-gray-700'
-        }`}>
-          {t(`skills.descriptions.${skill.descriptionKey}`)}
-        </p>
-        
-        {/* Glow effect */}
-        <div 
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none"
-          style={{
-            background: `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`
-          }}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div 
-      ref={ref}
-      className={`group relative backdrop-blur-md 
-                 border rounded-3xl p-6 transition-all duration-300 ease-out
-                 hover:border-purple-500/50 hover:shadow-xl
-                 hover:-translate-y-1 ${
-        isDark 
-          ? 'bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50 hover:shadow-purple-500/20'
-          : 'bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60 hover:shadow-purple-500/30'
-      } ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-      style={{
-        transitionDelay: `${index * 30}ms`,
-        boxShadow: undefined
-      }}
-    >
-      {/* Background Pattern */}
-      <div className="absolute inset-0 rounded-3xl opacity-5 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-blue-500 rounded-3xl" />
-      </div>
-      
-      <div className="relative z-10 flex flex-col items-center text-center space-y-4">
-        {/* Icon */}
-        <div 
-          className="text-5xl transition-all duration-300"
-          style={{ 
-            color: iconColor,
-            filter: 'none'
-          }}
-        >
-          {skill.icon}
-        </div>
-        
-        {/* Skill Info */}
-        <div className="space-y-2">
-          <h3 className={`text-xl font-bold group-hover:text-purple-300 transition-colors duration-300 ${
-            isDark ? 'text-white' : 'text-gray-900'
-          }`}>
-            {skill.label}
-          </h3>
-          <div className="flex items-center justify-center">
-            <span className={`text-sm ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>{t(`skills.categories.${skill.category}`)}</span>
-          </div>
-          <p className={`text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-all duration-500 max-w-xs ${
-            isDark ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            {t(`skills.descriptions.${skill.descriptionKey}`)}
-          </p>
-        </div>
-      </div>
-      
-      {/* Hover Glow */}
-      <div 
-        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none blur-xl"
-        style={{
-          background: `radial-gradient(circle at center, ${skill.color}, transparent 70%)`
-        }}
-      />
-    </div>
-  );
-});
+        {skill.icon}
+      </span>
+    )}
+    {skill.label}
+  </span>
+);
 
 const SkillsSection: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { isDark } = useThemeStyles();
-  const [filter, setFilter] = useState<string>('all');
-  const [viewMode, setViewMode] = useState<'cards' | 'minimal'>('cards');
-  const [isVisible, setIsVisible] = useState(false);
-
-  const [sectionRef, sectionInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  useEffect(() => {
-    if (sectionInView) {
-      setIsVisible(true);
-    }
-  }, [sectionInView]);
-
-  // Simplificado: skillsData é estático, então categories também é
-  const categories = ['all', ...Array.from(new Set(skillsData.map(skill => skill.category)))];
-  
-  const filteredSkills = useMemo(() => 
-    skillsData.filter(skill => filter === 'all' || skill.category === filter),
-    [filter]
-  );
-
-  const handleFilterChange = useCallback((newFilter: string) => {
-    setFilter(newFilter);
-  }, []);
-
-  const handleViewModeToggle = useCallback(() => {
-    setViewMode(prev => prev === 'cards' ? 'minimal' : 'cards');
-  }, []);
+  const [expanded, setExpanded] = useState(false);
+  const [sectionRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <section 
+    <section
       ref={sectionRef}
-      id="habilidades" 
+      id="habilidades"
       className={`relative py-16 px-4 sm:px-6 overflow-hidden ${
-        isDark 
-          ? 'bg-gradient-to-b from-black to-gray-900' 
-          : 'bg-gradient-to-b from-gray-50 to-white'
+        isDark ? "bg-gradient-to-b from-black to-gray-900" : "bg-gradient-to-b from-gray-50 to-white"
       }`}
     >
       {/* Background Effects */}
@@ -433,106 +149,89 @@ const SkillsSection: React.FC = React.memo(() => {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto">
+
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
+        <div
+          className={`text-center mb-10 transition-all duration-1000 ${
+            inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent">
-            {t('skills.title')}
+            {t("skills.title")}
           </h2>
-          <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${
-            isDark ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            {t('skills.subtitle')}
+          <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+            {t("skills.subtitle")}
           </p>
         </div>
-        
-        {/* Controls */}
-        <div className={`flex flex-wrap justify-center gap-4 mb-10 transition-all duration-1000 delay-200 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`}>
-          {/* Filter */}
-          <div className={`flex items-center backdrop-blur-sm border rounded-2xl p-2 ${
-            isDark 
-              ? 'bg-gray-900/80 border-gray-700/50' 
-              : 'bg-white/80 border-gray-200/50'
-          }`}>
-            <Adjustments className="text-purple-400 mr-3 text-lg" />
-            <div className="flex flex-wrap gap-2">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => handleFilterChange(category)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                    filter === category
-                      ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30'
-                      : (isDark 
-                          ? 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white'
-                          : 'bg-gray-100/80 text-gray-700 hover:bg-gray-200/80 hover:text-gray-900')
-                  }`}
-                >
-                  {t(`skills.categories.${category}`)}
-                </button>
-              ))}
-            </div>
-          </div>
-          
-          {/* View Mode */}
+
+        {/* Grupos compactos */}
+        <div className="space-y-6">
+          {SKILL_GROUPS.map((group, index) => {
+            const visible = expanded ? group.skills : group.skills.slice(0, COLLAPSED_COUNT);
+            const hiddenCount = group.skills.length - visible.length;
+
+            return (
+              <div
+                key={group.key}
+                className={`backdrop-blur-md border rounded-3xl p-6 transition-all duration-700 ${
+                  isDark
+                    ? "bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50"
+                    : "bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60"
+                } ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+                style={{ transitionDelay: `${150 + index * 150}ms` }}
+              >
+                <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                  {t(`skills.groups.${group.key}`)}
+                </h3>
+                <div className="flex flex-wrap gap-2.5">
+                  {visible.map((skill) => (
+                    <SkillChip key={skill.label} skill={skill} isDark={isDark} />
+                  ))}
+                  {hiddenCount > 0 && (
+                    <button
+                      onClick={() => setExpanded(true)}
+                      className={`inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium border border-dashed transition-colors ${
+                        isDark
+                          ? "border-purple-500/40 text-purple-300 hover:bg-purple-600/10"
+                          : "border-purple-400/50 text-purple-600 hover:bg-purple-50"
+                      }`}
+                      aria-label={t("skills.showAll")}
+                    >
+                      {t("skills.moreCount", { count: hiddenCount })}
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Expansão opcional */}
+        <div className="text-center mt-8">
           <button
-            onClick={handleViewModeToggle}
-            className={`flex items-center backdrop-blur-sm border rounded-2xl p-3 text-purple-400 hover:text-purple-300 transition-colors duration-300 ${
-              isDark 
-                ? 'bg-gray-900/80 border-gray-700/50' 
-                : 'bg-white/80 border-gray-200/50'
-            }`}
+            onClick={() => setExpanded((prev) => !prev)}
+            aria-expanded={expanded}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
           >
-            {viewMode === 'cards' ? <ViewList className="text-lg" /> : <ViewGrid className="text-lg" />}
-            <span className={`ml-2 text-sm font-medium ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              {viewMode === 'cards' ? t('skills.viewMode.list') : t('skills.viewMode.cards')}
-            </span>
+            {expanded ? (
+              <>
+                <ChevronUpIcon className="w-5 h-5" />
+                {t("skills.showLess")}
+              </>
+            ) : (
+              <>
+                <ChevronDownIcon className="w-5 h-5" />
+                {t("skills.showAll")}
+              </>
+            )}
           </button>
         </div>
-
-        {/* Skills Grid */}
-        <div className={`grid gap-4 ${
-          viewMode === 'cards' 
-            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
-            : 'grid-cols-1 lg:grid-cols-2'
-        }`}>
-          {filteredSkills.map((skill, index) => (
-            <SkillCard 
-              key={skill.label} 
-              skill={skill} 
-              index={index} 
-              viewMode={viewMode}
-            />
-          ))}
-        </div>
-
-        {/* Empty State */}
-        {filteredSkills.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className={`text-2xl font-semibold mb-2 ${
-              isDark ? 'text-gray-300' : 'text-gray-700'
-            }`}>
-              {t('skills.noResults')}
-            </h3>
-            <p className={isDark ? 'text-gray-500' : 'text-gray-600'}>
-              {t('skills.noResultsDescription')}
-            </p>
-          </div>
-        )}
       </div>
     </section>
   );
 });
 
-SkillCard.displayName = 'SkillCard';
-SkillsSection.displayName = 'SkillsSection';
+SkillsSection.displayName = "SkillsSection";
 
 export default SkillsSection;

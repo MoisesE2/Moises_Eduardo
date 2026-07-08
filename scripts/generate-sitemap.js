@@ -5,57 +5,93 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const siteUrl = 'https://moises.gcodevs.com';
+// Dois sites no mesmo projeto:
+//  - Portfólio (recrutadores): moises.gcodevs.com -> sitemap.xml / robots.txt
+//  - Gco Devs (clientes):      gcodevs.com        -> sitemap-gcodevs.xml / robots-gcodevs.txt
+//    (o nginx serve estes últimos como /sitemap.xml e /robots.txt no domínio gcodevs.com)
+const portfolioUrl = 'https://moises.gcodevs.com';
+const gcodevsUrl = 'https://gcodevs.com';
 const currentDate = new Date().toISOString();
 
-const urls = [
+const portfolioUrls = [
   {
-    loc: siteUrl,
+    loc: portfolioUrl,
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: '1.0',
     alternates: [
-      { hreflang: 'pt-BR', href: `${siteUrl}` },
-      { hreflang: 'en', href: `${siteUrl}?lang=en` },
-      { hreflang: 'es', href: `${siteUrl}?lang=es` }
+      { hreflang: 'pt-BR', href: `${portfolioUrl}` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es` }
     ]
   },
   {
-    loc: `${siteUrl}/#habilidades`,
+    loc: `${portfolioUrl}/#habilidades`,
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: '0.8',
     alternates: [
-      { hreflang: 'pt-BR', href: `${siteUrl}/#habilidades` },
-      { hreflang: 'en', href: `${siteUrl}?lang=en#habilidades` },
-      { hreflang: 'es', href: `${siteUrl}?lang=es#habilidades` }
+      { hreflang: 'pt-BR', href: `${portfolioUrl}/#habilidades` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en#habilidades` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es#habilidades` }
     ]
   },
   {
-    loc: `${siteUrl}/#portfolio`,
+    loc: `${portfolioUrl}/#experiencia`,
     lastmod: currentDate,
-    changefreq: 'weekly',
+    changefreq: 'monthly',
     priority: '0.9',
     alternates: [
-      { hreflang: 'pt-BR', href: `${siteUrl}/#portfolio` },
-      { hreflang: 'en', href: `${siteUrl}?lang=en#portfolio` },
-      { hreflang: 'es', href: `${siteUrl}?lang=es#portfolio` }
+      { hreflang: 'pt-BR', href: `${portfolioUrl}/#experiencia` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en#experiencia` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es#experiencia` }
     ]
   },
   {
-    loc: `${siteUrl}/#contato`,
+    loc: `${portfolioUrl}/#formacao`,
     lastmod: currentDate,
     changefreq: 'monthly',
     priority: '0.7',
     alternates: [
-      { hreflang: 'pt-BR', href: `${siteUrl}/#contato` },
-      { hreflang: 'en', href: `${siteUrl}?lang=en#contato` },
-      { hreflang: 'es', href: `${siteUrl}?lang=es#contato` }
+      { hreflang: 'pt-BR', href: `${portfolioUrl}/#formacao` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en#formacao` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es#formacao` }
+    ]
+  },
+  {
+    loc: `${portfolioUrl}/#portfolio`,
+    lastmod: currentDate,
+    changefreq: 'weekly',
+    priority: '0.9',
+    alternates: [
+      { hreflang: 'pt-BR', href: `${portfolioUrl}/#portfolio` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en#portfolio` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es#portfolio` }
+    ]
+  },
+  {
+    loc: `${portfolioUrl}/#contato`,
+    lastmod: currentDate,
+    changefreq: 'monthly',
+    priority: '0.7',
+    alternates: [
+      { hreflang: 'pt-BR', href: `${portfolioUrl}/#contato` },
+      { hreflang: 'en', href: `${portfolioUrl}?lang=en#contato` },
+      { hreflang: 'es', href: `${portfolioUrl}?lang=es#contato` }
     ]
   }
 ];
 
-function generateSitemap() {
+const gcodevsUrls = [
+  { loc: gcodevsUrl, lastmod: currentDate, changefreq: 'monthly', priority: '1.0' },
+  { loc: `${gcodevsUrl}/#servicos`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' },
+  { loc: `${gcodevsUrl}/#como-funciona`, lastmod: currentDate, changefreq: 'monthly', priority: '0.8' },
+  { loc: `${gcodevsUrl}/#clientes`, lastmod: currentDate, changefreq: 'weekly', priority: '0.8' },
+  { loc: `${gcodevsUrl}/#faq`, lastmod: currentDate, changefreq: 'monthly', priority: '0.7' },
+  { loc: `${gcodevsUrl}/#orcamento`, lastmod: currentDate, changefreq: 'monthly', priority: '0.9' }
+];
+
+function generateSitemap(urls) {
   let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -68,14 +104,14 @@ function generateSitemap() {
     <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>
 `;
-    
+
     if (url.alternates) {
       url.alternates.forEach(alternate => {
         sitemap += `    <xhtml:link rel="alternate" hreflang="${alternate.hreflang}" href="${alternate.href}" />
 `;
       });
     }
-    
+
     sitemap += `  </url>
 `;
   });
@@ -85,7 +121,7 @@ function generateSitemap() {
   return sitemap;
 }
 
-function generateRobotsTxt() {
+function generateRobotsTxt(siteUrl) {
   return `User-agent: *
 Allow: /
 
@@ -105,34 +141,35 @@ Disallow: /README.md
 `;
 }
 
-// Gerar sitemap
-const sitemapContent = generateSitemap();
 const publicDir = path.join(__dirname, '..', 'public');
 
-// Criar diretório public se não existir
 if (!fs.existsSync(publicDir)) {
   fs.mkdirSync(publicDir, { recursive: true });
 }
 
-// Escrever sitemap.xml
-fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapContent);
-console.log('✅ Sitemap gerado com sucesso em public/sitemap.xml');
+// --- Portfólio (moises.gcodevs.com) ---
+fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), generateSitemap(portfolioUrls));
+console.log('✅ Sitemap do portfólio gerado em public/sitemap.xml');
 
-// Gerar robots.txt
-const robotsContent = generateRobotsTxt();
-fs.writeFileSync(path.join(publicDir, 'robots.txt'), robotsContent);
-console.log('✅ Robots.txt gerado com sucesso em public/robots.txt');
+fs.writeFileSync(path.join(publicDir, 'robots.txt'), generateRobotsTxt(portfolioUrl));
+console.log('✅ Robots.txt do portfólio gerado em public/robots.txt');
 
-// Gerar sitemap index se necessário
 const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>${siteUrl}/sitemap.xml</loc>
+    <loc>${portfolioUrl}/sitemap.xml</loc>
     <lastmod>${currentDate}</lastmod>
   </sitemap>
 </sitemapindex>`;
 
 fs.writeFileSync(path.join(publicDir, 'sitemap-index.xml'), sitemapIndex);
-console.log('✅ Sitemap index gerado com sucesso em public/sitemap-index.xml');
+console.log('✅ Sitemap index gerado em public/sitemap-index.xml');
 
-export { generateSitemap, generateRobotsTxt }; 
+// --- Gco Devs (gcodevs.com) ---
+fs.writeFileSync(path.join(publicDir, 'sitemap-gcodevs.xml'), generateSitemap(gcodevsUrls));
+console.log('✅ Sitemap da Gco Devs gerado em public/sitemap-gcodevs.xml');
+
+fs.writeFileSync(path.join(publicDir, 'robots-gcodevs.txt'), generateRobotsTxt(gcodevsUrl));
+console.log('✅ Robots.txt da Gco Devs gerado em public/robots-gcodevs.txt');
+
+export { generateSitemap, generateRobotsTxt };

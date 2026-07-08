@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Meta tags básicas -->
-    <title>Moisés Eduardo - Desenvolvedor Full Stack</title>
-    <meta name="description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
-    <meta name="keywords" content="desenvolvedor, full stack, react, typescript, javascript, web, frontend, backend, portfólio, moises eduardo" />
+    <title>Moisés Eduardo | Desenvolvedor Full Stack React & Node</title>
+    <meta name="description" content="Desenvolvedor Full Stack com experiência em React, TypeScript, Node.js e produtos SaaS. Veja minha experiência profissional, formação e projetos, e baixe meu currículo." />
+    <meta name="keywords" content="desenvolvedor, full stack, react, typescript, javascript, node.js, web, frontend, backend, portfólio, currículo, moises eduardo, gco devs" />
     <meta name="author" content="Moisés Eduardo" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Moisés Eduardo - Desenvolvedor Full Stack" />
-    <meta property="og:description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
+    <meta property="og:title" content="Moisés Eduardo | Desenvolvedor Full Stack React & Node" />
+    <meta property="og:description" content="Desenvolvedor Full Stack com experiência em React, TypeScript, Node.js e produtos SaaS. Veja minha experiência profissional, formação e projetos." />
     <meta property="og:url" content="https://moises.gcodevs.com" />
     <meta property="og:image" content="https://moises.gcodevs.com/assets/site/images/moises-semfundo.png" />
     <meta property="og:image:alt" content="Moisés Eduardo - Desenvolvedor Full Stack" />
@@ -22,8 +22,8 @@
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Moisés Eduardo - Desenvolvedor Full Stack" />
-    <meta property="twitter:description" content="Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas. Veja meu portfólio e entre em contato para projetos incríveis." />
+    <meta property="twitter:title" content="Moisés Eduardo | Desenvolvedor Full Stack React & Node" />
+    <meta property="twitter:description" content="Desenvolvedor Full Stack com experiência em React, TypeScript, Node.js e produtos SaaS. Veja minha experiência profissional, formação e projetos." />
     <meta property="twitter:image" content="https://moises.gcodevs.com/assets/site/images/moises-semfundo.png" />
     <meta property="twitter:image:alt" content="Moisés Eduardo - Desenvolvedor Full Stack" />
     
@@ -50,43 +50,83 @@
     <link rel="alternate" hreflang="en" href="https://moises.gcodevs.com?lang=en" />
     <link rel="alternate" hreflang="es" href="https://moises.gcodevs.com?lang=es" />
     
-    <!-- Estruturação de dados JSON-LD -->
+    <!-- Estruturação de dados JSON-LD: Person (cross-link com a organização Gco Devs) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "Moisés Eduardo",
+      "@id": "https://moises.gcodevs.com/#person",
+      "name": "Moisés Eduardo Gomes da Costa",
+      "alternateName": "Moisés Eduardo",
       "jobTitle": "Desenvolvedor Full Stack",
-      "description": "Desenvolvedor Full Stack especializado em React, TypeScript e soluções web modernas",
+      "description": "Desenvolvedor Full Stack com experiência em React, TypeScript, Node.js e produtos SaaS EdTech",
       "url": "https://moises.gcodevs.com",
       "image": "https://moises.gcodevs.com/assets/site/images/moises-semfundo.png",
+      "email": "moises.eduardogc@gmail.com",
       "sameAs": [
         "https://github.com/MoisesE2",
-        "https://www.linkedin.com/in/moises-e2/"
+        "https://www.linkedin.com/in/moises-e2/",
+        "https://www.instagram.com/moises_e1/",
+        "https://gcodevs.com"
       ],
       "knowsAbout": [
         "React",
-        "TypeScript", 
+        "Next.js",
+        "TypeScript",
         "JavaScript",
+        "Tailwind CSS",
+        "React Native",
+        "Expo",
         "Node.js",
         "Python",
-        "CSS",
-        "HTML",
-        "Git",
+        "Flask",
+        "Express",
+        "Fastify",
+        "Prisma",
+        "PostgreSQL",
+        "Redis",
         "Docker",
+        "GitHub Actions",
+        "Playwright",
         "Desenvolvimento Web",
         "Frontend",
         "Backend",
         "Full Stack"
       ],
+      "knowsLanguage": [
+        { "@type": "Language", "name": "Português" },
+        { "@type": "Language", "name": "Inglês" }
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidade Estácio de Sá"
+        }
+      ],
       "worksFor": {
         "@type": "Organization",
-        "name": "Freelancer"
+        "@id": "https://gcodevs.com/#organization",
+        "name": "Gco Devs",
+        "url": "https://gcodevs.com"
       },
       "address": {
         "@type": "PostalAddress",
+        "addressLocality": "Maceió",
+        "addressRegion": "AL",
         "addressCountry": "BR"
       }
+    }
+    </script>
+
+    <!-- JSON-LD: WebSite -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Moisés Eduardo - Portfólio",
+      "url": "https://moises.gcodevs.com",
+      "author": { "@id": "https://moises.gcodevs.com/#person" },
+      "inLanguage": ["pt-BR", "en", "es"]
     }
     </script>
     

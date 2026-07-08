@@ -3,7 +3,8 @@ import { ComponentLoadingFallback } from './LazyImage';
 
 // Lazy components para carregamento sob demanda
 const LazySkillsSection = lazy(() => import('./SkillsSection'));
-const LazyProjectsTypesSection = lazy(() => import('./ProjectsTypesSection'));
+const LazyExperienceSection = lazy(() => import('./ExperienceSection'));
+const LazyEducationSection = lazy(() => import('./EducationSection'));
 const LazyPortfolioSection = lazy(() => import('./PortfolioSection'));
 const LazyContactSection = lazy(() => import('./ContactSection'));
 
@@ -21,16 +22,29 @@ export const SkillsSectionLazy: React.FC = () => (
   </Suspense>
 );
 
-export const ProjectsTypesSectionLazy: React.FC = () => (
+export const ExperienceSectionLazy: React.FC = () => (
   <Suspense 
     fallback={
       <ComponentLoadingFallback 
-        message="Carregando tipos de projetos..." 
+        message="Carregando experiência..." 
         height="h-96"
       />
     }
   >
-    <LazyProjectsTypesSection />
+    <LazyExperienceSection />
+  </Suspense>
+);
+
+export const EducationSectionLazy: React.FC = () => (
+  <Suspense 
+    fallback={
+      <ComponentLoadingFallback 
+        message="Carregando formação..." 
+        height="h-96"
+      />
+    }
+  >
+    <LazyEducationSection />
   </Suspense>
 );
 
@@ -63,13 +77,15 @@ export const ContactSectionLazy: React.FC = () => (
 // Hook para precarregar componentes quando necessário
 export const usePreloadComponents = () => {
   const preloadSkills = () => import('./SkillsSection');
-  const preloadProjectsTypes = () => import('./ProjectsTypesSection');
+  const preloadExperience = () => import('./ExperienceSection');
+  const preloadEducation = () => import('./EducationSection');
   const preloadPortfolio = () => import('./PortfolioSection');
   const preloadContact = () => import('./ContactSection');
 
   return {
     preloadSkills,
-    preloadProjectsTypes,
+    preloadExperience,
+    preloadEducation,
     preloadPortfolio,
     preloadContact,
   };
@@ -100,4 +116,4 @@ export class LazyErrorBoundary extends React.Component<
 
     return this.props.children;
   }
-} 
+}

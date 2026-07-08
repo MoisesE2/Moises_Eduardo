@@ -1,422 +1,161 @@
-# 🚀 Moisés Eduardo - Portfólio Full Stack
+# 🚀 Moisés Eduardo — Portfólio + Gco Devs
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)
 ![React](https://img.shields.io/badge/React-19.0.0-61DAFB.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6.svg)
 ![Vite](https://img.shields.io/badge/Vite-6.0-646CFF.svg)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-## 📋 Índice
-
-- [Sobre o Projeto](#sobre-o-projeto)
-- [Características](#características)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Instalação](#instalação)
-- [Scripts Disponíveis](#scripts-disponíveis)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Acessibilidade](#acessibilidade)
-- [Internacionalização](#internacionalização)
-- [SEO](#seo)
-- [Testes](#testes)
-- [Deploy](#deploy)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-
 ## 🎯 Sobre o Projeto
 
-Este é meu portfólio pessoal desenvolvido com as mais modernas tecnologias web, demonstrando expertise em desenvolvimento Full Stack. O projeto apresenta uma interface elegante, totalmente responsiva e acessível, com foco em performance e experiência do usuário.
+Um único projeto Vite que gera **dois sites** com públicos distintos, servidos pelo mesmo container:
+
+| Site | Domínio | Público | Entrada |
+|------|---------|---------|---------|
+| **Portfólio** | [moises.gcodevs.com](https://moises.gcodevs.com) | Recrutadores | `index.html` → `src/main.tsx` |
+| **Gco Devs** | [gcodevs.com](https://gcodevs.com) | Clientes | `gcodevs.html` → `src/gcodevs/main.tsx` |
+
+O **portfólio** foca em informações técnicas: habilidades (resumo compacto e expansível), experiência profissional, formação acadêmica e projetos — tudo alinhado ao currículo.
+
+O **site da Gco Devs** é a vitrine comercial: tipos de projetos com previews interativos, processo de trabalho, diferenciais, casos de clientes, FAQ e orçamento via WhatsApp.
+
+Os dois compartilham componentes, tema claro/escuro e estilos.
 
 ### ✨ Principais Funcionalidades
 
-- **Portfólio Interativo**: Apresentação de projetos com dados estáticos validados
-- **Seção de Habilidades**: Visualização dinâmica de competências técnicas
-- **Tema Claro/Escuro**: Alternância entre temas com persistência
-- **Multilíngue**: Suporte a Português, Inglês e Espanhol
-- **Totalmente Acessível**: Navegação por teclado e leitores de tela
-- **SEO Otimizado**: Meta tags dinâmicas e structured data
-- **Performance**: Lazy loading e otimizações avançadas
+**Portfólio (moises.gcodevs.com)**
+- Seções de Experiência (timeline com dados do CV) e Formação
+- Habilidades em resumo compacto por grupo, com expansão opcional
+- Contadores animados e easter egg no console do DevTools
+- Download de CV (PT/EN), multilíngue (PT/EN/ES), tema claro/escuro
+- SEO com JSON-LD `Person` cross-linkado com a organização Gco Devs
 
-## 🌟 Características
-
-### 🎨 Design Moderno
-- Interface elegante com gradientes e glassmorphism
-- Animações suaves e responsivas
-- Componentes com estados de hover e foco
-- Design system consistente
-
-### ♿ Acessibilidade Avançada
-- ARIA labels e roles adequados
-- Navegação por teclado completa
-- Suporte a leitores de tela
-- Contraste otimizado
-- Skip links implementados
-
-### 🌍 Internacionalização
-- Suporte a 3 idiomas (PT, EN, ES)
-- Detecção automática de idioma
-- Persistência de preferências
-- URLs localizadas
-
-### 🔍 SEO Otimizado
-- Meta tags dinâmicas
-- Structured data (JSON-LD)
-- Sitemap automático
-- Open Graph e Twitter Cards
-
-### 📱 Responsividade
-- Mobile-first approach
-- Breakpoints otimizados
-- Touch-friendly interface
-- PWA-ready
+**Gco Devs (gcodevs.com)**
+- Hero comercial com CTA de orçamento via WhatsApp
+- Serviços com previews interativos (Link-in-Bio, Landing Page, E-commerce)
+- Como funciona (4 passos), diferenciais e casos reais de clientes
+- FAQ com schema `FAQPage` (rich results no Google)
+- Formulário de orçamento → WhatsApp e botão flutuante de WhatsApp
+- SEO com JSON-LD `ProfessionalService` apontando o fundador para o portfólio
 
 ## 🛠️ Tecnologias Utilizadas
 
-### Frontend
-- **React 19** - Biblioteca JavaScript para UI
-- **TypeScript** - Tipagem estática
-- **Vite** - Build tool ultrarrápido
-- **TailwindCSS 4.0** - Framework CSS utilitário
-- **React Router** - Roteamento SPA
-
-### Internacionalização
-- **React-i18next** - Sistema de traduções
-- **i18next-browser-languagedetector** - Detecção automática de idioma
-
-### Acessibilidade
-- **Hooks customizados** - useA11y, useKeyboardNavigation
-- **Heroicons** - Ícones acessíveis
-- **ARIA** - Atributos de acessibilidade
-
-### Qualidade de Código
-- **Jest** - Framework de testes
-- **React Testing Library** - Testes de componentes
-- **ESLint** - Linting
-- **Prettier** - Formatação de código
-
-### Performance
-- **Lazy Loading** - Carregamento otimizado
-- **React.memo** - Otimização de re-renders
-- **useMemo/useCallback** - Otimização de performance
-- **Intersection Observer** - Animações otimizadas
+- **React 19** + **TypeScript 5.7** + **Vite 6** (modo multi-página)
+- **TailwindCSS 4** com tema claro/escuro via CSS variables
+- **React Router 7** (portfólio), **react-i18next** (PT/EN/ES)
+- **Zod** para validação dos dados de projetos
+- **Jest** + **React Testing Library**, **ESLint**
+- **Docker** + **nginx** com roteamento por domínio (Dockploy)
 
 ## 📦 Instalação
 
 ### Pré-requisitos
-- Node.js 18+
-- npm ou yarn
+- Node.js 20+
 
 ### Passos
 
-1. **Clone o repositório**
 ```bash
-git clone https://github.com/moiseseduardo/portfolio.git
-cd portfolio
-```
-
-2. **Instale as dependências**
-```bash
+git clone https://github.com/MoisesE2/Moises_Eduardo.git
+cd Moises_Eduardo
 npm install
+cp .env.example .env.local   # opcional
 ```
 
-3. **Configure as variáveis de ambiente (opcional)**
-```bash
-cp .env.example .env.local
-```
+Adicione os PDFs de currículo localmente em `public/assets/site/cv/` (não versionados).
 
-4. **Adicione os PDFs de currículo localmente** em `public/assets/site/cv/` (não versionados).
-
-5. **Execute o projeto**
 ```bash
 npm run dev
 ```
 
-6. **Acesse o projeto**
-```
-http://localhost:5173
-```
+- Portfólio: `http://localhost:5173/`
+- Gco Devs: `http://localhost:5173/gcodevs.html`
 
 ## 🧪 Scripts Disponíveis
 
-### Desenvolvimento
 ```bash
-npm run dev          # Inicia o servidor de desenvolvimento
-npm run build        # Cria build de produção
-npm run preview      # Visualiza o build de produção
-```
+npm run dev              # Servidor de desenvolvimento (as duas entradas)
+npm run build            # Build de produção (dist/index.html + dist/gcodevs.html)
+npm run build:production # Build com config de produção
+npm run preview          # Visualiza o build (portfólio em / e Gco Devs em /gcodevs.html)
 
-### Qualidade
-```bash
-npm run test         # Executa todos os testes
-npm run test:watch   # Executa testes em modo watch
-npm run test:coverage # Gera relatório de cobertura
-npm run lint         # Verifica problemas de linting
-npm run lint:fix     # Corrige problemas de linting
-```
+npm run test             # Testes
+npm run test:coverage    # Cobertura
+npm run lint             # Lint com fix
+npm run type-check       # tsc --noEmit
 
-### Utilidades
-```bash
-npm run sitemap      # Gera sitemap e robots.txt
-npm run i18n:extract # Extrai strings para tradução
-npm run build:analyze # Analisa o bundle
+npm run sitemap          # Gera sitemaps e robots.txt dos DOIS domínios
 ```
 
 ## 📁 Estrutura do Projeto
 
 ```
-src/
-├── components/          # Componentes reutilizáveis
-│   ├── Header.tsx       # Cabeçalho com navegação
-│   ├── SkillsSection.tsx # Seção de habilidades
-│   ├── PortfolioSection.tsx # Seção de projetos
-│   ├── LazyImage.tsx    # Componente de imagem otimizada
-│   └── ErrorBoundary.tsx # Tratamento de erros
-├── contexts/            # Contextos React
-│   └── ThemeContext.tsx # Context para temas
-├── hooks/               # Hooks customizados
-│   ├── useA11y.ts       # Hook de acessibilidade
-│   ├── usePortfolio.ts  # Hook para dados do portfólio
-│   └── __tests__/       # Testes dos hooks
-├── i18n/               # Internacionalização
-│   ├── config.ts       # Configuração do i18n
-│   └── locales/        # Arquivos de tradução
-│       ├── pt.json     # Português
-│       ├── en.json     # Inglês
-│       └── es.json     # Espanhol
-├── pages/              # Páginas da aplicação
-│   └── home/           # Página inicial
-├── data/               # Dados estáticos do portfólio
-│   └── portfolio.json  # Projetos (empacotados no build)
-├── services/           # Camada de dados
-│   ├── api.ts          # Carregamento e validação do portfólio
-│   └── __tests__/      # Testes dos serviços
-├── styles/             # Estilos globais
-│   └── index.css       # CSS principal
-├── types/              # Tipos TypeScript
-│   └── portfolio.ts    # Tipos e schemas
-├── utils/              # Utilitários
-│   └── imageUtils.ts   # Utilitários de imagem
-├── App.tsx             # Componente principal
-└── main.tsx           # Ponto de entrada
+├── index.html               # Entrada do portfólio (meta tags + JSON-LD Person)
+├── gcodevs.html             # Entrada da Gco Devs (meta tags + JSON-LD Organization/FAQ)
+├── nginx.conf               # Dois server blocks: roteamento por domínio
+└── src/
+    ├── main.tsx             # Bootstrap do portfólio (+ easter egg no console)
+    ├── App.tsx              # Rotas do portfólio
+    ├── gcodevs/
+    │   ├── main.tsx         # Bootstrap do site Gco Devs (PT-only)
+    │   └── GcodevsApp.tsx   # Página comercial completa
+    ├── components/
+    │   ├── HeroSection.tsx        # Hero do portfólio (CV, disponibilidade)
+    │   ├── SkillsSection.tsx      # Habilidades compactas por grupo (expansível)
+    │   ├── ExperienceSection.tsx  # Timeline de experiência + contadores
+    │   ├── EducationSection.tsx   # Formação, idiomas e competências
+    │   ├── PortfolioSection.tsx   # Grid de projetos
+    │   ├── ContactSection.tsx     # Contato (tom recrutador) + link Gco Devs
+    │   ├── ProjectsTypesSection.tsx # Serviços (usado só no site Gco Devs)
+    │   └── ...previews, header, lazy loading
+    ├── data/portfolio.json  # Projetos estáticos (validados com Zod)
+    ├── i18n/locales/        # pt.json, en.json, es.json
+    └── styles/index.css     # Tokens de tema + Tailwind
 ```
-
-## ♿ Acessibilidade
-
-### Funcionalidades Implementadas
-
-- **Navegação por Teclado**: Suporte completo para navegação sem mouse
-- **Leitores de Tela**: ARIA labels e roles apropriados
-- **Skip Links**: Links para pular ao conteúdo principal
-- **Contraste**: Cores otimizadas para visibilidade
-- **Foco Visível**: Indicadores claros de foco
-- **Reduced Motion**: Respeita preferências de animação
-
-### Hooks de Acessibilidade
-
-```typescript
-// Hook principal de acessibilidade
-const { ref, announce, focusElement } = useA11y({
-  announceOnMount: "Página carregada",
-  trapFocus: true,
-  autoFocus: true,
-  role: "main"
-});
-
-// Hook para navegação por teclado
-useKeyboardNavigation();
-
-// Hook para skip links
-const { skipToContent } = useSkipLinks();
-```
-
-## 🌍 Internacionalização
-
-### Idiomas Suportados
-- 🇧🇷 Português (pt-BR) - Idioma padrão
-- 🇺🇸 Inglês (en)
-- 🇪🇸 Espanhol (es)
-
-### Uso
-```typescript
-import { useTranslation } from 'react-i18next';
-
-function Component() {
-  const { t, i18n } = useTranslation();
-  
-  return (
-    <div>
-      <h1>{t('hero.title')}</h1>
-      <button onClick={() => i18n.changeLanguage('en')}>
-        Change Language
-      </button>
-    </div>
-  );
-}
-```
-
-### Detecção Automática
-O sistema detecta automaticamente o idioma do usuário baseado em:
-1. Preferência salva no localStorage
-2. Configuração do navegador
-3. Idioma padrão (pt-BR)
 
 ## 🔍 SEO
 
-### Meta Tags Dinâmicas
-- Title e description otimizados
-- Open Graph para redes sociais
-- Twitter Cards
-- Canonical URLs
+- **Cross-link Person ↔ Organization**: o JSON-LD do portfólio declara `worksFor` → Gco Devs, e o da Gco Devs declara `founder` → Moisés Eduardo. Isso ajuda o Google a entender a autoria dos dois sites.
+- **FAQPage** no gcodevs.com para rich results (mantenha o JSON-LD do `gcodevs.html` em sincronia com a seção FAQ visível).
+- **Sitemaps e robots por domínio**: `npm run sitemap` gera `sitemap.xml`/`robots.txt` (portfólio) e `sitemap-gcodevs.xml`/`robots-gcodevs.txt` (Gco Devs). O nginx serve os arquivos corretos conforme o domínio.
+- Open Graph, Twitter Cards, canonical e hreflang em cada entrada.
 
-### Structured Data
-Implementação completa de JSON-LD para:
-- Informações pessoais
-- Habilidades técnicas
-- Projetos e trabalhos
-- Informações de contato
-
-### Sitemap Automático
-Geração automática de:
-- `sitemap.xml`
-- `robots.txt`
-- `sitemap-index.xml`
-
-Execute para gerar:
-```bash
-npm run sitemap
-```
-
-## 🧪 Testes
-
-### Estrutura de Testes
-- **Testes Unitários**: Hooks e utilitários
-- **Testes de Componentes**: Rendering e interação
-- **Testes de Integração**: Fluxos completos
-- **Testes de Acessibilidade**: A11y compliance
-
-### Executar Testes
-```bash
-# Todos os testes
-npm test
-
-# Modo watch
-npm run test:watch
-
-# Cobertura
-npm run test:coverage
-
-# Testes específicos
-npm test -- --testNamePattern="Header"
-```
-
-### Cobertura Atual
-- **Statements**: 85%+
-- **Branches**: 80%+
-- **Functions**: 90%+
-- **Lines**: 85%+
+Após o deploy, cadastre os dois domínios no [Google Search Console](https://search.google.com/search-console) e envie os sitemaps.
 
 ## 🚀 Deploy
 
-Consulte [docs/DEPLOY.md](docs/DEPLOY.md) para instruções completas (Docker, variáveis de ambiente e checklist de segurança).
+Consulte [docs/DEPLOY.md](docs/DEPLOY.md) para instruções completas.
 
-### Variáveis de Ambiente
+O mesmo container atende os dois sites; o `nginx.conf` decide qual HTML servir pelo header `Host`:
 
-Use `.env.example` como template. Nunca commite arquivos `.env*` com valores reais.
+- `moises.gcodevs.com` (e qualquer host desconhecido) → `index.html`
+- `gcodevs.com` / `www.gcodevs.com` → `gcodevs.html`
+
+**No Dockploy**: aponte os domínios `moises.gcodevs.com`, `gcodevs.com` e `www.gcodevs.com` para o mesmo serviço/container. O SSL é gerenciado pelo proxy reverso do Dockploy.
+
+## 🧪 Testes
 
 ```bash
-cp .env.example .env.local
+npm test                 # Todos os testes
+npm run test:watch       # Modo watch
+npm run test:coverage    # Cobertura
 ```
-
-## 📊 Performance
-
-### Métricas Lighthouse
-- **Performance**: 95+
-- **Accessibility**: 100
-- **Best Practices**: 100
-- **SEO**: 100
-
-### Otimizações Implementadas
-- Code splitting
-- Lazy loading de imagens
-- Preload de recursos críticos
-- Compressão de assets
-- Cache otimizado
-
-## 🔧 Configuração Avançada
-
-### Tailwind CSS
-```javascript
-// tailwind.config.js
-module.exports = {
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class',
-  theme: {
-    extend: {
-      // Customizações
-    }
-  }
-}
-```
-
-### Vite Config
-```javascript
-// vite.config.ts
-export default defineConfig({
-  plugins: [react()],
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          i18n: ['react-i18next', 'i18next']
-        }
-      }
-    }
-  }
-})
-```
-
-## 🤝 Contribuição
-
-### Como Contribuir
-
-1. **Fork o projeto**
-2. **Crie uma branch para sua feature** (`git checkout -b feature/AmazingFeature`)
-3. **Commit suas mudanças** (`git commit -m 'Add some AmazingFeature'`)
-4. **Push para a branch** (`git push origin feature/AmazingFeature`)
-5. **Abra um Pull Request**
-
-### Padrões de Código
-- Use TypeScript
-- Siga as regras do ESLint
-- Mantenha cobertura de testes
-- Adicione documentação
-
-### Roadmap
-- [ ] PWA completo
-- [ ] Modo offline
-- [ ] Animações 3D
-- [ ] Blog integrado
-- [ ] Sistema de comentários
 
 ## 📝 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença MIT.
 
 ## 📞 Contato
 
 **Moisés Eduardo**
-- 🌐 Website: [moiseseduardo.dev](https://moiseseduardo.dev)
-- 📧 Email: contato@moiseseduardo.dev
-- 💼 LinkedIn: [linkedin.com/in/moiseseduardo](https://linkedin.com/in/moiseseduardo)
-- 🐙 GitHub: [github.com/moiseseduardo](https://github.com/moiseseduardo)
+- 🌐 Portfólio: [moises.gcodevs.com](https://moises.gcodevs.com)
+- 💼 Freelance: [gcodevs.com](https://gcodevs.com)
+- 📧 Email: [moises.eduardogc@gmail.com](mailto:moises.eduardogc@gmail.com)
+- 💼 LinkedIn: [linkedin.com/in/moises-e2](https://www.linkedin.com/in/moises-e2/)
+- 🐙 GitHub: [github.com/MoisesE2](https://github.com/MoisesE2)
 
 ---
 
 <p align="center">
   Feito com ❤️ e muito ☕ por Moisés Eduardo
-</p>
-
-<p align="center">
-  <a href="#topo">Voltar ao topo</a>
 </p>

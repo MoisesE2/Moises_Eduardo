@@ -12,6 +12,7 @@ import {
   HomeIcon,
   CpuChipIcon,
   BriefcaseIcon,
+  AcademicCapIcon,
   ChatBubbleLeftRightIcon,
   CodeBracketIcon,
   RectangleStackIcon
@@ -37,8 +38,9 @@ const Header: React.FC = React.memo(() => {
   const navItems = [
     { href: "#inicio", label: t('nav.home'), icon: HomeIcon },
     { href: "#habilidades", label: t('nav.skills'), icon: CpuChipIcon },
-    { href: "#tipos-projetos", label: t('nav.projectsTypes'), icon: RectangleStackIcon },
-    { href: "#portfolio", label: t('nav.portfolio'), icon: BriefcaseIcon },
+    { href: "#experiencia", label: t('nav.experience'), icon: BriefcaseIcon },
+    { href: "#formacao", label: t('nav.education'), icon: AcademicCapIcon },
+    { href: "#portfolio", label: t('nav.portfolio'), icon: RectangleStackIcon },
     { href: "#contato", label: t('nav.contact'), icon: ChatBubbleLeftRightIcon },
   ];
 

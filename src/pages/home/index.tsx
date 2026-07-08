@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import HeroSection from '../../components/HeroSection';
 import { 
   SkillsSectionLazy, 
-  ProjectsTypesSectionLazy,
+  ExperienceSectionLazy,
+  EducationSectionLazy,
   PortfolioSectionLazy, 
   ContactSectionLazy,
   usePreloadComponents,
@@ -12,7 +13,7 @@ import {
 import { ComponentLoadingFallback } from '../../components/LazyImage';
 
 const HomeIndex: React.FC = () => {
-  const { preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact } = usePreloadComponents();
+  const { preloadSkills, preloadExperience, preloadEducation, preloadPortfolio, preloadContact } = usePreloadComponents();
 
   useEffect(() => {
     // Precarrega componentes após um delay para não afetar o carregamento inicial
@@ -21,7 +22,8 @@ const HomeIndex: React.FC = () => {
       preloadSkills();
       
       setTimeout(() => {
-        preloadProjectsTypes();
+        preloadExperience();
+        preloadEducation();
       }, 500);
       
       setTimeout(() => {
@@ -34,13 +36,14 @@ const HomeIndex: React.FC = () => {
     }, 2000); // Aguarda 2s após carregamento inicial
 
     return () => clearTimeout(preloadTimer);
-  }, [preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact]);
+  }, [preloadSkills, preloadExperience, preloadEducation, preloadPortfolio, preloadContact]);
 
   // Precarrega componentes quando o usuário interage com a página
   useEffect(() => {
     const handleUserInteraction = () => {
       preloadSkills();
-      preloadProjectsTypes();
+      preloadExperience();
+      preloadEducation();
       preloadPortfolio();
       preloadContact();
     };
@@ -56,7 +59,7 @@ const HomeIndex: React.FC = () => {
         document.removeEventListener(event, handleUserInteraction);
       });
     };
-  }, [preloadSkills, preloadProjectsTypes, preloadPortfolio, preloadContact]);
+  }, [preloadSkills, preloadExperience, preloadEducation, preloadPortfolio, preloadContact]);
 
   return (
     <div className="min-h-screen">
@@ -78,12 +81,23 @@ const HomeIndex: React.FC = () => {
       <LazyErrorBoundary 
         fallback={
           <ComponentLoadingFallback 
-            message="Erro ao carregar tipos de projetos. Recarregue a página." 
+            message="Erro ao carregar experiência. Recarregue a página." 
             height="h-64"
           />
         }
       >
-        <ProjectsTypesSectionLazy />
+        <ExperienceSectionLazy />
+      </LazyErrorBoundary>
+      
+      <LazyErrorBoundary 
+        fallback={
+          <ComponentLoadingFallback 
+            message="Erro ao carregar formação. Recarregue a página." 
+            height="h-64"
+          />
+        }
+      >
+        <EducationSectionLazy />
       </LazyErrorBoundary>
       
       <LazyErrorBoundary 

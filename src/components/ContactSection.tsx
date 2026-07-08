@@ -307,6 +307,21 @@ const ContactSection: React.FC = () => {
                   <FaGithub className="w-6 h-6" />
                 </a>
               </div>
+
+              {/* Marca freelance Gco Devs */}
+              <p className={`mt-8 pt-6 border-t text-sm ${
+                isDark ? 'border-gray-700/50 text-gray-400' : 'border-gray-200 text-gray-500'
+              }`}>
+                {t('contact.freelance.text')}{' '}
+                <a
+                  href="https://gcodevs.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent hover:from-purple-300 hover:to-blue-300"
+                >
+                  {t('contact.freelance.link')}
+                </a>
+              </p>
             </div>
           </div>
 

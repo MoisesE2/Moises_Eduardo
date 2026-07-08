@@ -166,7 +166,7 @@ const PortfolioSectionContent: React.FC = React.memo(() => {
                     : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:text-gray-900')
                 }`}
             >
-              {category === 'all' ? t('skills.categories.all') : category}
+              {category === 'all' ? t('portfolio.all') : category}
             </button>
           ))}
         </div>

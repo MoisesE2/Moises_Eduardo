@@ -2,8 +2,9 @@
   "nav": {
     "home": "Home",
     "skills": "Skills",
+    "experience": "Experience",
+    "education": "Education",
     "portfolio": "Portfolio",
-    "projectsTypes": "Project Types",
     "contact": "Contact"
   },
   "hero": {
@@ -15,70 +16,147 @@
       "BACKEND DEV"
     ],
     "available": "Available for work",
-    "description": "Graduated in Full Stack Development. Specialized in creating modern and functional solutions. Ready for the next challenge!",
-    "mobileDescription": "Graduated in Full Stack Development. Ready to contribute with modern and creative solutions. Let's talk!",
+    "description": "Full Stack Developer with experience in SaaS EdTech products and freelance projects. I thrive when I can learn with the team, exchange ideas and improve with every delivery.",
+    "mobileDescription": "Full Stack Developer with experience in SaaS EdTech products and freelance projects. Ready for the next challenge!",
     "downloadCV": "Download CV",
     "greetingMobile": "HELLO, I'M"
   },
   "skills": {
     "title": "Skills",
-    "subtitle": "Technologies and tools I master to create exceptional digital experiences",
-    "categories": {
-      "all": "All",
-      "frontend": "Frontend",
-      "backend": "Backend",
-      "framework": "Framework",
-      "design": "Design",
-      "tools": "Tools"
+    "subtitle": "The technologies I use every day, straight from my resume",
+    "groups": {
+      "frontend": "Front-end & Mobile",
+      "backend": "Back-end & Data",
+      "devops": "Tools & DevOps"
     },
-    "filter": "Filter",
-    "sort": "Sort",
-    "sortBy": {
-      "proficiency": "Proficiency",
-      "alphabetical": "Alphabetical"
+    "showAll": "Show all skills",
+    "showLess": "Show less",
+    "moreCount": "+{{count}}"
+  },
+  "experience": {
+    "title": "Experience",
+    "subtitle": "Where I've worked and what I delivered at each place",
+    "current": "Current",
+    "stats": {
+      "years": "Years coding",
+      "projects": "Projects delivered",
+      "companies": "Companies"
     },
-    "viewMode": {
-      "cards": "Cards",
-      "list": "List"
+    "jobs": {
+      "afirmeplay": {
+        "company": "Afirme Play",
+        "role": "Full Stack Developer",
+        "period": "Nov 2025 – Jun 2026",
+        "location": "Brazil",
+        "highlights": [
+          "SaaS EdTech platform with modules, REST endpoints and multi-tenant isolation via PostgreSQL schemas for different municipalities.",
+          "Admin dashboard with Editor.js, FullCalendar, RBAC (teacher → admin) and forms validated with React Hook Form + Zod.",
+          "Offline-first Expo app; automated deploys to 2 production VPS via GitHub Actions with self-hosted runners."
+        ]
+      },
+      "innovplay": {
+        "company": "Innovplay",
+        "role": "Full Stack Developer",
+        "period": "Aug 2025 – Nov 2025",
+        "location": "Brazil",
+        "highlights": [
+          "SaaS EdTech platform with modules, REST endpoints and multi-tenant isolation via PostgreSQL schemas for different municipalities.",
+          "Admin dashboard with Editor.js, FullCalendar, RBAC (teacher → admin) and forms validated with React Hook Form + Zod.",
+          "Offline-first Expo app; automated deploys to 2 production VPS via GitHub Actions with self-hosted runners."
+        ]
+      },
+      "gcodevs": {
+        "company": "Gco Devs",
+        "role": "Full Stack Developer (Freelancer)",
+        "period": "Oct 2024 – Present",
+        "location": "Remote",
+        "highlights": [
+          "Delivered 3+ websites/portfolios (Next.js, Angular) with authentication, admin panels and Docker/Nginx deploys.",
+          "Prisma + PostgreSQL persistence, Framer Motion animations, SEO/GTM and testing with Jest/Vitest.",
+          "Full cycle from briefing to remote deploy, working directly with clients."
+        ]
+      }
+    }
+  },
+  "education": {
+    "title": "Education",
+    "subtitle": "Academic background, certifications and languages",
+    "completed": "Completed",
+    "items": {
+      "estacio": {
+        "degree": "Bachelor's in Full Stack Development",
+        "school": "Universidade Estácio de Sá",
+        "period": "2023 – 2025"
+      },
+      "iyf": {
+        "degree": "Passport to Success® Course",
+        "school": "International Youth Foundation",
+        "period": ""
+      },
+      "eeep": {
+        "degree": "Technical Degree in Electromechanics",
+        "school": "EEEP Eusébio de Queiroz",
+        "period": "2020 – 2022"
+      }
     },
-    "levels": {
-      "beginner": "Beginner",
-      "intermediate": "Intermediate",
-      "advanced": "Advanced",
-      "expert": "Expert"
+    "languages": {
+      "title": "Languages",
+      "portuguese": "Portuguese — Native",
+      "english": "English — Intermediate (B1)"
     },
-    "descriptions": {
-      "react": "Library for building modern and reactive user interfaces",
-      "typescript": "JavaScript superset that adds static typing to development",
-      "javascript": "Essential programming language for modern web development",
-      "tailwind": "Utility-first CSS framework for rapid and consistent development",
-      "css": "Styling language for creating responsive layouts and animations",
-      "nextjs": "React framework for applications with SSR, SSG and automatic optimizations",
-      "nodejs": "JavaScript runtime for server-side application development",
-      "python": "Versatile language for automation, scripts and web development",
-      "java": "Robust language for enterprise application development",
-      "figma": "Collaborative tool for interface design and prototyping",
-      "git": "Version control and collaboration in development projects",
-      "docker": "Containerization platform for deployment and application isolation",
-      "api": "Building and consuming REST APIs focused on frontend-backend integration",
-      "jsonServer": "Fast backend mocking for interface development and testing",
-      "firebase": "Cloud services for authentication, database and hosting",
-      "turborepo": "Monorepo tool with optimized build orchestration and pipelines",
-      "shadcn": "Accessible and customizable component collection for modern interfaces",
-      "prisma": "Type-safe ORM for data modeling and reliable queries",
-      "postgresql": "Robust relational database for scalable applications",
-      "redis": "In-memory cache to improve performance and reduce latency",
-      "zustand": "Lightweight and simple state management for React apps",
-      "tanstackQuery": "Async state management and remote data caching",
-      "zod": "Schema-based data validation with strong typing",
-      "reactIcons": "Icon library for consistent and productive UI development",
-      "pokeapi": "Public API integration for real-time Pokemon data"
+    "softSkills": {
+      "title": "Soft Skills",
+      "items": [
+        "Proactivity",
+        "Teamwork",
+        "Fast learner"
+      ]
+    }
+  },
+  "contact": {
+    "title": "Let's Talk",
+    "subtitle": "Looking for a full stack dev for your team? Get in touch about roles, offers and opportunities.",
+    "info": {
+      "title": "Contact Information",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location",
+      "locationValue": "Maceió, Alagoas, Brazil",
+      "hours": "Business Hours",
+      "hoursValue": "Mon-Sat 9AM-7PM"
     },
-    "noResults": "No skills found",
-    "noResultsDescription": "Try selecting a different category"
+    "freelance": {
+      "text": "Need a website? Check out my freelance brand:",
+      "link": "gcodevs.com"
+    },
+    "form": {
+      "title": "Send a Message",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "Your email (optional)",
+      "phone": "Phone",
+      "phonePlaceholder": "Your phone (optional)",
+      "message": "Message",
+      "messagePlaceholder": "Your message",
+      "send": "Send via WhatsApp",
+      "sending": "Opening WhatsApp...",
+      "success": "WhatsApp Opened!",
+      "successMessage": "Your message has been prepared in WhatsApp. Complete the sending there and I'll respond quickly!",
+      "newMessage": "Send New Message",
+      "error": "Error Opening WhatsApp",
+      "tryAgain": "Try Again",
+      "useEmail": "Use Email"
+    },
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
   },
   "portfolio": {
     "title": "Portfolio",
+    "all": "All",
     "subtitle": "Projects that demonstrate my skills and passion for development",
     "loading": "Loading projects...",
     "error": "Error loading projects",
@@ -128,45 +206,8 @@
       "feature4": "Integration with payment gateways and delivery systems"
     }
   },
-  "contact": {
-    "title": "Let's Talk",
-    "subtitle": "Ready to turn your idea into reality? Get in touch and let's create something amazing together!",
-    "info": {
-      "title": "Contact Information",
-      "email": "Email",
-      "whatsapp": "WhatsApp",
-      "location": "Location",
-      "locationValue": "Maceió, Alagoas, Brazil",
-      "hours": "Business Hours",
-      "hoursValue": "Mon-Sat 9AM-7PM"
-    },
-    "form": {
-      "title": "Send a Message",
-      "name": "Name",
-      "namePlaceholder": "Your name",
-      "email": "Email",
-      "emailPlaceholder": "Your email (optional)",
-      "phone": "Phone",
-      "phonePlaceholder": "Your phone (optional)",
-      "message": "Message",
-      "messagePlaceholder": "Your message",
-      "send": "Send via WhatsApp",
-      "sending": "Opening WhatsApp...",
-      "success": "WhatsApp Opened!",
-      "successMessage": "Your message has been prepared in WhatsApp. Complete the sending there and I'll respond quickly!",
-      "newMessage": "Send New Message",
-      "error": "Error Opening WhatsApp",
-      "tryAgain": "Try Again",
-      "useEmail": "Use Email"
-    },
-    "social": {
-      "github": "GitHub",
-      "linkedin": "LinkedIn",
-      "email": "Email"
-    }
-  },
   "footer": {
-    "rights": "© 2024 Moisés Eduardo. All rights reserved.",
+    "rights": "© 2026 Moisés Eduardo. All rights reserved.",
     "madeWith": "Made with ❤️ and React"
   },
   "accessibility": {
@@ -183,9 +224,9 @@
     "image": "Project image"
   },
   "meta": {
-    "title": "Moisés Eduardo - Full Stack Developer",
-    "description": "Full Stack Developer specialized in React, TypeScript and modern web solutions. Check out my portfolio and get in touch for amazing projects.",
+    "title": "Moisés Eduardo | Full Stack Developer React & Node",
+    "description": "Full Stack Developer experienced in React, TypeScript, Node.js and SaaS products. Check out my experience, education and projects.",
     "keywords": "developer, full stack, react, typescript, javascript, web, frontend, backend, portfolio",
     "author": "Moisés Eduardo"
   }
-} 
+}
