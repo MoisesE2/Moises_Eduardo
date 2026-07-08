@@ -31,6 +31,8 @@
     },
     "showAll": "Show all skills",
     "showLess": "Show less",
+    "showSection": "Show skills",
+    "hideSection": "Hide skills",
     "moreCount": "+{{count}}"
   },
   "experience": {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useThemeStyles } from "../hooks/useThemeStyles";
 import { useInView } from "react-intersection-observer";
@@ -50,10 +50,6 @@ interface SkillGroup {
   skills: Skill[];
 }
 
-/**
- * Grupos e ordem espelham o currículo (seção "Habilidades Técnicas").
- * As primeiras COLLAPSED_COUNT skills de cada grupo aparecem na visão compacta.
- */
 const SKILL_GROUPS: SkillGroup[] = [
   {
     key: "frontend",
@@ -105,7 +101,6 @@ const SKILL_GROUPS: SkillGroup[] = [
   },
 ];
 
-/** Quantas skills por grupo na visão compacta */
 const COLLAPSED_COUNT = 5;
 
 const SkillChip: React.FC<{ skill: Skill; isDark: boolean }> = ({ skill, isDark }) => (
@@ -132,8 +127,26 @@ const SkillChip: React.FC<{ skill: Skill; isDark: boolean }> = ({ skill, isDark 
 const SkillsSection: React.FC = React.memo(() => {
   const { t } = useTranslation();
   const { isDark } = useThemeStyles();
+  const [sectionOpen, setSectionOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [sectionRef, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+
+  // Abre a seção se o usuário chegou pelo link #habilidades do menu
+  useEffect(() => {
+    const syncFromHash = () => {
+      if (window.location.hash === "#habilidades") setSectionOpen(true);
+    };
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
+
+  const toggleSection = () => {
+    setSectionOpen((prev) => {
+      if (prev) setExpanded(false);
+      return !prev;
+    });
+  };
 
   return (
     <section
@@ -143,7 +156,6 @@ const SkillsSection: React.FC = React.memo(() => {
         isDark ? "bg-gradient-to-b from-black to-gray-900" : "bg-gradient-to-b from-gray-50 to-white"
       }`}
     >
-      {/* Background Effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <SiteAmbientDecor isDark={isDark} pattern={1} density="section" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
@@ -151,82 +163,109 @@ const SkillsSection: React.FC = React.memo(() => {
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto">
-        {/* Header */}
         <div
-          className={`text-center mb-10 transition-all duration-1000 ${
+          className={`text-center transition-all duration-1000 ${
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
           <h2 className="text-4xl sm:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-purple-300 to-blue-400 bg-clip-text text-transparent">
             {t("skills.title")}
           </h2>
-          <p className={`text-lg max-w-3xl mx-auto leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+          <p className={`text-lg max-w-3xl mx-auto leading-relaxed mb-8 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
             {t("skills.subtitle")}
           </p>
-        </div>
 
-        {/* Grupos compactos */}
-        <div className="space-y-6">
-          {SKILL_GROUPS.map((group, index) => {
-            const visible = expanded ? group.skills : group.skills.slice(0, COLLAPSED_COUNT);
-            const hiddenCount = group.skills.length - visible.length;
-
-            return (
-              <div
-                key={group.key}
-                className={`backdrop-blur-md border rounded-3xl p-6 transition-all duration-700 ${
-                  isDark
-                    ? "bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50"
-                    : "bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60"
-                } ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${150 + index * 150}ms` }}
-              >
-                <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  {t(`skills.groups.${group.key}`)}
-                </h3>
-                <div className="flex flex-wrap gap-2.5">
-                  {visible.map((skill) => (
-                    <SkillChip key={skill.label} skill={skill} isDark={isDark} />
-                  ))}
-                  {hiddenCount > 0 && (
-                    <button
-                      onClick={() => setExpanded(true)}
-                      className={`inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium border border-dashed transition-colors ${
-                        isDark
-                          ? "border-purple-500/40 text-purple-300 hover:bg-purple-600/10"
-                          : "border-purple-400/50 text-purple-600 hover:bg-purple-50"
-                      }`}
-                      aria-label={t("skills.showAll")}
-                    >
-                      {t("skills.moreCount", { count: hiddenCount })}
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Expansão opcional */}
-        <div className="text-center mt-8">
           <button
-            onClick={() => setExpanded((prev) => !prev)}
-            aria-expanded={expanded}
+            type="button"
+            onClick={toggleSection}
+            aria-expanded={sectionOpen}
+            aria-controls="skills-content"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 shadow-lg hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-300"
           >
-            {expanded ? (
+            {sectionOpen ? (
               <>
                 <ChevronUpIcon className="w-5 h-5" />
-                {t("skills.showLess")}
+                {t("skills.hideSection")}
               </>
             ) : (
               <>
                 <ChevronDownIcon className="w-5 h-5" />
-                {t("skills.showAll")}
+                {t("skills.showSection")}
               </>
             )}
           </button>
         </div>
+
+        {sectionOpen && (
+          <div id="skills-content" className="mt-10 space-y-6 animate-fade-in">
+            {SKILL_GROUPS.map((group, index) => {
+              const visible = expanded ? group.skills : group.skills.slice(0, COLLAPSED_COUNT);
+              const hiddenCount = group.skills.length - visible.length;
+
+              return (
+                <div
+                  key={group.key}
+                  className={`backdrop-blur-md border rounded-3xl p-6 transition-all duration-500 ${
+                    isDark
+                      ? "bg-gradient-to-br from-gray-900/60 to-gray-800/40 border-gray-700/50"
+                      : "bg-gradient-to-br from-white/80 to-gray-50/60 border-gray-200/60"
+                  }`}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                    {t(`skills.groups.${group.key}`)}
+                  </h3>
+                  <div className="flex flex-wrap gap-2.5">
+                    {visible.map((skill) => (
+                      <SkillChip key={skill.label} skill={skill} isDark={isDark} />
+                    ))}
+                    {!expanded && hiddenCount > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => setExpanded(true)}
+                        className={`inline-flex items-center px-3.5 py-2 rounded-full text-sm font-medium border border-dashed transition-colors ${
+                          isDark
+                            ? "border-purple-500/40 text-purple-300 hover:bg-purple-600/10"
+                            : "border-purple-400/50 text-purple-600 hover:bg-purple-50"
+                        }`}
+                        aria-label={t("skills.showAll")}
+                      >
+                        {t("skills.moreCount", { count: hiddenCount })}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            {SKILL_GROUPS.some((g) => g.skills.length > COLLAPSED_COUNT) && (
+              <div className="text-center pt-2">
+                <button
+                  type="button"
+                  onClick={() => setExpanded((prev) => !prev)}
+                  aria-expanded={expanded}
+                  className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium border transition-colors ${
+                    isDark
+                      ? "border-purple-500/40 text-purple-300 hover:bg-purple-600/10"
+                      : "border-purple-400/50 text-purple-600 hover:bg-purple-50"
+                  }`}
+                >
+                  {expanded ? (
+                    <>
+                      <ChevronUpIcon className="w-4 h-4" />
+                      {t("skills.showLess")}
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDownIcon className="w-4 h-4" />
+                      {t("skills.showAll")}
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
