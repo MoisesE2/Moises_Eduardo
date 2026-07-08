@@ -10,7 +10,7 @@ import { TRUST_ITEMS } from "../copy";
 const ICONS = [GlobeAltIcon, DevicePhoneMobileIcon, MagnifyingGlassIcon, WrenchScrewdriverIcon];
 
 const GcodevsTrustBar: React.FC = () => (
-  <section className="bg-slate-950 py-8 px-4 sm:px-6">
+  <section className="bg-slate-950 dark:bg-slate-900 dark:border-y dark:border-slate-800 py-8 px-4 sm:px-6">
     <div className="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
       {TRUST_ITEMS.map((item, index) => {
         const Icon = ICONS[index];

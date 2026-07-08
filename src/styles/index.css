@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Dark mode por classe (.dark no <html>), controlado pelo ThemeContext */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* Variáveis de Tema - Tema Claro */
 :root {
   --bg-primary: #ffffff;

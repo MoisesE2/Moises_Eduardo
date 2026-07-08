@@ -3,7 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import { whatsappUrl, QUOTE_MESSAGE } from "../copy";
 
 const GcodevsCtaBand: React.FC = () => (
-  <section className="relative overflow-hidden bg-slate-950 py-16 px-4 sm:px-6">
+  <section className="relative overflow-hidden bg-slate-950 dark:bg-slate-900 dark:border-t dark:border-slate-800 py-16 px-4 sm:px-6">
     <div className="absolute inset-0 gcodevs-grid-bg-dark pointer-events-none" aria-hidden="true" />
     <div className="relative z-10 max-w-3xl mx-auto text-center">
       <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-4">

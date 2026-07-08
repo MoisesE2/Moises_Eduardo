@@ -13,7 +13,7 @@ import GcodevsFaq from "./components/GcodevsFaq";
 import GcodevsQuote from "./components/GcodevsQuote";
 import GcodevsCtaBand from "./components/GcodevsCtaBand";
 import GcodevsFooter from "./components/GcodevsFooter";
-import FloatingWhatsApp from "./components/FloatingWhatsApp";
+import GcodevsChat from "./components/GcodevsChat";
 
 const GcodevsApp: React.FC = () => (
   <div className="gcodevs-site">
@@ -33,7 +33,7 @@ const GcodevsApp: React.FC = () => (
         <GcodevsCtaBand />
       </main>
       <GcodevsFooter />
-      <FloatingWhatsApp />
+      <GcodevsChat />
     </ErrorBoundary>
   </div>
 );
